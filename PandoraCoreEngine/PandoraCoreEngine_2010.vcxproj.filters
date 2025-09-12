@@ -29,10 +29,21 @@
     <ClInclude Include="include\Device.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\DeviceContext.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PandoraCoreEngine.cpp" />
     <ClCompile Include="source\Window.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Device.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="PandoraCoreEngine.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DeviceContext.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
