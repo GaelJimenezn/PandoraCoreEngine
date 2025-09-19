@@ -29,9 +29,12 @@ public:
 	void
 	destroy();
 
+	void
+	present();
+
 private:
 
-	IDXGISwapChain* m_pSwapChain = nullptr;
+	IDXGISwapChain* m_swapChain = nullptr;
 
 	D3D_DRIVER_TYPE m_driverType = D3D_DRIVER_TYPE_NULL;
 

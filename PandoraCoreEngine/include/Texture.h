@@ -32,21 +32,21 @@ public:
 	HRESULT
 	init(Device& device,
 			 Texture& textureRef,
-			 DXGI_FORMAT);
+			 DXGI_FORMAT format);
 
 	void
 	update();
 
 	void
-	render();
+	render(DeviceContext& deviceContext, unsigned int StartSlot, unsigned int NumViews);
 
 	void
 	destroy();
 
-public:
-	ID3D11Texture2D* m_texture = nullptr;
 private:
-	ID3D11ShaderResourceView* m_TextureFromImg = nullptr;
+	ID3D11Texture2D* m_texture = nullptr;
+
+	ID3D11ShaderResourceView* m_textureFromImg = nullptr;
 
 	std::string m_textureName;
 };
