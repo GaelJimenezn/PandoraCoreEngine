@@ -1,22 +1,22 @@
 #pragma once
 #include "Prerequisites.h"
 
-class
-	Window {
+class 
+Window {
 public:
-	Window() = default;
+	Window()  = default;
 	~Window() = default;
 
-	HRESULT
+	HRESULT 
 	init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc);
 
-	void
+	void 
 	update();
-
-	void
+	
+	void 
 	render();
-
-	void
+	
+	void 
 	destroy();
 
 public:
@@ -26,5 +26,5 @@ public:
 private:
 	HINSTANCE m_hInst = nullptr;
 	RECT m_rect;
-	std::string m_windowName = "PandoreCoreEngin";
+	std::string m_windowName = "PandoraCoreEngine";
 };
