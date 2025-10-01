@@ -1,0 +1,21 @@
+# .clang-format
+BasedOnStyle: LLVM
+Language: Cpp
+IndentWidth: 2
+TabWidth: 2
+UseTab: Never
+AllowShortFunctionsOnASingleLine: None
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement: Never
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterExternBlock: true
+  BeforeCatch: false
+  BeforeElse: false
+  IndentBraces: false
+ColumnLimit: 90

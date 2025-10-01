@@ -3,140 +3,148 @@
 
 /**
  * @class Device
- * @brief Encapsula un @c ID3D11Device y facilita la creación de recursos gráficos en Direct3D 11.
- *
- * Esta clase actúa como un contenedor del objeto @c ID3D11Device. Expone métodos
- * que encapsulan la creación de vistas, texturas, shaders, estados y buffers
- * para simplificar el manejo del ciclo de vida de los recursos gráficos.
- *
- * @note No administra automáticamente @c ID3D11DeviceContext.
- * @warning Asegurarse de inicializar la instancia con init() antes de crear recursos.
+ * @brief Encapsulates the Direct3D 11 device for resource creation.
+ * @details This class acts as a factory for all D3D11 resources, such as
+ * textures, buffers, and shaders. It wraps the ID3D11Device interface.
  */
-class 
+class
 Device {
 public:
-	Device()  = default;
-	~Device() = default;
-
-	void 
-	init();
-
-	void 
-	update();
-	
-	void 
-	render();
-	
-	void 
-	destroy();
-
-	/**
-   * @brief Crea una Render Target View.
-   *
-   * @param pResource Recurso de origen (usualmente una textura).
-   * @param pDesc     Descriptor de la RTV (puede ser @c nullptr para usar valores por defecto).
-   * @param ppRTView  Puntero de salida donde se guarda la RTV creada.
-   * @return @c S_OK si fue exitoso; código @c HRESULT en caso de error.
-   */
-  HRESULT 
-  CreateRenderTargetView(ID3D11Resource *pResource,
-                         const D3D11_RENDER_TARGET_VIEW_DESC *pDesc,
-                         ID3D11RenderTargetView **ppRTView);
+  Device() = default;
+  ~Device() = default;
 
   /**
-   * @brief Crea una textura 2D.
-   *
-   * @param pDesc        Descriptor de la textura.
-   * @param pInitialData Datos iniciales opcionales (puede ser @c nullptr).
-   * @param ppTexture2D  Puntero de salida a la textura creada.
+   * @brief Placeholder for device initialization logic.
    */
-  HRESULT 
-  CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc,
+  void
+  init();
+
+  /**
+   * @brief Placeholder for per-frame device update logic.
+   */
+  void
+  update();
+
+  /**
+   * @brief Placeholder for device-specific rendering logic.
+   */
+  void
+  render();
+
+  /**
+   * @brief Releases the underlying ID3D11Device.
+   */
+  void
+  destroy();
+
+  /**
+   * @brief Creates a render target view.
+   * @param pResource The resource to be used as a render target.
+   * @param pDesc An optional descriptor for the render target view.
+   * @param ppRTView [out] The created render target view object.
+   * @return HRESULT indicating success or failure.
+   */
+  HRESULT
+  createRenderTargetView(ID3D11Resource* pResource,
+                         const D3D11_RENDER_TARGET_VIEW_DESC* pDesc,
+                         ID3D11RenderTargetView** ppRTView);
+
+  /**
+   * @brief Creates a 2D texture resource.
+   * @param pDesc The descriptor for the 2D texture.
+   * @param pInitialData Optional data to initialize the texture with.
+   * @param ppTexture2D [out] The created 2D texture object.
+   * @return HRESULT indicating success or failure.
+   */
+  HRESULT
+  createTexture2D(const D3D11_TEXTURE2D_DESC* pDesc,
                   const D3D11_SUBRESOURCE_DATA* pInitialData,
                   ID3D11Texture2D** ppTexture2D);
 
   /**
-   * @brief Crea una Depth Stencil View.
-   *
-   * @param pResource Recurso asociado (textura con flag @c D3D11_BIND_DEPTH_STENCIL).
-   * @param pDesc     Descriptor de la DSV (puede ser @c nullptr).
-   * @param ppDepthStencilView Puntero de salida.
+   * @brief Creates a depth stencil view.
+   * @param pResource The resource to be used as a depth-stencil buffer.
+   * @param pDesc An optional descriptor for the depth stencil view.
+   * @param ppDepthStencilView [out] The created depth stencil view.
+   * @return HRESULT indicating success or failure.
    */
-  HRESULT 
-  CreateDepthStencilView(ID3D11Resource* pResource,
+  HRESULT
+  createDepthStencilView(ID3D11Resource* pResource,
                          const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc,
                          ID3D11DepthStencilView** ppDepthStencilView);
 
   /**
-   * @brief Crea un Vertex Shader.
-   *
-   * @param pShaderBytecode Bytecode compilado del shader.
-   * @param BytecodeLength  Tamaño del bytecode.
-   * @param pClassLinkage   Enlace de clases (opcional).
-   * @param ppVertexShader  Puntero de salida al vertex shader.
+   * @brief Creates a vertex shader from compiled bytecode.
+   * @param pShaderBytecode A pointer to the compiled shader.
+   * @param bytecodeLength The size of the compiled shader in bytes.
+   * @param pClassLinkage A pointer to a class linkage interface.
+   * @param ppVertexShader [out] The created vertex shader object.
+   * @return HRESULT indicating success or failure.
    */
-  HRESULT 
-  CreateVertexShader(const void* pShaderBytecode,
-                     unsigned int BytecodeLength,
+  HRESULT
+  createVertexShader(const void* pShaderBytecode,
+                     unsigned int bytecodeLength,
                      ID3D11ClassLinkage* pClassLinkage,
                      ID3D11VertexShader** ppVertexShader);
 
   /**
-   * @brief Crea un Input Layout.
-   *
-   * @param pInputElementDescs Descriptores de entrada.
-   * @param NumElements        Número de elementos en el arreglo.
-   * @param pShaderBytecodeWithInputSignature Bytecode del shader que define la firma.
-   * @param BytecodeLength     Tamaño del bytecode.
-   * @param ppInputLayout      Puntero de salida al input layout.
+   * @brief Creates an input layout for the input-assembler stage.
+   * @param pInputElementDescs An array of input element descriptions.
+   * @param numElements The number of elements in the array.
+   * @param pShaderBytecodeWithInputSignature Pointer to the compiled
+   * shader with an input signature.
+   * @param bytecodeLength The size of the compiled shader in bytes.
+   * @param ppInputLayout [out] The created input layout object.
+   * @return HRESULT indicating success or failure.
    */
-  HRESULT 
-  CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs,
-                    unsigned int NumElements,
+  HRESULT
+  createInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs,
+                    unsigned int numElements,
                     const void* pShaderBytecodeWithInputSignature,
-                    unsigned int BytecodeLength,
+                    unsigned int bytecodeLength,
                     ID3D11InputLayout** ppInputLayout);
 
   /**
-   * @brief Crea un Pixel Shader.
-   *
-   * @param pShaderBytecode Bytecode compilado del shader.
-   * @param BytecodeLength  Tamaño del bytecode.
-   * @param pClassLinkage   Enlace de clases (opcional).
-   * @param ppPixelShader   Puntero de salida al pixel shader.
+   * @brief Creates a pixel shader from compiled bytecode.
+   * @param pShaderBytecode A pointer to the compiled shader.
+   * @param bytecodeLength The size of the compiled shader in bytes.
+   * @param pClassLinkage A pointer to a class linkage interface.
+   * @param ppPixelShader [out] The created pixel shader object.
+   * @return HRESULT indicating success or failure.
    */
-  HRESULT 
-  CreatePixelShader(const void* pShaderBytecode,
-                    unsigned int BytecodeLength,
+  HRESULT
+  createPixelShader(const void* pShaderBytecode,
+                    unsigned int bytecodeLength,
                     ID3D11ClassLinkage* pClassLinkage,
                     ID3D11PixelShader** ppPixelShader);
 
   /**
-   * @brief Crea un Buffer genérico (vertex, index, constant, etc.).
-   *
-   * @param pDesc        Descriptor del buffer.
-   * @param pInitialData Datos iniciales opcionales (puede ser @c nullptr).
-   * @param ppBuffer     Puntero de salida al buffer creado.
+   * @brief Creates a buffer resource (vertex, index, constant, etc.).
+   * @param pDesc The descriptor for the buffer.
+   * @param pInitialData Optional data to initialize the buffer with.
+   * @param ppBuffer [out] The created buffer object.
+   * @return HRESULT indicating success or failure.
    */
-  HRESULT 
-  CreateBuffer(const D3D11_BUFFER_DESC* pDesc,
+  HRESULT
+  createBuffer(const D3D11_BUFFER_DESC* pDesc,
                const D3D11_SUBRESOURCE_DATA* pInitialData,
                ID3D11Buffer** ppBuffer);
 
   /**
-   * @brief Crea un Sampler State.
-   *
-   * @param pSamplerDesc  Descriptor del sampler.
-   * @param ppSamplerState Puntero de salida al estado de muestreo.
+   * @brief Creates a sampler state for texture sampling.
+   * @param pSamplerDesc The descriptor for the sampler state.
+   * @param ppSamplerState [out] The created sampler state object.
+   * @return HRESULT indicating success or failure.
    */
-  HRESULT 
-  CreateSamplerState(const D3D11_SAMPLER_DESC *pSamplerDesc,
+  HRESULT
+  createSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc,
                      ID3D11SamplerState** ppSamplerState);
 
 public:
-	/**
-	 * @brief Puntero al dispositivo Direct3D 11.
-	 * @details Creado en init(), liberado en destroy().
-	 */
-	ID3D11Device* m_device = nullptr;
+  /**
+   * @brief Pointer to the core Direct3D 11 device interface.
+   * @details This object is responsible for creating all other D3D
+   * resources. It is created during initialization and released on destroy.
+   */
+  ID3D11Device* m_device = nullptr;
 };

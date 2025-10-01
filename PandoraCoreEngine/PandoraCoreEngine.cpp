@@ -192,7 +192,7 @@ HRESULT InitDevice()
   vp.MaxDepth = 1.0f;
   vp.TopLeftX = 0;
   vp.TopLeftY = 0;
-  g_deviceContext.RSSetViewports(1, &vp);
+  g_deviceContext.rsSetViewports(1, &vp);
 
   // Compile the vertex shader
   ID3DBlob* pVSBlob = NULL;
@@ -228,7 +228,7 @@ HRESULT InitDevice()
     return hr;
 
   // Set the input layout
-  g_deviceContext.IASetInputLayout(g_pVertexLayout);
+  g_deviceContext.iaSetInputLayout(g_pVertexLayout);
 
   // Compile the pixel shader
   ID3DBlob* pPSBlob = NULL;
@@ -296,7 +296,7 @@ HRESULT InitDevice()
   // Set vertex buffer
   UINT stride = sizeof(SimpleVertex);
   UINT offset = 0;
-  g_deviceContext.IASetVertexBuffers(0, 1, &g_pVertexBuffer, &stride, &offset);
+  g_deviceContext.iaSetVertexBuffers(0, 1, &g_pVertexBuffer, &stride, &offset);
 
   // Create index buffer
   // Create vertex buffer
@@ -331,10 +331,10 @@ HRESULT InitDevice()
     return hr;
 
   // Set index buffer
-  g_deviceContext.IASetIndexBuffer(g_pIndexBuffer, DXGI_FORMAT_R16_UINT, 0);
+  g_deviceContext.iaSetIndexBuffer(g_pIndexBuffer, DXGI_FORMAT_R16_UINT, 0);
 
   // Set primitive topology
-  g_deviceContext.IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+  g_deviceContext.iaSetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
   // Create the constant buffers
   bd.Usage = D3D11_USAGE_DEFAULT;
@@ -385,14 +385,14 @@ HRESULT InitDevice()
 
   CBNeverChanges cbNeverChanges;
   cbNeverChanges.mView = XMMatrixTranspose(g_View);
-  g_deviceContext.UpdateSubresource(g_pCBNeverChanges, 0, NULL, &cbNeverChanges, 0, 0);
+  g_deviceContext.updateSubresource(g_pCBNeverChanges, 0, NULL, &cbNeverChanges, 0, 0);
 
   // Initialize the projection matrix
   g_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, g_window.m_width / (FLOAT)g_window.m_height, 0.01f, 100.0f);
 
   CBChangeOnResize cbChangesOnResize;
   cbChangesOnResize.mProjection = XMMatrixTranspose(g_Projection);
-  g_deviceContext.UpdateSubresource(g_pCBChangeOnResize, 0, NULL, &cbChangesOnResize, 0, 0);
+  g_deviceContext.updateSubresource(g_pCBChangeOnResize, 0, NULL, &cbChangesOnResize, 0, 0);
 
   return S_OK;
 }
@@ -496,20 +496,20 @@ void Render()
   CBChangesEveryFrame cb;
   cb.mWorld = XMMatrixTranspose(g_World);
   cb.vMeshColor = g_vMeshColor;
-  g_deviceContext.UpdateSubresource(g_pCBChangesEveryFrame, 0, NULL, &cb, 0, 0);
+  g_deviceContext.updateSubresource(g_pCBChangesEveryFrame, 0, NULL, &cb, 0, 0);
 
   //
   // Render the cube
   //
-  g_deviceContext.VSSetShader(g_pVertexShader, NULL, 0);
-  g_deviceContext.VSSetConstantBuffers(0, 1, &g_pCBNeverChanges);
-  g_deviceContext.VSSetConstantBuffers(1, 1, &g_pCBChangeOnResize);
-  g_deviceContext.VSSetConstantBuffers(2, 1, &g_pCBChangesEveryFrame);
-  g_deviceContext.PSSetShader(g_pPixelShader, NULL, 0);
-  g_deviceContext.PSSetConstantBuffers(2, 1, &g_pCBChangesEveryFrame);
-  g_deviceContext.PSSetShaderResources(0, 1, &g_pTextureRV);
-  g_deviceContext.PSSetSamplers(0, 1, &g_pSamplerLinear);
-  g_deviceContext.DrawIndexed(36, 0, 0);
+  g_deviceContext.vsSetShader(g_pVertexShader, NULL, 0);
+  g_deviceContext.vsSetConstantBuffers(0, 1, &g_pCBNeverChanges);
+  g_deviceContext.vsSetConstantBuffers(1, 1, &g_pCBChangeOnResize);
+  g_deviceContext.vsSetConstantBuffers(2, 1, &g_pCBChangesEveryFrame);
+  g_deviceContext.psSetShader(g_pPixelShader, NULL, 0);
+  g_deviceContext.psSetConstantBuffers(2, 1, &g_pCBChangesEveryFrame);
+  g_deviceContext.psSetShaderResources(0, 1, &g_pTextureRV);
+  g_deviceContext.psSetSamplers(0, 1, &g_pSamplerLinear);
+  g_deviceContext.drawIndexed(36, 0, 0);
 
   //
   // Present our back buffer to our front buffer
