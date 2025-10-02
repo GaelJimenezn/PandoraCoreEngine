@@ -1,78 +1,155 @@
 Pandora Core Engine
-Pandora Core Engine es un motor de renderizado 3D fundamental construido desde cero utilizando C++ y la API de DirectX 11. Este proyecto fue desarrollado como parte de la materia "Gráficas Computacionales 3D" (Generación 2026) y sirve como una implementación práctica de los conceptos clave del pipeline de gráficos en tiempo real.
 
-El motor es capaz de inicializar una ventana, configurar un dispositivo de DirectX 11, gestionar los búferes de presentación y renderizar una escena 3D simple con un cubo texturizado que rota.
+Pandora Core Engine is a 3D rendering engine built from scratch in C++ using the DirectX 11 API. This project was developed as part of the 3D Computer Graphics course (Class of 2026) and serves as a practical implementation of the key concepts of the real-time graphics pipeline.
 
-Características Principales
-Abstracción de DirectX 11: El código encapsula los componentes de bajo nivel de DirectX en clases C++ limpias y reutilizables.
+The engine can initialize a window, configure DirectX 11, manage presentation buffers, and render a simple 3D scene with a rotating textured cube.
 
-Pipeline de Renderizado Mínimo: Implementa un pipeline gráfico funcional, incluyendo:
+Key Features
 
-Creación de ventana nativa con la API de Win32.
+DirectX 11 Abstraction: Low-level components are encapsulated in clean, reusable C++ classes.
 
-Gestión del Device para la creación de recursos y DeviceContext para la ejecución de comandos.
+Minimal Rendering Pipeline:
 
-Configuración del SwapChain para la presentación en pantalla.
+Native window creation with Win32.
 
-Uso de RenderTargetView y DepthStencilView para gestionar los búferes de color y profundidad.
+Management of Device and DeviceContext.
 
-Renderizado de Geometría: Carga y dibuja un cubo 3D utilizando buffers de vértices e índices.
+SwapChain setup.
 
-Shaders y Texturizado: Utiliza Vertex y Pixel Shaders escritos en HLSL para aplicar transformaciones y texturas a los objetos en la escena.
+Use of RenderTargetView and DepthStencilView.
 
-Soporte para MSAA: Configura el multisampling anti-aliasing para mejorar la calidad visual y suavizar los bordes de la geometría.
+Geometry Rendering: Loads and draws a 3D cube using vertex and index buffers.
 
-Arquitectura del Motor
-La arquitectura del motor se basa en la separación de responsabilidades, donde cada clase tiene un propósito bien definido dentro del pipeline de renderizado:
+Shaders and Texturing: Vertex and Pixel Shaders implemented in HLSL.
 
-Window: Encapsula la creación y el manejo de la ventana nativa de Win32, que sirve como superficie principal para el renderizado.
+MSAA Support: Multisample anti-aliasing for improved visual quality.
 
-Device: Actúa como una fábrica para todos los recursos de la GPU (texturas, buffers, shaders, etc.). Envuelve la interfaz ID3D11Device.
+Engine Architecture
 
-DeviceContext: Envuelve ID3D11DeviceContext y se utiliza para generar los comandos de renderizado, asignar recursos al pipeline y ejecutar las llamadas de dibujado.
+The engine is designed with separation of responsibilities, where each class has a clear role within the rendering pipeline:
 
-SwapChain: Gestiona la cadena de búferes (front y back buffer) utilizada para mostrar las imágenes renderizadas en la pantalla.
+Class	Description
+Window	Handles the native Win32 window.
+Device	Factory for GPU resources (textures, buffers, shaders).
+DeviceContext	Generates rendering commands and assigns resources to the pipeline.
+SwapChain	Manages the buffer chain for presentation.
+Texture	Manages 2D texture resources and shader resource views.
+RenderTargetView	Represents the color buffer where the scene is drawn.
+DepthStencilView	Manages the depth buffer to ensure proper occlusion.
+Rendering Pipeline
 
-Texture: Administra los recursos de texturas 2D y sus vistas (ShaderResourceView) para que puedan ser utilizadas por los shaders.
+Each frame follows these steps:
 
-RenderTargetView: Representa el búfer (generalmente el back buffer) en el que se dibuja la escena.
+Update: Transformation matrices and other dynamic data.
 
-DepthStencilView: Gestiona el búfer de profundidad para asegurar que la geometría se dibuje con la oclusión correcta.
+Clear Buffers: RenderTargetView and DepthStencilView.
 
-Pipeline de Renderizado Implementado
-El flujo de renderizado en cada fotograma sigue estos pasos:
+Resource Assignment:
 
-Actualización: Se actualizan las matrices de transformación (Mundo, Vista, Proyección) y otros datos dinámicos, como el color del objeto.
+Input Layout, Vertex Buffer, and Index Buffer.
 
-Limpieza de Buffers: Se limpian el RenderTargetView a un color de fondo y el DepthStencilView para iniciar el frame con un estado limpio.
+Vertex Shader and Pixel Shader.
 
-Asignación de Recursos: Se asignan al pipeline los recursos necesarios para el dibujado:
+Constant Buffers.
 
-Input Layout, Vertex Buffer e Index Buffer.
+Textures and Samplers.
 
-Vertex Shader y Pixel Shader.
+Draw Call: DrawIndexed() to render the cube.
 
-Constant Buffers con las matrices actualizadas.
+Presentation: SwapChain.Present() to display the final frame.
 
-Texturas y Samplers.
+Architecture Diagrams
+1. Class Diagram
 
-Llamada de Dibujado: Se invoca a DrawIndexed() para renderizar la geometría del cubo.
+This diagram shows the main classes and their relationships.
 
-Presentación: Se llama a Present() en el SwapChain para intercambiar el back buffer con el front buffer, mostrando la imagen final en la pantalla.
+classDiagram
+    direction LR
+    class PandoraCoreEngine {
+        +wWinMain()
+        +InitDevice()
+        +Render()
+        +CleanupDevice()
+    }
 
-Cómo Compilar y Ejecutar
-Prerrequisitos
-Windows 10 o superior.
+    class Window { +HWND m_hWnd +init() }
+    class Device { +ID3D11Device* m_device +createTexture2D() +createBuffer() +createShader() }
+    class DeviceContext { +ID3D11DeviceContext* m_deviceContext +drawIndexed() +updateSubresource() }
+    class SwapChain { +IDXGISwapChain* m_swapChain +present() }
+    class Texture { +ID3D11Texture2D* m_texture }
+    class RenderTargetView { +ID3D11RenderTargetView* m_renderTargetView }
+    class DepthStencilView { +ID3D11DepthStencilView* m_depthStencilView }
 
-Visual Studio 2010 o una versión más reciente.
+    PandoraCoreEngine o-- Window
+    PandoraCoreEngine o-- Device
+    PandoraCoreEngine o-- DeviceContext
+    PandoraCoreEngine o-- SwapChain
+    PandoraCoreEngine o-- RenderTargetView
+    PandoraCoreEngine o-- DepthStencilView
+    PandoraCoreEngine o-- Texture
 
-DirectX SDK (Junio 2010), ya que el proyecto utiliza D3DX11.
+    SwapChain ..> Window : uses
+    SwapChain ..> Device : creates
+    SwapChain ..> DeviceContext : creates
+    SwapChain ..> Texture : fills
+    RenderTargetView ..> Device : created by
+    RenderTargetView ..> Texture : uses
+    DepthStencilView ..> Device : created by
+    DepthStencilView ..> Texture : uses
 
-Compilación
-Clonar el repositorio.
+2. Rendering Pipeline Flow Diagram
 
-Asegurarse de que las rutas del DirectX SDK estén correctamente configuradas en las propiedades del proyecto en Visual Studio (Include y Library Directories).
+This diagram describes the dynamic sequence of operations for each frame.
 
-Abrir el archivo de solución PandoraCoreEngine_2010.sln.
+graph TD
+    subgraph "Initialization Phase (InitDevice)"
+        A[Create Window] --> B(Create SwapChain)
+        B --> C{Create Device and DeviceContext}
+        C --> D[Create RenderTargetView from Back Buffer]
+        C --> E[Create Texture for Depth Buffer]
+        E --> F[Create DepthStencilView]
+        C --> G[Compile Shaders]
+        C --> H[Create Vertex/Index Buffers]
+        C --> I[Create Constant Buffers]
+        C --> J[Load Texture from File]
+    end
 
-Compilar el proyecto en la configuración deseada (Debug o Release).
+    subgraph "Rendering Loop (Render)"
+        K[Start Frame] --> L[Update Constant Buffers (Matrices, Color, etc.)]
+        L --> M[Clear RenderTargetView and DepthStencilView]
+        M --> N[Assign Resources to Pipeline]
+        N --> O[IA: Input Assembler<br/>- Vertex/Index Buffers<br/>- Input Layout]
+        O --> P[VS: Vertex Shader<br/>- Constant Buffers]
+        P --> Q[PS: Pixel Shader<br/>- Constant Buffers<br/>- Texture<br/>- Sampler]
+        Q --> R[OM: Output Merger<br/>- RenderTargetView<br/>- DepthStencilView]
+        R --> S[DeviceContext.drawIndexed()]
+        S --> T[SwapChain.present()]
+        T --> K
+    end
+
+    J --> Q
+    I --> P
+    H --> O
+    G --> P
+    G --> Q
+    F --> R
+    D --> R
+
+How to Compile and Run
+Prerequisites
+
+Windows 10 or higher
+
+Visual Studio 2010 or newer
+
+DirectX SDK (June 2010)
+
+Compilation
+
+Clone the repository
+
+Ensure DirectX SDK paths are correctly configured in Visual Studio
+
+Open PandoraCoreEngine_2010.sln
+
+Build in Debug or Release
