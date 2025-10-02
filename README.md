@@ -1,68 +1,71 @@
-Pandora Core Engine
+🚀 Pandora Core Engine
 
-Pandora Core Engine is a 3D rendering engine built from scratch in C++ using the DirectX 11 API. This project was developed as part of the 3D Computer Graphics course (Class of 2026) and serves as a practical implementation of the key concepts of the real-time graphics pipeline.
+Pandora Core Engine is a 3D rendering engine built from scratch in C++ using DirectX 11
+Developed as part of the 3D Computer Graphics course (Class of 2026), it implements the key concepts of the real-time graphics pipeline
 
-The engine can initialize a window, configure DirectX 11, manage presentation buffers, and render a simple 3D scene with a rotating textured cube.
+The engine can initialize a window, configure DirectX 11, manage presentation buffers, and render a rotating textured cube
 
-Key Features
+✨ Key Features
 
-DirectX 11 Abstraction: Low-level components are encapsulated in clean, reusable C++ classes.
+DirectX 11 Abstraction: Clean, reusable C++ classes encapsulating low-level components
 
 Minimal Rendering Pipeline:
 
-Native window creation with Win32.
+Native window creation using Win32
 
-Management of Device and DeviceContext.
+Device & DeviceContext management
 
-SwapChain setup.
+SwapChain setup
 
-Use of RenderTargetView and DepthStencilView.
+RenderTargetView & DepthStencilView handling
 
-Geometry Rendering: Loads and draws a 3D cube using vertex and index buffers.
+Geometry Rendering: Loads and renders a 3D cube using vertex and index buffers
 
-Shaders and Texturing: Vertex and Pixel Shaders implemented in HLSL.
+Shaders & Texturing: Vertex and Pixel Shaders implemented in HLSL
 
-MSAA Support: Multisample anti-aliasing for improved visual quality.
+MSAA Support: Multisample anti-aliasing for smoother visuals
 
-Engine Architecture
+🏛 Engine Architecture
 
-The engine is designed with separation of responsibilities, where each class has a clear role within the rendering pipeline:
+The engine is designed with separation of responsibilities, where each class has a clear role in the rendering pipeline
 
+<details> <summary>Click to expand the class table</summary>
 Class	Description
-Window	Handles the native Win32 window.
-Device	Factory for GPU resources (textures, buffers, shaders).
-DeviceContext	Generates rendering commands and assigns resources to the pipeline.
-SwapChain	Manages the buffer chain for presentation.
-Texture	Manages 2D texture resources and shader resource views.
-RenderTargetView	Represents the color buffer where the scene is drawn.
-DepthStencilView	Manages the depth buffer to ensure proper occlusion.
-Rendering Pipeline
+Window	Handles the native Win32 window
+Device	Factory for GPU resources (textures, buffers, shaders)
+DeviceContext	Generates rendering commands and assigns resources to the pipeline
+SwapChain	Manages the buffer chain for presentation
+Texture	Manages 2D textures and shader resource views
+RenderTargetView	Represents the color buffer for rendering the scene
+DepthStencilView	Manages depth buffer to ensure correct occlusion
+</details>
+🎨 Rendering Pipeline
 
-Each frame follows these steps:
+Each frame follows this sequence
 
-Update: Transformation matrices and other dynamic data.
+<details> <summary>Click to expand rendering steps</summary>
 
-Clear Buffers: RenderTargetView and DepthStencilView.
+Update: Transformation matrices and dynamic data
 
-Resource Assignment:
+Clear Buffers: RenderTargetView and DepthStencilView
 
-Input Layout, Vertex Buffer, and Index Buffer.
+Assign Resources:
 
-Vertex Shader and Pixel Shader.
+Input Layout, Vertex Buffer & Index Buffer
 
-Constant Buffers.
+Vertex Shader & Pixel Shader
 
-Textures and Samplers.
+Constant Buffers
 
-Draw Call: DrawIndexed() to render the cube.
+Textures & Samplers
 
-Presentation: SwapChain.Present() to display the final frame.
+Draw Call: DrawIndexed() to render the cube
 
-Architecture Diagrams
-1. Class Diagram
+Present: SwapChain.Present() to display the final frame
 
-This diagram shows the main classes and their relationships.
-
+</details>
+📊 Architecture Diagrams
+1️⃣ Class Diagram
 classDiagram
     direction LR
     class PandoraCoreEngine {
@@ -97,10 +100,7 @@ classDiagram
     DepthStencilView ..> Device : created by
     DepthStencilView ..> Texture : uses
 
-2. Rendering Pipeline Flow Diagram
-
-This diagram describes the dynamic sequence of operations for each frame.
-
+2️⃣ Rendering Pipeline Flow
 graph TD
     subgraph "Initialization Phase (InitDevice)"
         A[Create Window] --> B(Create SwapChain)
@@ -135,7 +135,7 @@ graph TD
     F --> R
     D --> R
 
-How to Compile and Run
+⚙ How to Compile & Run
 Prerequisites
 
 Windows 10 or higher
@@ -144,12 +144,12 @@ Visual Studio 2010 or newer
 
 DirectX SDK (June 2010)
 
-Compilation
+Compilation Steps
 
 Clone the repository
 
-Ensure DirectX SDK paths are correctly configured in Visual Studio
+Ensure DirectX SDK paths are configured in Visual Studio
 
 Open PandoraCoreEngine_2010.sln
 
-Build in Debug or Release
+Build in Debug or Release mode
