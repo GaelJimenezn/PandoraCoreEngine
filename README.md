@@ -1,71 +1,70 @@
-🚀 Pandora Core Engine
+# 🎮 Pandora Core Engine ✨
 
-Pandora Core Engine is a 3D rendering engine built from scratch in C++ using DirectX 11
-Developed as part of the 3D Computer Graphics course (Class of 2026), it implements the key concepts of the real-time graphics pipeline
+<p align="center">
+  <img src="URL_TO_YOUR_DEMO_GIF_OR_IMAGE.gif" alt="Pandora Core Engine Demo" width="600"/>
+</p>
 
-The engine can initialize a window, configure DirectX 11, manage presentation buffers, and render a rotating textured cube
+<p align="center">
+  <img src="https://img.shields.io/badge/Language-C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B" alt="Language C++">
+  <img src="https://img.shields.io/badge/API-DirectX_11-0078D7?style=for-the-badge&logo=windows" alt="API DirectX 11">
+  <img src="https://img.shields.io/badge/Platform-Windows-0078D7?style=for-the-badge&logo=windows" alt="Platform Windows">
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License MIT">
+</p>
 
-✨ Key Features
+Pandora Core Engine is a 3D rendering engine built from scratch in C++ using DirectX 11. Created for the 3D Computer Graphics course (Class of 2026), this engine implements a real-time rendering pipeline to display a rotating, textured cube.
 
-DirectX 11 Abstraction: Clean, reusable C++ classes encapsulating low-level components
+## 📜 Table of Contents
+* [🚀 Key Features](#-key-features)
+* [🏗️ Engine Architecture](#️-engine-architecture)
+* [🎨 Rendering Pipeline](#-rendering-pipeline)
+* [📊 Architecture Diagrams](#-architecture-diagrams)
+* [⚙️ Compile & Run](#️-compile--run)
 
-Minimal Rendering Pipeline:
+## 🚀 Key Features
 
-Native window creation using Win32
+* **DirectX 11 Abstraction:** Clean and reusable C++ classes encapsulating low-level API components.
+* **Minimal Rendering Pipeline:**
+    * Native Win32 window creation.
+    * `Device` & `DeviceContext` management.
+    * `SwapChain` setup.
+    * `RenderTargetView` & `DepthStencilView` handling.
+* **Geometry Rendering:** Renders a 3D cube using vertex and index buffers.
+* **Shaders & Texturing:** Vertex and Pixel Shaders written in HLSL.
+* **MSAA Support:** Multisample anti-aliasing for smoother visuals.
 
-Device & DeviceContext management
+## 🏗️ Engine Architecture
 
-SwapChain setup
+The engine uses the separation of responsibilities principle, giving each class a clear and defined role.
 
-RenderTargetView & DepthStencilView handling
+| Class              | Description                                                      |
+| ------------------ | ---------------------------------------------------------------- |
+| `Window`           | Manages the native Win32 window (HWND).                          |
+| `Device`           | Factory for GPU resources (textures, buffers, shaders).          |
+| `DeviceContext`    | Sends commands to the GPU and binds resources to the pipeline.   |
+| `SwapChain`        | Manages the buffer chain for presentation to the screen.         |
+| `Texture`          | Represents 2D texture resources and their shader views.          |
+| `RenderTargetView` | The color buffer where the scene is rendered to.                 |
+| `DepthStencilView` | The depth buffer used for correct object occlusion.              |
 
-Geometry Rendering: Loads and renders a 3D cube using vertex and index buffers
 
-Shaders & Texturing: Vertex and Pixel Shaders implemented in HLSL
+## 🎨 Rendering Pipeline
 
-MSAA Support: Multisample anti-aliasing for smoother visuals
+Every frame follows this execution flow:
 
-🏛 Engine Architecture
+1.  **Update:** Transformation matrices and other dynamic data are updated.
+2.  **Clear Buffers:** The `RenderTargetView` and `DepthStencilView` are cleared.
+3.  **Bind Resources:**
+    * Input Layout, Vertex & Index Buffers.
+    * Vertex Shader & Pixel Shader.
+    * Constant Buffers (data for shaders).
+    * Textures & Samplers.
+4.  **Draw Call:** `DrawIndexed()` is invoked to render the geometry.
+5.  **Present:** The `SwapChain` buffers are swapped to display the new frame.
 
-The engine is designed with separation of responsibilities, where each class has a clear role in the rendering pipeline
+## 📊 Architecture Diagrams
 
-<details> <summary>Click to expand the class table</summary>
-Class	Description
-Window	Handles the native Win32 window
-Device	Factory for GPU resources (textures, buffers, shaders)
-DeviceContext	Generates rendering commands and assigns resources to the pipeline
-SwapChain	Manages the buffer chain for presentation
-Texture	Manages 2D textures and shader resource views
-RenderTargetView	Represents the color buffer for rendering the scene
-DepthStencilView	Manages depth buffer to ensure correct occlusion
-</details>
-🎨 Rendering Pipeline
-
-Each frame follows this sequence
-
-<details> <summary>Click to expand rendering steps</summary>
-
-Update: Transformation matrices and dynamic data
-
-Clear Buffers: RenderTargetView and DepthStencilView
-
-Assign Resources:
-
-Input Layout, Vertex Buffer & Index Buffer
-
-Vertex Shader & Pixel Shader
-
-Constant Buffers
-
-Textures & Samplers
-
-Draw Call: DrawIndexed() to render the cube
-
-Present: SwapChain.Present() to display the final frame
-
-</details>
-📊 Architecture Diagrams
-1️⃣ Class Diagram
+#### 1️⃣ Class Diagram
+```mermaid
 classDiagram
     direction LR
     class PandoraCoreEngine {
@@ -99,57 +98,3 @@ classDiagram
     RenderTargetView ..> Texture : uses
     DepthStencilView ..> Device : created by
     DepthStencilView ..> Texture : uses
-
-2️⃣ Rendering Pipeline Flow
-graph TD
-    subgraph "Initialization Phase (InitDevice)"
-        A[Create Window] --> B(Create SwapChain)
-        B --> C{Create Device and DeviceContext}
-        C --> D[Create RenderTargetView from Back Buffer]
-        C --> E[Create Texture for Depth Buffer]
-        E --> F[Create DepthStencilView]
-        C --> G[Compile Shaders]
-        C --> H[Create Vertex/Index Buffers]
-        C --> I[Create Constant Buffers]
-        C --> J[Load Texture from File]
-    end
-
-    subgraph "Rendering Loop (Render)"
-        K[Start Frame] --> L[Update Constant Buffers (Matrices, Color, etc.)]
-        L --> M[Clear RenderTargetView and DepthStencilView]
-        M --> N[Assign Resources to Pipeline]
-        N --> O[IA: Input Assembler<br/>- Vertex/Index Buffers<br/>- Input Layout]
-        O --> P[VS: Vertex Shader<br/>- Constant Buffers]
-        P --> Q[PS: Pixel Shader<br/>- Constant Buffers<br/>- Texture<br/>- Sampler]
-        Q --> R[OM: Output Merger<br/>- RenderTargetView<br/>- DepthStencilView]
-        R --> S[DeviceContext.drawIndexed()]
-        S --> T[SwapChain.present()]
-        T --> K
-    end
-
-    J --> Q
-    I --> P
-    H --> O
-    G --> P
-    G --> Q
-    F --> R
-    D --> R
-
-⚙ How to Compile & Run
-Prerequisites
-
-Windows 10 or higher
-
-Visual Studio 2010 or newer
-
-DirectX SDK (June 2010)
-
-Compilation Steps
-
-Clone the repository
-
-Ensure DirectX SDK paths are configured in Visual Studio
-
-Open PandoraCoreEngine_2010.sln
-
-Build in Debug or Release mode
