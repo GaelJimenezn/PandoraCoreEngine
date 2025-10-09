@@ -1,10 +1,20 @@
 # .clang-format
 BasedOnStyle: LLVM
 Language: Cpp
+
+# Sangría y tabulación
 IndentWidth: 2
 TabWidth: 2
 UseTab: Never
+
+# No compactar funciones o clases en una sola línea
 AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+
+# Control de llaves según tu formato (tipo en una línea, nombre en la siguiente)
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterClass: true
@@ -17,5 +27,22 @@ BraceWrapping:
   AfterExternBlock: true
   BeforeCatch: false
   BeforeElse: false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
   IndentBraces: false
+
+# No reacomodar declaraciones largas
+BinPackParameters: false
+BinPackArguments: false
+
+# Mantener espacios y líneas manuales
+KeepEmptyLinesAtTheStartOfBlocks: true
+InsertTrailingCommas: None
+SpacesBeforeTrailingComments: 1
+SpaceBeforeParens: ControlStatements
+
+# Limite visual
 ColumnLimit: 90
+ReflowComments: false
+SortIncludes: false
