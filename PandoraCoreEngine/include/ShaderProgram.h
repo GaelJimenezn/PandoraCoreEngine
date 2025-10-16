@@ -12,32 +12,32 @@ public:
 
   ~ShaderProgram() = default;
 
-   HRESULT 
-  init(Device& device,
+ HRESULT 
+ init(Device& device,
        const std::string& fileName,
        std::vector<D3D11_INPUT_ELEMENT_DESC> Layout);
 
-  void
-  update();
+ void
+ update();
 
-  void 
-  render(DeviceContext& deviceContext);
+ void 
+ render(DeviceContext& deviceContext);
 
-  void 
-  render(DeviceContext& deviceContext, ShaderType type);
+ void 
+ render(DeviceContext& deviceContext, ShaderType type);
 
-  void 
-  destroy();
+ void 
+ destroy();
 
-  HRESULT 
-  CreateInputLayout(Device& device,
+ HRESULT 
+ CreateInputLayout(Device& device,
                     std::vector<D3D11_INPUT_ELEMENT_DESC> Layout);
 
-  HRESULT 
-  CreateShader(Device& device, ShaderType type);
+ HRESULT 
+ CreateShader(Device& device, ShaderType type);
 
-  HRESULT 
-  CreateShader(Device& device, ShaderType type, const std::string& fileName);
+ HRESULT 
+ CreateShader(Device& device, ShaderType type, const std::string& fileName);
 
  HRESULT 
  CompileShaderFromFile(char* szFileName,
