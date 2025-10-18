@@ -15,6 +15,9 @@
 #include "DepthStencilView.h"
 #include "Viewport.h"
 #include "ShaderProgram.h"
+#include "MeshComponent.h"
+#include "Buffer.h"
+
 //--------------------------------------------------------------------------------------
 // Global Variables
 //--------------------------------------------------------------------------------------
@@ -31,13 +34,16 @@ Texture                             g_depthStencil;
 DepthStencilView									  g_depthStencilView;
 Viewport                            g_viewport;
 ShaderProgram												g_shaderProgram;
+MeshComponent                       g_mesh;
+Buffer                              g_vertexBuffer;
+Buffer                              g_indexBuffer;
 
 
-ID3D11Buffer* g_pVertexBuffer = NULL;
-ID3D11Buffer* g_pIndexBuffer = NULL;
-ID3D11Buffer* g_pCBNeverChanges = NULL;
-ID3D11Buffer* g_pCBChangeOnResize = NULL;
-ID3D11Buffer* g_pCBChangesEveryFrame = NULL;
+//ID3D11Buffer* g_pVertexBuffer = NULL;
+//ID3D11Buffer* g_pIndexBuffer = NULL;
+//ID3D11Buffer* g_pCBNeverChanges = NULL;
+//ID3D11Buffer* g_pCBChangeOnResize = NULL;
+//ID3D11Buffer* g_pCBChangesEveryFrame = NULL;
 ID3D11ShaderResourceView* g_pTextureRV = NULL;
 ID3D11SamplerState* g_pSamplerLinear = NULL;
 XMMATRIX                            g_World;
