@@ -32,7 +32,6 @@ InputLayout::init(Device& device,
 
 void
 InputLayout::update() {
-	// M�todo vac�o, se puede utilizar en caso de necesitar cambios din�micos en el layout
 }
 
 void

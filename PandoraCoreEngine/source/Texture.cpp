@@ -33,7 +33,8 @@ Texture::init(Device& device,
 
 		if (FAILED(hr)) {
 			ERROR("Texture", "init",
-				("Failed to load DDS texture. Verify filepath: " + m_textureName).c_str());
+				("Failed to load DDS texture. Verify filepath: " 
+        + m_textureName).c_str());
 			return hr;
 		}
 		break;
@@ -91,7 +92,8 @@ Texture::init(Device& device,
 
   if (FAILED(hr)) {
     ERROR("Texture", "init",
-      ("Failed to create texture with specified params. HRESULT: " + std::to_string(hr)).c_str());
+      ("Failed to create texture with specified params. HRESULT: " 
+      + std::to_string(hr)).c_str());
     return hr;
   }
 
@@ -121,7 +123,8 @@ Texture::init(Device& device, Texture& textureRef, DXGI_FORMAT format) {
 
   if (FAILED(hr)) {
     ERROR("Texture", "init",
-      ("Failed to create shader resource view for PNG textures. HRESULT: " + std::to_string(hr)).c_str());
+      ("Failed to create shader resource view for PNG textures. HRESULT: " 
+      + std::to_string(hr)).c_str());
     return hr;
   }
 
