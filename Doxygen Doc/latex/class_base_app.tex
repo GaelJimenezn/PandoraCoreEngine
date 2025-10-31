@@ -1,0 +1,121 @@
+\doxysection{Base\+App Class Reference}
+\hypertarget{class_base_app}{}\label{class_base_app}\index{BaseApp@{BaseApp}}
+
+
+Serves as the main application class, orchestrating the engine components.  
+
+
+
+
+{\ttfamily \#include $<$Base\+App.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_base_app_a3f3785ed6c6ad8232ed9bd424763751c}{Base\+App}} (HINSTANCE h\+Inst, int n\+Cmd\+Show)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\Hypertarget{class_base_app_acd5dea4cb74bc7bbdc200426873723f5}\label{class_base_app_acd5dea4cb74bc7bbdc200426873723f5} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Base\+App} ()
+\begin{DoxyCompactList}\small\item\em Destructor. Calls the \doxylink{class_base_app_a45e22a14bfc1f98f452b08ebb3386b2b}{destroy()} method to clean up resources. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_base_app_a3cf0b29ba0e997d8cbac4fca91635cb9}{run}} (HINSTANCE h\+Inst, int n\+Cmd\+Show)
+\begin{DoxyCompactList}\small\item\em Enters the main application loop. \end{DoxyCompactList}\item 
+HRESULT \mbox{\hyperlink{class_base_app_a2c64e873874aed23aa14e0c8a659e3ca}{init}} ()
+\begin{DoxyCompactList}\small\item\em Initializes all DirectX resources and application-\/specific assets. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_base_app_abdc46a4c89b86fd0441615214e19fb4d}{update}} (float delta\+Time)
+\begin{DoxyCompactList}\small\item\em Updates application logic and scene state per frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_base_app_a4002d0cff2225b7b79501aeb17a3e970}{render}} ()
+\begin{DoxyCompactList}\small\item\em Renders the current scene state to the screen. \end{DoxyCompactList}\item 
+\Hypertarget{class_base_app_a45e22a14bfc1f98f452b08ebb3386b2b}\label{class_base_app_a45e22a14bfc1f98f452b08ebb3386b2b} 
+void {\bfseries destroy} ()
+\begin{DoxyCompactList}\small\item\em Releases all allocated DirectX resources and cleans up. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Serves as the main application class, orchestrating the engine components. 
+
+Initializes all necessary DirectX components (\doxylink{class_window}{Window}, \doxylink{class_device}{Device}, \doxylink{class_swap_chain}{Swap\+Chain}, etc.), manages the main application loop (message processing, update, render), and handles resource cleanup. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_base_app_a3f3785ed6c6ad8232ed9bd424763751c}\index{BaseApp@{BaseApp}!BaseApp@{BaseApp}}
+\index{BaseApp@{BaseApp}!BaseApp@{BaseApp}}
+\doxysubsubsection{\texorpdfstring{BaseApp()}{BaseApp()}}
+{\footnotesize\ttfamily \label{class_base_app_a3f3785ed6c6ad8232ed9bd424763751c} 
+Base\+App\+::\+Base\+App (\begin{DoxyParamCaption}\item[{HINSTANCE}]{h\+Inst}{, }\item[{int}]{n\+Cmd\+Show}{}\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h\+Inst} & Handle to the application instance. \\
+\hline
+{\em n\+Cmd\+Show} & \doxylink{class_window}{Window} show state flag. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_base_app_a2c64e873874aed23aa14e0c8a659e3ca}\index{BaseApp@{BaseApp}!init@{init}}
+\index{init@{init}!BaseApp@{BaseApp}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily \label{class_base_app_a2c64e873874aed23aa14e0c8a659e3ca} 
+HRESULT Base\+App\+::init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes all DirectX resources and application-\/specific assets. 
+
+\begin{DoxyReturn}{Returns}
+HRESULT indicating success or failure of initialization. 
+\end{DoxyReturn}
+\Hypertarget{class_base_app_a4002d0cff2225b7b79501aeb17a3e970}\index{BaseApp@{BaseApp}!render@{render}}
+\index{render@{render}!BaseApp@{BaseApp}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily \label{class_base_app_a4002d0cff2225b7b79501aeb17a3e970} 
+void Base\+App\+::render (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Renders the current scene state to the screen. 
+
+Sets up the pipeline state, binds resources, issues draw calls, and presents the final image. \Hypertarget{class_base_app_a3cf0b29ba0e997d8cbac4fca91635cb9}\index{BaseApp@{BaseApp}!run@{run}}
+\index{run@{run}!BaseApp@{BaseApp}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{class_base_app_a3cf0b29ba0e997d8cbac4fca91635cb9} 
+int Base\+App\+::run (\begin{DoxyParamCaption}\item[{HINSTANCE}]{h\+Inst}{, }\item[{int}]{n\+Cmd\+Show}{}\end{DoxyParamCaption})}
+
+
+
+Enters the main application loop. 
+
+Handles window messages, calls \doxylink{class_base_app_abdc46a4c89b86fd0441615214e19fb4d}{update()} and \doxylink{class_base_app_a4002d0cff2225b7b79501aeb17a3e970}{render()} each frame. 
+\begin{DoxyParams}{Parameters}
+{\em h\+Inst} & Handle to the application instance. \\
+\hline
+{\em n\+Cmd\+Show} & \doxylink{class_window}{Window} show state flag. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The application exit code. 
+\end{DoxyReturn}
+\Hypertarget{class_base_app_abdc46a4c89b86fd0441615214e19fb4d}\index{BaseApp@{BaseApp}!update@{update}}
+\index{update@{update}!BaseApp@{BaseApp}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{class_base_app_abdc46a4c89b86fd0441615214e19fb4d} 
+void Base\+App\+::update (\begin{DoxyParamCaption}\item[{float}]{delta\+Time}{}\end{DoxyParamCaption})}
+
+
+
+Updates application logic and scene state per frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+Time} & Time elapsed since the last frame in seconds. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Base\+App.\+h\end{DoxyCompactItemize}

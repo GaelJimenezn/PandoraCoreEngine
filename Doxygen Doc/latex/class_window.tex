@@ -1,0 +1,72 @@
+\doxysection{Window Class Reference}
+\hypertarget{class_window}{}\label{class_window}\index{Window@{Window}}
+
+
+Manages the application\textquotesingle{}s native window and message loop.  
+
+
+
+
+{\ttfamily \#include $<$window.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+HRESULT \mbox{\hyperlink{class_window_a3a6f96e110843d60c6e3c29913143674}{init}} (HINSTANCE h\+Instance, int n\+Cmd\+Show, WNDPROC wndproc)
+\begin{DoxyCompactList}\small\item\em Creates and displays the application window. \end{DoxyCompactList}\item 
+\Hypertarget{class_window_a59515fc5a56e86d5a46d771595daac55}\label{class_window_a59515fc5a56e86d5a46d771595daac55} 
+void {\bfseries update} ()
+\begin{DoxyCompactList}\small\item\em Placeholder for window-\/related update logic. \end{DoxyCompactList}\item 
+\Hypertarget{class_window_a0a2093bd2ed34740c08a6a2fdfc059c9}\label{class_window_a0a2093bd2ed34740c08a6a2fdfc059c9} 
+void {\bfseries render} ()
+\begin{DoxyCompactList}\small\item\em Placeholder for window-\/related rendering logic. \end{DoxyCompactList}\item 
+\Hypertarget{class_window_aa89262ad2538473c8d7e4d8dd641849d}\label{class_window_aa89262ad2538473c8d7e4d8dd641849d} 
+void {\bfseries destroy} ()
+\begin{DoxyCompactList}\small\item\em Releases the window handle and unregisters the window class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_window_ab39b5ba6b3adea40aa19ffa50e306dbb}\label{class_window_ab39b5ba6b3adea40aa19ffa50e306dbb} 
+HWND {\bfseries m\+\_\+h\+Wnd} = nullptr
+\begin{DoxyCompactList}\small\item\em The handle to the native Win32 window. \end{DoxyCompactList}\item 
+\Hypertarget{class_window_a134b55aae0af092cb293aab2edd477de}\label{class_window_a134b55aae0af092cb293aab2edd477de} 
+unsigned int {\bfseries m\+\_\+width}
+\begin{DoxyCompactList}\small\item\em The current width of the window\textquotesingle{}s client area in pixels. \end{DoxyCompactList}\item 
+\Hypertarget{class_window_a525698a3ce02b30dd7620b85d70269ec}\label{class_window_a525698a3ce02b30dd7620b85d70269ec} 
+unsigned int {\bfseries m\+\_\+height}
+\begin{DoxyCompactList}\small\item\em The current height of the window\textquotesingle{}s client area in pixels. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages the application\textquotesingle{}s native window and message loop. 
+
+Encapsulates the creation, destruction, and message handling for a standard Win32 window (HWND), which serves as the primary rendering surface for the application. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_window_a3a6f96e110843d60c6e3c29913143674}\index{Window@{Window}!init@{init}}
+\index{init@{init}!Window@{Window}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily \label{class_window_a3a6f96e110843d60c6e3c29913143674} 
+HRESULT Window\+::init (\begin{DoxyParamCaption}\item[{HINSTANCE}]{h\+Instance}{, }\item[{int}]{n\+Cmd\+Show}{, }\item[{WNDPROC}]{wndproc}{}\end{DoxyParamCaption})}
+
+
+
+Creates and displays the application window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h\+Instance} & The handle to the application instance. \\
+\hline
+{\em n\+Cmd\+Show} & A flag that specifies how the window is to be shown. \\
+\hline
+{\em wndproc} & A pointer to the application-\/defined window procedure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+HRESULT indicating success or failure. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+window.\+h\end{DoxyCompactItemize}

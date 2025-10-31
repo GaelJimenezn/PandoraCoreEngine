@@ -1,0 +1,106 @@
+\doxysection{Prerequisites.\+h File Reference}
+\hypertarget{_prerequisites_8h}{}\label{_prerequisites_8h}\index{Prerequisites.h@{Prerequisites.h}}
+
+
+Includes essential headers, defines core structures, and macros.  
+
+
+{\ttfamily \#include $<$windows.\+h$>$}\newline
+{\ttfamily \#include $<$xnamath.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$d3d11.\+h$>$}\newline
+{\ttfamily \#include $<$d3dx11.\+h$>$}\newline
+{\ttfamily \#include $<$d3dcompiler.\+h$>$}\newline
+{\ttfamily \#include "{}Resource.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_simple_vertex}{Simple\+Vertex}}
+\item 
+struct \mbox{\hyperlink{struct_c_b_never_changes}{CBNever\+Changes}}
+\item 
+struct \mbox{\hyperlink{struct_c_b_change_on_resize}{CBChange\+On\+Resize}}
+\item 
+struct \mbox{\hyperlink{struct_c_b_changes_every_frame}{CBChanges\+Every\+Frame}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_prerequisites_8h_a2bc549675ca29f733709b4656d22d52a}{SAFE\+\_\+\+RELEASE}}(x)
+\item 
+\#define \mbox{\hyperlink{_prerequisites_8h_a8fe30e7b51deb1d5519885ad20b879c8}{MESSAGE}}(class\+Obj,  method,  state)
+\item 
+\#define \mbox{\hyperlink{_prerequisites_8h_ab5d83f25f2317ec67a651392ed1ac091}{ERROR}}(class\+Obj,  method,  error\+MSG)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_prerequisites_8h_ab8685fb7f8f0003664786f0e1e04f65a}\label{_prerequisites_8h_ab8685fb7f8f0003664786f0e1e04f65a} 
+enum {\bfseries Extension\+Type} \{ {\bfseries DDS} = 0
+, {\bfseries PNG} = 1
+, {\bfseries JPG} = 2
+ \}
+\item 
+\Hypertarget{_prerequisites_8h_a6230e1b9ecbf2d82d10856fd7e1fde46}\label{_prerequisites_8h_a6230e1b9ecbf2d82d10856fd7e1fde46} 
+enum {\bfseries Shader\+Type} \{ {\bfseries VERTEX\+\_\+\+SHADER} = 0
+, {\bfseries PIXEL\+\_\+\+SHADER} = 1
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Includes essential headers, defines core structures, and macros. 
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_prerequisites_8h_ab5d83f25f2317ec67a651392ed1ac091}\index{Prerequisites.h@{Prerequisites.h}!ERROR@{ERROR}}
+\index{ERROR@{ERROR}!Prerequisites.h@{Prerequisites.h}}
+\doxysubsubsection{\texorpdfstring{ERROR}{ERROR}}
+{\footnotesize\ttfamily \label{_prerequisites_8h_ab5d83f25f2317ec67a651392ed1ac091} 
+\#define ERROR(\begin{DoxyParamCaption}\item[{}]{class\+Obj}{, }\item[{}]{method}{, }\item[{}]{error\+MSG}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{try}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ std::wostringstream\ os\_;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ os\_\ <<\ L\textcolor{stringliteral}{"{}ERROR\ :\ "{}}\ <<\ classObj\ <<\ L\textcolor{stringliteral}{"{}::"{}}\ <<\ method\ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ <<\ L\textcolor{stringliteral}{"{}\ :\ "{}}\ <<\ errorMSG\ <<\ L\textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ OutputDebugStringW(os\_.str().c\_str());\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \textcolor{keywordflow}{catch}\ (...)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ OutputDebugStringW(L\textcolor{stringliteral}{"{}Failed\ to\ log\ error\ message.\(\backslash\)n"{}});\ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{_prerequisites_8h_a8fe30e7b51deb1d5519885ad20b879c8}\index{Prerequisites.h@{Prerequisites.h}!MESSAGE@{MESSAGE}}
+\index{MESSAGE@{MESSAGE}!Prerequisites.h@{Prerequisites.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE}{MESSAGE}}
+{\footnotesize\ttfamily \label{_prerequisites_8h_a8fe30e7b51deb1d5519885ad20b879c8} 
+\#define MESSAGE(\begin{DoxyParamCaption}\item[{}]{class\+Obj}{, }\item[{}]{method}{, }\item[{}]{state}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ std::wostringstream\ os\_;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ os\_\ <<\ classObj\ <<\ \textcolor{stringliteral}{"{}::"{}}\ <<\ method\ <<\ \textcolor{stringliteral}{"{}\ :\ "{}}\ <<\ \textcolor{stringliteral}{"{}[CREATION\ OF\ RESOURCE\ "{}}\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ <<\ \textcolor{stringliteral}{"{}:\ "{}}\ <<\ state\ <<\ \textcolor{stringliteral}{"{}]\ \(\backslash\)n"{}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ OutputDebugStringW(\ os\_.str().c\_str()\ );\ \ \(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{_prerequisites_8h_a2bc549675ca29f733709b4656d22d52a}\index{Prerequisites.h@{Prerequisites.h}!SAFE\_RELEASE@{SAFE\_RELEASE}}
+\index{SAFE\_RELEASE@{SAFE\_RELEASE}!Prerequisites.h@{Prerequisites.h}}
+\doxysubsubsection{\texorpdfstring{SAFE\_RELEASE}{SAFE\_RELEASE}}
+{\footnotesize\ttfamily \label{_prerequisites_8h_a2bc549675ca29f733709b4656d22d52a} 
+\#define SAFE\+\_\+\+RELEASE(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{if}(x\ !=\ \textcolor{keyword}{nullptr})\ \{\ x-\/>Release();\ x\ =\ \textcolor{keyword}{nullptr};\ \}}
+
+\end{DoxyCode}

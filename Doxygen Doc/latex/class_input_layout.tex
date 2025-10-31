@@ -1,0 +1,98 @@
+\doxysection{Input\+Layout Class Reference}
+\hypertarget{class_input_layout}{}\label{class_input_layout}\index{InputLayout@{InputLayout}}
+
+
+Manages the Direct3D 11 Input Layout object.  
+
+
+
+
+{\ttfamily \#include $<$Input\+Layout.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_input_layout_af5294c6ab534b1e388897c146f6c9b44}\label{class_input_layout_af5294c6ab534b1e388897c146f6c9b44} 
+{\bfseries Input\+Layout} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\Hypertarget{class_input_layout_aa1e7138ae46d3fc9407a33c6a4d4a010}\label{class_input_layout_aa1e7138ae46d3fc9407a33c6a4d4a010} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Input\+Layout} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+HRESULT \mbox{\hyperlink{class_input_layout_a879ca5c32a4f5332de151b5faf0acf37}{init}} (\mbox{\hyperlink{class_device}{Device}} \&device, std\+::vector$<$ D3\+D11\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC $>$ \&layout, ID3\+DBlob \texorpdfstring{$\ast$}{*}Vertex\+Shader\+Data)
+\begin{DoxyCompactList}\small\item\em Initializes the input layout object. \end{DoxyCompactList}\item 
+\Hypertarget{class_input_layout_ab88140b2eea4e96e9b5099f8ca15c29f}\label{class_input_layout_ab88140b2eea4e96e9b5099f8ca15c29f} 
+void {\bfseries update} ()
+\begin{DoxyCompactList}\small\item\em Placeholder for potential update logic (rarely needed for input layouts). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_input_layout_ae5bb86e9c73d6b92bdfc22029c378314}{render}} (\mbox{\hyperlink{class_device_context}{Device\+Context}} \&device\+Context)
+\begin{DoxyCompactList}\small\item\em Binds the input layout object to the Input Assembler (IA) stage. \end{DoxyCompactList}\item 
+\Hypertarget{class_input_layout_a1f5cebfa79d4fb6675263fbefeb7e16a}\label{class_input_layout_a1f5cebfa79d4fb6675263fbefeb7e16a} 
+void {\bfseries destroy} ()
+\begin{DoxyCompactList}\small\item\em Releases the underlying ID3\+D11\+Input\+Layout resource. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+ID3\+D11\+Input\+Layout \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_input_layout_aa8319b0fe96ae2be02a9658ee8e1afcd}{m\+\_\+input\+Layout}} = nullptr
+\begin{DoxyCompactList}\small\item\em The Direct3D 11 input layout object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages the Direct3D 11 Input Layout object. 
+
+Encapsulates an ID3\+D11\+Input\+Layout, which describes how vertex data from input buffers is mapped to the input signature of a vertex shader. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_input_layout_a879ca5c32a4f5332de151b5faf0acf37}\index{InputLayout@{InputLayout}!init@{init}}
+\index{init@{init}!InputLayout@{InputLayout}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily \label{class_input_layout_a879ca5c32a4f5332de151b5faf0acf37} 
+HRESULT Input\+Layout\+::init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_device}{Device}} \&}]{device}{, }\item[{std\+::vector$<$ D3\+D11\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC $>$ \&}]{layout}{, }\item[{ID3\+DBlob \texorpdfstring{$\ast$}{*}}]{Vertex\+Shader\+Data}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the input layout object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em device} & The graphics device used for creation. \\
+\hline
+{\em layout} & A vector of D3\+D11\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC describing the vertex format. \\
+\hline
+{\em Vertex\+Shader\+Data} & A blob containing the compiled vertex shader bytecode, which includes the required input signature. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+HRESULT indicating success or failure. 
+\end{DoxyReturn}
+\Hypertarget{class_input_layout_ae5bb86e9c73d6b92bdfc22029c378314}\index{InputLayout@{InputLayout}!render@{render}}
+\index{render@{render}!InputLayout@{InputLayout}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily \label{class_input_layout_ae5bb86e9c73d6b92bdfc22029c378314} 
+void Input\+Layout\+::render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_device_context}{Device\+Context}} \&}]{device\+Context}{}\end{DoxyParamCaption})}
+
+
+
+Binds the input layout object to the Input Assembler (IA) stage. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em device\+Context} & The device context for command submission. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_input_layout_aa8319b0fe96ae2be02a9658ee8e1afcd}\index{InputLayout@{InputLayout}!m\_inputLayout@{m\_inputLayout}}
+\index{m\_inputLayout@{m\_inputLayout}!InputLayout@{InputLayout}}
+\doxysubsubsection{\texorpdfstring{m\_inputLayout}{m\_inputLayout}}
+{\footnotesize\ttfamily \label{class_input_layout_aa8319b0fe96ae2be02a9658ee8e1afcd} 
+ID3\+D11\+Input\+Layout\texorpdfstring{$\ast$}{*} Input\+Layout\+::m\+\_\+input\+Layout = nullptr}
+
+
+
+The Direct3D 11 input layout object. 
+
+Defines the structure of vertex data expected by the vertex shader. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Input\+Layout.\+h\end{DoxyCompactItemize}

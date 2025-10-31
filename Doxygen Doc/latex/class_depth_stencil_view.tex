@@ -1,0 +1,89 @@
+\doxysection{Depth\+Stencil\+View Class Reference}
+\hypertarget{class_depth_stencil_view}{}\label{class_depth_stencil_view}\index{DepthStencilView@{DepthStencilView}}
+
+
+Manages a Direct3D 11 Depth Stencil View (DSV).  
+
+
+
+
+{\ttfamily \#include $<$Depth\+Stencil\+View.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+HRESULT \mbox{\hyperlink{class_depth_stencil_view_a577271a39193da2f3e8a9df52c167670}{init}} (\mbox{\hyperlink{class_device}{Device}} \&device, \mbox{\hyperlink{class_texture}{Texture}} \&depth\+Stencil, DXGI\+\_\+\+FORMAT format)
+\begin{DoxyCompactList}\small\item\em Initializes the DSV from a compatible texture resource. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_depth_stencil_view_a87d09cc62b11bd3cdf92b3e51b7128df}{render}} (\mbox{\hyperlink{class_device_context}{Device\+Context}} \&device\+Context)
+\begin{DoxyCompactList}\small\item\em Binds and clears the depth stencil view. \end{DoxyCompactList}\item 
+\Hypertarget{class_depth_stencil_view_a09eeac13e34e94a5aeda476d4624ce55}\label{class_depth_stencil_view_a09eeac13e34e94a5aeda476d4624ce55} 
+void {\bfseries destroy} ()
+\begin{DoxyCompactList}\small\item\em Releases the underlying ID3\+D11\+Depth\+Stencil\+View resource. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+ID3\+D11\+Depth\+Stencil\+View \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_depth_stencil_view_a97a6836b3e61ca8cfa252bf5bffc7ffb}{m\+\_\+depth\+Stencil\+View}} = nullptr
+\begin{DoxyCompactList}\small\item\em The Direct3D 11 depth/stencil view resource. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages a Direct3D 11 Depth Stencil View (DSV). 
+
+This class encapsulates an ID3\+D11\+Depth\+Stencil\+View, which allows a texture resource to be used as a depth and stencil buffer in the output-\/merger stage of the graphics pipeline. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_depth_stencil_view_a577271a39193da2f3e8a9df52c167670}\index{DepthStencilView@{DepthStencilView}!init@{init}}
+\index{init@{init}!DepthStencilView@{DepthStencilView}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily \label{class_depth_stencil_view_a577271a39193da2f3e8a9df52c167670} 
+HRESULT Depth\+Stencil\+View\+::init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_device}{Device}} \&}]{device}{, }\item[{\mbox{\hyperlink{class_texture}{Texture}} \&}]{depth\+Stencil}{, }\item[{DXGI\+\_\+\+FORMAT}]{format}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the DSV from a compatible texture resource. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em device} & The device used for resource creation. \\
+\hline
+{\em depth\+Stencil} & The texture resource to be used as a depth buffer. This texture must be created with D3\+D11\+\_\+\+BIND\+\_\+\+DEPTH\+\_\+\+STENCIL. \\
+\hline
+{\em format} & The specific format for the view, which must be compatible with the texture\textquotesingle{}s format. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+HRESULT indicating success or failure. 
+\end{DoxyReturn}
+\Hypertarget{class_depth_stencil_view_a87d09cc62b11bd3cdf92b3e51b7128df}\index{DepthStencilView@{DepthStencilView}!render@{render}}
+\index{render@{render}!DepthStencilView@{DepthStencilView}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily \label{class_depth_stencil_view_a87d09cc62b11bd3cdf92b3e51b7128df} 
+void Depth\+Stencil\+View\+::render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_device_context}{Device\+Context}} \&}]{device\+Context}{}\end{DoxyParamCaption})}
+
+
+
+Binds and clears the depth stencil view. 
+
+Clears the depth and stencil buffers for the current frame. 
+\begin{DoxyParams}{Parameters}
+{\em device\+Context} & The device context for issuing rendering commands. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_depth_stencil_view_a97a6836b3e61ca8cfa252bf5bffc7ffb}\index{DepthStencilView@{DepthStencilView}!m\_depthStencilView@{m\_depthStencilView}}
+\index{m\_depthStencilView@{m\_depthStencilView}!DepthStencilView@{DepthStencilView}}
+\doxysubsubsection{\texorpdfstring{m\_depthStencilView}{m\_depthStencilView}}
+{\footnotesize\ttfamily \label{class_depth_stencil_view_a97a6836b3e61ca8cfa252bf5bffc7ffb} 
+ID3\+D11\+Depth\+Stencil\+View\texorpdfstring{$\ast$}{*} Depth\+Stencil\+View\+::m\+\_\+depth\+Stencil\+View = nullptr}
+
+
+
+The Direct3D 11 depth/stencil view resource. 
+
+This pointer is valid after a successful call to \doxylink{class_depth_stencil_view_a577271a39193da2f3e8a9df52c167670}{init()} and becomes nullptr after \doxylink{class_depth_stencil_view_a09eeac13e34e94a5aeda476d4624ce55}{destroy()} is called. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Depth\+Stencil\+View.\+h\end{DoxyCompactItemize}

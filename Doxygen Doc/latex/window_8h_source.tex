@@ -1,0 +1,39 @@
+\doxysection{window.\+h}
+\hypertarget{window_8h_source}{}\label{window_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_prerequisites_8h}{Prerequisites.h}}"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class}}
+\DoxyCodeLine{00012\ Window\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ Window()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00015\ \ \ \string~Window()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00024\ \ \ HRESULT}
+\DoxyCodeLine{00025\ \ \ \mbox{\hyperlink{class_window_a3a6f96e110843d60c6e3c29913143674}{init}}(HINSTANCE\ hInstance,\ \textcolor{keywordtype}{int}\ nCmdShow,\ WNDPROC\ wndproc);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00031\ \ \ \mbox{\hyperlink{class_window_a59515fc5a56e86d5a46d771595daac55}{update}}();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00037\ \ \ \mbox{\hyperlink{class_window_a0a2093bd2ed34740c08a6a2fdfc059c9}{render}}();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00043\ \ \ \mbox{\hyperlink{class_window_aa89262ad2538473c8d7e4d8dd641849d}{destroy}}();}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00049\ \ \ HWND\ \mbox{\hyperlink{class_window_ab39b5ba6b3adea40aa19ffa50e306dbb}{m\_hWnd}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_window_a134b55aae0af092cb293aab2edd477de}{m\_width}};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_window_a525698a3ce02b30dd7620b85d70269ec}{m\_height}};}
+\DoxyCodeLine{00060\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00064\ \ \ HINSTANCE\ m\_hInst\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00069\ \ \ RECT\ m\_rect;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00074\ \ \ std::string\ m\_windowName\ =\ \textcolor{stringliteral}{"{}PandoraCoreEngine"{}};}
+\DoxyCodeLine{00075\ \};}
+
+\end{DoxyCode}

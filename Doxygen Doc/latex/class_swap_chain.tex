@@ -1,0 +1,104 @@
+\doxysection{Swap\+Chain Class Reference}
+\hypertarget{class_swap_chain}{}\label{class_swap_chain}\index{SwapChain@{SwapChain}}
+
+
+Manages the front and back buffers for presentation.  
+
+
+
+
+{\ttfamily \#include $<$Swap\+Chain.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+HRESULT \mbox{\hyperlink{class_swap_chain_a0d703e12b7170afb6c6be8639fb31718}{init}} (\mbox{\hyperlink{class_device}{Device}} \&device, \mbox{\hyperlink{class_device_context}{Device\+Context}} \&device\+Context, \mbox{\hyperlink{class_texture}{Texture}} \&back\+Buffer, \mbox{\hyperlink{class_window}{Window}} window)
+\begin{DoxyCompactList}\small\item\em Initializes the swap chain for a given window. \end{DoxyCompactList}\item 
+\Hypertarget{class_swap_chain_aa2699480acf4fa5b44b4966c55da7c4c}\label{class_swap_chain_aa2699480acf4fa5b44b4966c55da7c4c} 
+void {\bfseries update} ()
+\begin{DoxyCompactList}\small\item\em Placeholder for future update logic. \end{DoxyCompactList}\item 
+\Hypertarget{class_swap_chain_a0ed916f089d45681c0eaf4474053bdbd}\label{class_swap_chain_a0ed916f089d45681c0eaf4474053bdbd} 
+void {\bfseries render} ()
+\begin{DoxyCompactList}\small\item\em Placeholder for future rendering logic. \end{DoxyCompactList}\item 
+\Hypertarget{class_swap_chain_a492d4bf86eae9e273068dee33056eed1}\label{class_swap_chain_a492d4bf86eae9e273068dee33056eed1} 
+void {\bfseries destroy} ()
+\begin{DoxyCompactList}\small\item\em Releases the swap chain and associated DXGI interfaces. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_swap_chain_a1c88d9c1c3baa507cf1ab13d5af902fc}{present}} ()
+\begin{DoxyCompactList}\small\item\em Presents the back buffer to the screen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+IDXGISwap\+Chain \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_swap_chain_a31b575ec300f4915b7d16dbee7191bac}{m\+\_\+swap\+Chain}} = nullptr
+\begin{DoxyCompactList}\small\item\em The main IDXGISwap\+Chain interface. \end{DoxyCompactList}\item 
+D3\+D\+\_\+\+DRIVER\+\_\+\+TYPE \mbox{\hyperlink{class_swap_chain_a7825f454282109e0b47afe287de4ab1c}{m\+\_\+driver\+Type}} = D3\+D\+\_\+\+DRIVER\+\_\+\+TYPE\+\_\+\+NULL
+\begin{DoxyCompactList}\small\item\em The driver type used for device creation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages the front and back buffers for presentation. 
+
+Encapsulates an IDXGISwap\+Chain, handling the chain of buffers used to display rendered images on the screen. It also manages MSAA (Multisample Anti-\/\+Aliasing) settings. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_swap_chain_a0d703e12b7170afb6c6be8639fb31718}\index{SwapChain@{SwapChain}!init@{init}}
+\index{init@{init}!SwapChain@{SwapChain}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily \label{class_swap_chain_a0d703e12b7170afb6c6be8639fb31718} 
+HRESULT Swap\+Chain\+::init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_device}{Device}} \&}]{device}{, }\item[{\mbox{\hyperlink{class_device_context}{Device\+Context}} \&}]{device\+Context}{, }\item[{\mbox{\hyperlink{class_texture}{Texture}} \&}]{back\+Buffer}{, }\item[{\mbox{\hyperlink{class_window}{Window}}}]{window}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the swap chain for a given window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em device} & The graphics device. \\
+\hline
+{\em device\+Context} & The device context for commands. \\
+\hline
+{\em back\+Buffer} & A texture to receive the back buffer data. \\
+\hline
+{\em window} & The window to which the swap chain will present. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+HRESULT indicating success or failure. 
+\end{DoxyReturn}
+\Hypertarget{class_swap_chain_a1c88d9c1c3baa507cf1ab13d5af902fc}\index{SwapChain@{SwapChain}!present@{present}}
+\index{present@{present}!SwapChain@{SwapChain}}
+\doxysubsubsection{\texorpdfstring{present()}{present()}}
+{\footnotesize\ttfamily \label{class_swap_chain_a1c88d9c1c3baa507cf1ab13d5af902fc} 
+void Swap\+Chain\+::present (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Presents the back buffer to the screen. 
+
+This swaps the front and back buffers. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_swap_chain_a7825f454282109e0b47afe287de4ab1c}\index{SwapChain@{SwapChain}!m\_driverType@{m\_driverType}}
+\index{m\_driverType@{m\_driverType}!SwapChain@{SwapChain}}
+\doxysubsubsection{\texorpdfstring{m\_driverType}{m\_driverType}}
+{\footnotesize\ttfamily \label{class_swap_chain_a7825f454282109e0b47afe287de4ab1c} 
+D3\+D\+\_\+\+DRIVER\+\_\+\+TYPE Swap\+Chain\+::m\+\_\+driver\+Type = D3\+D\+\_\+\+DRIVER\+\_\+\+TYPE\+\_\+\+NULL}
+
+
+
+The driver type used for device creation. 
+
+(e.\+g., hardware, reference, or WARP). \Hypertarget{class_swap_chain_a31b575ec300f4915b7d16dbee7191bac}\index{SwapChain@{SwapChain}!m\_swapChain@{m\_swapChain}}
+\index{m\_swapChain@{m\_swapChain}!SwapChain@{SwapChain}}
+\doxysubsubsection{\texorpdfstring{m\_swapChain}{m\_swapChain}}
+{\footnotesize\ttfamily \label{class_swap_chain_a31b575ec300f4915b7d16dbee7191bac} 
+IDXGISwap\+Chain\texorpdfstring{$\ast$}{*} Swap\+Chain\+::m\+\_\+swap\+Chain = nullptr}
+
+
+
+The main IDXGISwap\+Chain interface. 
+
+Responsible for managing and presenting the frame buffers. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Swap\+Chain.\+h\end{DoxyCompactItemize}

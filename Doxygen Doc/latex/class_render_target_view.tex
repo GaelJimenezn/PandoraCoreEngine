@@ -1,0 +1,125 @@
+\doxysection{Render\+Target\+View Class Reference}
+\hypertarget{class_render_target_view}{}\label{class_render_target_view}\index{RenderTargetView@{RenderTargetView}}
+
+
+Manages a Direct3D 11 Render Target View (RTV).  
+
+
+
+
+{\ttfamily \#include $<$Render\+Target\+View.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+HRESULT \mbox{\hyperlink{class_render_target_view_a405299fbcbf695322b7d00454e89b61b}{init}} (\mbox{\hyperlink{class_device}{Device}} \&device, \mbox{\hyperlink{class_texture}{Texture}} \&back\+Buffer, DXGI\+\_\+\+FORMAT Format)
+\begin{DoxyCompactList}\small\item\em Initializes the RTV using the swap chain\textquotesingle{}s back buffer. \end{DoxyCompactList}\item 
+HRESULT \mbox{\hyperlink{class_render_target_view_a46488093490509a79e6b973b49975ac3}{init}} (\mbox{\hyperlink{class_device}{Device}} \&device, \mbox{\hyperlink{class_texture}{Texture}} \&in\+Tex, D3\+D11\+\_\+\+RTV\+\_\+\+DIMENSION View\+Dimension, DXGI\+\_\+\+FORMAT Format)
+\begin{DoxyCompactList}\small\item\em Initializes the RTV from a generic texture resource. \end{DoxyCompactList}\item 
+\Hypertarget{class_render_target_view_a66cfea699bdc7ac4b4c3560e036f3263}\label{class_render_target_view_a66cfea699bdc7ac4b4c3560e036f3263} 
+void {\bfseries update} ()
+\begin{DoxyCompactList}\small\item\em Placeholder for potential future update logic. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_render_target_view_ad9ac3fccde4a7428aa872359a73cd78b}{render}} (\mbox{\hyperlink{class_device_context}{Device\+Context}} \&device\+Context, \mbox{\hyperlink{class_depth_stencil_view}{Depth\+Stencil\+View}} \&depth\+Stencil\+View, unsigned int num\+Views, const float Clear\+Color\mbox{[}4\mbox{]})
+\begin{DoxyCompactList}\small\item\em Clears and binds the RTV and an associated DSV. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_render_target_view_a5e053b963c38f91d83e8db70bd1dab55}{render}} (\mbox{\hyperlink{class_device_context}{Device\+Context}} \&device\+Context, unsigned int num\+Views)
+\begin{DoxyCompactList}\small\item\em Binds the RTV without a DSV. \end{DoxyCompactList}\item 
+\Hypertarget{class_render_target_view_a0fe752cbf45bf52913494fc734aa2c69}\label{class_render_target_view_a0fe752cbf45bf52913494fc734aa2c69} 
+void {\bfseries destroy} ()
+\begin{DoxyCompactList}\small\item\em Releases the underlying ID3\+D11\+Render\+Target\+View resource. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages a Direct3D 11 Render Target View (RTV). 
+
+This class wraps an ID3\+D11\+Render\+Target\+View, which binds a resource (typically a texture) to the output-\/merger stage to serve as a rendering destination. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_render_target_view_a405299fbcbf695322b7d00454e89b61b}\index{RenderTargetView@{RenderTargetView}!init@{init}}
+\index{init@{init}!RenderTargetView@{RenderTargetView}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_render_target_view_a405299fbcbf695322b7d00454e89b61b} 
+HRESULT Render\+Target\+View\+::init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_device}{Device}} \&}]{device}{, }\item[{\mbox{\hyperlink{class_texture}{Texture}} \&}]{back\+Buffer}{, }\item[{DXGI\+\_\+\+FORMAT}]{Format}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the RTV using the swap chain\textquotesingle{}s back buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em device} & The device for resource creation. \\
+\hline
+{\em back\+Buffer} & The texture resource from the swap chain. \\
+\hline
+{\em Format} & The format of the RTV. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+HRESULT indicating success or failure. 
+\end{DoxyReturn}
+\Hypertarget{class_render_target_view_a46488093490509a79e6b973b49975ac3}\index{RenderTargetView@{RenderTargetView}!init@{init}}
+\index{init@{init}!RenderTargetView@{RenderTargetView}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_render_target_view_a46488093490509a79e6b973b49975ac3} 
+HRESULT Render\+Target\+View\+::init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_device}{Device}} \&}]{device}{, }\item[{\mbox{\hyperlink{class_texture}{Texture}} \&}]{in\+Tex}{, }\item[{D3\+D11\+\_\+\+RTV\+\_\+\+DIMENSION}]{View\+Dimension}{, }\item[{DXGI\+\_\+\+FORMAT}]{Format}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the RTV from a generic texture resource. 
+
+This is useful for off-\/screen rendering techniques like shadow mapping or deferred shading. 
+\begin{DoxyParams}{Parameters}
+{\em device} & The device for resource creation. \\
+\hline
+{\em in\+Tex} & The texture to be used as a render target. \\
+\hline
+{\em View\+Dimension} & The view dimension (e.\+g., TEXTURE2D). \\
+\hline
+{\em Format} & The format of the RTV. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+HRESULT indicating success or failure. 
+\end{DoxyReturn}
+\Hypertarget{class_render_target_view_ad9ac3fccde4a7428aa872359a73cd78b}\index{RenderTargetView@{RenderTargetView}!render@{render}}
+\index{render@{render}!RenderTargetView@{RenderTargetView}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_render_target_view_ad9ac3fccde4a7428aa872359a73cd78b} 
+void Render\+Target\+View\+::render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_device_context}{Device\+Context}} \&}]{device\+Context}{, }\item[{\mbox{\hyperlink{class_depth_stencil_view}{Depth\+Stencil\+View}} \&}]{depth\+Stencil\+View}{, }\item[{unsigned int}]{num\+Views}{, }\item[{const float}]{Clear\+Color}{\mbox{[}4\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Clears and binds the RTV and an associated DSV. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em device\+Context} & The device context for rendering commands. \\
+\hline
+{\em depth\+Stencil\+View} & The depth stencil view to bind. \\
+\hline
+{\em num\+Views} & The number of RTVs to bind. \\
+\hline
+{\em Clear\+Color} & The color to clear the RTV with. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_render_target_view_a5e053b963c38f91d83e8db70bd1dab55}\index{RenderTargetView@{RenderTargetView}!render@{render}}
+\index{render@{render}!RenderTargetView@{RenderTargetView}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_render_target_view_a5e053b963c38f91d83e8db70bd1dab55} 
+void Render\+Target\+View\+::render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_device_context}{Device\+Context}} \&}]{device\+Context}{, }\item[{unsigned int}]{num\+Views}{}\end{DoxyParamCaption})}
+
+
+
+Binds the RTV without a DSV. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em device\+Context} & The device context for rendering commands. \\
+\hline
+{\em num\+Views} & The number of RTVs to bind. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Render\+Target\+View.\+h\end{DoxyCompactItemize}

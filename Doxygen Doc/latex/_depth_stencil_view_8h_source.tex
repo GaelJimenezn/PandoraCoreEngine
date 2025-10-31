@@ -1,0 +1,33 @@
+\doxysection{Depth\+Stencil\+View.\+h}
+\hypertarget{_depth_stencil_view_8h_source}{}\label{_depth_stencil_view_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_prerequisites_8h}{Prerequisites.h}}"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }}
+\DoxyCodeLine{00005\ \mbox{\hyperlink{class_device}{Device}};}
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }}
+\DoxyCodeLine{00007\ \mbox{\hyperlink{class_device_context}{DeviceContext}};}
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }}
+\DoxyCodeLine{00009\ \mbox{\hyperlink{class_texture}{Texture}};}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class}}
+\DoxyCodeLine{00019\ DepthStencilView\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ DepthStencilView()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00022\ \ \ \string~DepthStencilView()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00033\ \ \ HRESULT}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{class_depth_stencil_view_a577271a39193da2f3e8a9df52c167670}{init}}(\mbox{\hyperlink{class_device}{Device}}\&\ device,\ \mbox{\hyperlink{class_texture}{Texture}}\&\ depthStencil,\ DXGI\_FORMAT\ format);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00042\ \ \ \mbox{\hyperlink{class_depth_stencil_view_a87d09cc62b11bd3cdf92b3e51b7128df}{render}}(\mbox{\hyperlink{class_device_context}{DeviceContext}}\&\ deviceContext);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{class_depth_stencil_view_a09eeac13e34e94a5aeda476d4624ce55}{destroy}}();}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00056\ \ \ ID3D11DepthStencilView*\ \mbox{\hyperlink{class_depth_stencil_view_a97a6836b3e61ca8cfa252bf5bffc7ffb}{m\_depthStencilView}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00057\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,108 @@
+\doxysection{Device\+Context Class Reference}
+\hypertarget{class_device_context}{}\label{class_device_context}\index{DeviceContext@{DeviceContext}}
+
+
+Wraps the Direct3D 11 device context for command submission.  
+
+
+
+
+{\ttfamily \#include $<$Device\+Context.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_device_context_a9bbeaf8534205198a8e2c36568a6f81f}\label{class_device_context_a9bbeaf8534205198a8e2c36568a6f81f} 
+void {\bfseries init} ()
+\begin{DoxyCompactList}\small\item\em Placeholder for context initialization logic. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_a6d08e8ddde4580145c5556b2b375e2f0}\label{class_device_context_a6d08e8ddde4580145c5556b2b375e2f0} 
+void {\bfseries update} ()
+\begin{DoxyCompactList}\small\item\em Placeholder for per-\/frame context update logic. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_af51569641f4df1f98e78d4e5bb71577b}\label{class_device_context_af51569641f4df1f98e78d4e5bb71577b} 
+void {\bfseries render} ()
+\begin{DoxyCompactList}\small\item\em Placeholder for context-\/specific rendering logic. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_a37a4ea5842700e9c6addac6adca96df2}\label{class_device_context_a37a4ea5842700e9c6addac6adca96df2} 
+void {\bfseries destroy} ()
+\begin{DoxyCompactList}\small\item\em Releases the underlying ID3\+D11\+Device\+Context. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_a2279d70fa97e6d0d79aecd0a2f293676}\label{class_device_context_a2279d70fa97e6d0d79aecd0a2f293676} 
+void {\bfseries rs\+Set\+Viewports} (unsigned int num\+Viewports, const D3\+D11\+\_\+\+VIEWPORT \texorpdfstring{$\ast$}{*}p\+Viewports)
+\begin{DoxyCompactList}\small\item\em Binds an array of viewports to the rasterizer stage. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_a4267d4839b371820d3d3830ff4d242fd}\label{class_device_context_a4267d4839b371820d3d3830ff4d242fd} 
+void {\bfseries ps\+Set\+Shader\+Resources} (unsigned int start\+Slot, unsigned int num\+Views, ID3\+D11\+Shader\+Resource\+View \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}pp\+Shader\+Resource\+Views)
+\begin{DoxyCompactList}\small\item\em Binds shader resource views to the pixel shader stage. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_aaca2ee8ca33ac393c3c1025321270247}\label{class_device_context_aaca2ee8ca33ac393c3c1025321270247} 
+void {\bfseries ia\+Set\+Input\+Layout} (ID3\+D11\+Input\+Layout \texorpdfstring{$\ast$}{*}p\+Input\+Layout)
+\begin{DoxyCompactList}\small\item\em Binds an input-\/layout object to the input-\/assembler stage. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_ac94518a5a91e08d35197681106fb6eba}\label{class_device_context_ac94518a5a91e08d35197681106fb6eba} 
+void {\bfseries vs\+Set\+Shader} (ID3\+D11\+Vertex\+Shader \texorpdfstring{$\ast$}{*}p\+Vertex\+Shader, ID3\+D11\+Class\+Instance \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}pp\+Class\+Instances, unsigned int num\+Class\+Instances)
+\begin{DoxyCompactList}\small\item\em Binds a vertex shader to the vertex shader stage. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_ad295fb0c9e0f447f864ee9ab6b09b53f}\label{class_device_context_ad295fb0c9e0f447f864ee9ab6b09b53f} 
+void {\bfseries ps\+Set\+Shader} (ID3\+D11\+Pixel\+Shader \texorpdfstring{$\ast$}{*}p\+Pixel\+Shader, ID3\+D11\+Class\+Instance \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}pp\+Class\+Instances, unsigned int num\+Class\+Instances)
+\begin{DoxyCompactList}\small\item\em Binds a pixel shader to the pixel shader stage. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_ac128d9aa6414e5a544fca74560ab0b63}\label{class_device_context_ac128d9aa6414e5a544fca74560ab0b63} 
+void {\bfseries update\+Subresource} (ID3\+D11\+Resource \texorpdfstring{$\ast$}{*}p\+Dst\+Resource, unsigned int dst\+Subresource, const D3\+D11\+\_\+\+BOX \texorpdfstring{$\ast$}{*}p\+Dst\+Box, const void \texorpdfstring{$\ast$}{*}p\+Src\+Data, unsigned int src\+Row\+Pitch, unsigned int src\+Depth\+Pitch)
+\begin{DoxyCompactList}\small\item\em Updates the data in a subresource (e.\+g., a constant buffer). \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_a681f867bf1b41464febd87ab0d31c363}\label{class_device_context_a681f867bf1b41464febd87ab0d31c363} 
+void {\bfseries ia\+Set\+Vertex\+Buffers} (unsigned int start\+Slot, unsigned int num\+Buffers, ID3\+D11\+Buffer \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}pp\+Vertex\+Buffers, const unsigned int \texorpdfstring{$\ast$}{*}p\+Strides, const unsigned int \texorpdfstring{$\ast$}{*}p\+Offsets)
+\begin{DoxyCompactList}\small\item\em Binds an array of vertex buffers to the input-\/assembler stage. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_a60afcda41cfab4c31d46303ed2bb2995}\label{class_device_context_a60afcda41cfab4c31d46303ed2bb2995} 
+void {\bfseries ia\+Set\+Index\+Buffer} (ID3\+D11\+Buffer \texorpdfstring{$\ast$}{*}p\+Index\+Buffer, DXGI\+\_\+\+FORMAT format, unsigned int offset)
+\begin{DoxyCompactList}\small\item\em Binds an index buffer to the input-\/assembler stage. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_a219fc19bd74575d753b1a53556715821}\label{class_device_context_a219fc19bd74575d753b1a53556715821} 
+void {\bfseries ps\+Set\+Samplers} (unsigned int start\+Slot, unsigned int num\+Samplers, ID3\+D11\+Sampler\+State \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}pp\+Samplers)
+\begin{DoxyCompactList}\small\item\em Binds an array of sampler states to the pixel shader stage. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_af4b2ddc576d96fd8067a5b22373e6c8c}\label{class_device_context_af4b2ddc576d96fd8067a5b22373e6c8c} 
+void {\bfseries rs\+Set\+State} (ID3\+D11\+Rasterizer\+State \texorpdfstring{$\ast$}{*}p\+Rasterizer\+State)
+\begin{DoxyCompactList}\small\item\em Sets the rasterizer state for the rasterizer stage. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_ac176fc5958953f8e1436067218fba732}\label{class_device_context_ac176fc5958953f8e1436067218fba732} 
+void {\bfseries om\+Set\+Blend\+State} (ID3\+D11\+Blend\+State \texorpdfstring{$\ast$}{*}p\+Blend\+State, const float blend\+Factor\mbox{[}4\mbox{]}, unsigned int sample\+Mask)
+\begin{DoxyCompactList}\small\item\em Sets the blend state for the output-\/merger stage. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_a015a17c26c42c10236fc14ee02670c04}\label{class_device_context_a015a17c26c42c10236fc14ee02670c04} 
+void {\bfseries om\+Set\+Render\+Targets} (unsigned int num\+Views, ID3\+D11\+Render\+Target\+View \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}pp\+Render\+Target\+Views, ID3\+D11\+Depth\+Stencil\+View \texorpdfstring{$\ast$}{*}p\+Depth\+Stencil\+View)
+\begin{DoxyCompactList}\small\item\em Binds render targets and a depth-\/stencil view to the OM stage. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_a357ab352d832dba8a7d1e5b7a67264d2}\label{class_device_context_a357ab352d832dba8a7d1e5b7a67264d2} 
+void {\bfseries ia\+Set\+Primitive\+Topology} (D3\+D11\+\_\+\+PRIMITIVE\+\_\+\+TOPOLOGY topology)
+\begin{DoxyCompactList}\small\item\em Binds the primitive topology to the input-\/assembler stage. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_a03f0cacfb1f6ce9bff789ee22ca6b83b}\label{class_device_context_a03f0cacfb1f6ce9bff789ee22ca6b83b} 
+void {\bfseries clear\+Render\+Target\+View} (ID3\+D11\+Render\+Target\+View \texorpdfstring{$\ast$}{*}p\+Render\+Target\+View, const float color\+RGBA\mbox{[}4\mbox{]})
+\begin{DoxyCompactList}\small\item\em Clears a render-\/target view to a specified color. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_a0217f668bfe5b506e9378e03f3935072}\label{class_device_context_a0217f668bfe5b506e9378e03f3935072} 
+void {\bfseries clear\+Depth\+Stencil\+View} (ID3\+D11\+Depth\+Stencil\+View \texorpdfstring{$\ast$}{*}p\+Depth\+Stencil\+View, unsigned int clear\+Flags, float depth, UINT8 stencil)
+\begin{DoxyCompactList}\small\item\em Clears a depth-\/stencil view. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_abdaf3c356b2b349b421c7b93adf5cf54}\label{class_device_context_abdaf3c356b2b349b421c7b93adf5cf54} 
+void {\bfseries vs\+Set\+Constant\+Buffers} (unsigned int start\+Slot, unsigned int num\+Buffers, ID3\+D11\+Buffer \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}pp\+Constant\+Buffers)
+\begin{DoxyCompactList}\small\item\em Binds constant buffers to the vertex shader stage. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_abf40f2c4bf69c97691f78dd0fa7c6e86}\label{class_device_context_abf40f2c4bf69c97691f78dd0fa7c6e86} 
+void {\bfseries ps\+Set\+Constant\+Buffers} (unsigned int start\+Slot, unsigned int num\+Buffers, ID3\+D11\+Buffer \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}pp\+Constant\+Buffers)
+\begin{DoxyCompactList}\small\item\em Binds constant buffers to the pixel shader stage. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_context_ae8b30389af827ebd8205d64bb7f154d4}\label{class_device_context_ae8b30389af827ebd8205d64bb7f154d4} 
+void {\bfseries draw\+Indexed} (unsigned int index\+Count, unsigned int start\+Index\+Location, int base\+Vertex\+Location)
+\begin{DoxyCompactList}\small\item\em Submits an indexed-\/primitive draw call. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+ID3\+D11\+Device\+Context \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_device_context_a74703e6c18ffefeb45937677ce734cb7}{m\+\_\+device\+Context}} = nullptr
+\begin{DoxyCompactList}\small\item\em Pointer to the immediate context of Direct3D 11. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Wraps the Direct3D 11 device context for command submission. 
+
+This class encapsulates the ID3\+D11\+Device\+Context, which is responsible for generating rendering commands, binding resources to the graphics pipeline, and executing draw calls. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_device_context_a74703e6c18ffefeb45937677ce734cb7}\index{DeviceContext@{DeviceContext}!m\_deviceContext@{m\_deviceContext}}
+\index{m\_deviceContext@{m\_deviceContext}!DeviceContext@{DeviceContext}}
+\doxysubsubsection{\texorpdfstring{m\_deviceContext}{m\_deviceContext}}
+{\footnotesize\ttfamily \label{class_device_context_a74703e6c18ffefeb45937677ce734cb7} 
+ID3\+D11\+Device\+Context\texorpdfstring{$\ast$}{*} Device\+Context\+::m\+\_\+device\+Context = nullptr}
+
+
+
+Pointer to the immediate context of Direct3D 11. 
+
+This interface is used to issue all rendering commands. It is acquired during initialization and released upon destruction. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Device\+Context.\+h\end{DoxyCompactItemize}

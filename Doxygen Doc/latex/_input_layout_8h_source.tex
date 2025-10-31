@@ -1,0 +1,37 @@
+\doxysection{Input\+Layout.\+h}
+\hypertarget{_input_layout_8h_source}{}\label{_input_layout_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_prerequisites_8h}{Prerequisites.h}}"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_device}{Device}};}
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_device_context}{DeviceContext}};}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class}}
+\DoxyCodeLine{00014\ \mbox{\hyperlink{class_input_layout_af5294c6ab534b1e388897c146f6c9b44}{InputLayout}}\ \{}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \mbox{\hyperlink{class_input_layout_af5294c6ab534b1e388897c146f6c9b44}{InputLayout}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00025\ \ \ \mbox{\hyperlink{class_input_layout_aa1e7138ae46d3fc9407a33c6a4d4a010}{\string~InputLayout}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00035\ \ \ HRESULT}
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{class_input_layout_a879ca5c32a4f5332de151b5faf0acf37}{init}}(\mbox{\hyperlink{class_device}{Device}}\&\ device,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ std::vector<D3D11\_INPUT\_ELEMENT\_DESC>\&\ layout,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ ID3DBlob*\ VertexShaderData);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{class_input_layout_ab88140b2eea4e96e9b5099f8ca15c29f}{update}}();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00051\ \ \ \mbox{\hyperlink{class_input_layout_ae5bb86e9c73d6b92bdfc22029c378314}{render}}(\mbox{\hyperlink{class_device_context}{DeviceContext}}\&\ deviceContext);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00057\ \ \ \mbox{\hyperlink{class_input_layout_a1f5cebfa79d4fb6675263fbefeb7e16a}{destroy}}();}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00064\ \ \ ID3D11InputLayout*\ \mbox{\hyperlink{class_input_layout_aa8319b0fe96ae2be02a9658ee8e1afcd}{m\_inputLayout}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \};}
+
+\end{DoxyCode}

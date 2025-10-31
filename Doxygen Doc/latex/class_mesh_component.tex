@@ -1,0 +1,91 @@
+\doxysection{Mesh\+Component Class Reference}
+\hypertarget{class_mesh_component}{}\label{class_mesh_component}\index{MeshComponent@{MeshComponent}}
+
+
+Holds vertex and index data defining a 3D mesh.  
+
+
+
+
+{\ttfamily \#include $<$Mesh\+Component.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_mesh_component_a6f23f9f4c0fb23ee33a3798708c9a741}\label{class_mesh_component_a6f23f9f4c0fb23ee33a3798708c9a741} 
+{\bfseries Mesh\+Component} ()
+\begin{DoxyCompactList}\small\item\em Constructor, initializes vertex and index counts to zero. \end{DoxyCompactList}\item 
+\Hypertarget{class_mesh_component_ae67721293067058ea82d84386b97dd88}\label{class_mesh_component_ae67721293067058ea82d84386b97dd88} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Mesh\+Component} ()=default
+\begin{DoxyCompactList}\small\item\em Default virtual destructor. \end{DoxyCompactList}\item 
+\Hypertarget{class_mesh_component_af70f734c1f7cb69688889a3c8ab1f428}\label{class_mesh_component_af70f734c1f7cb69688889a3c8ab1f428} 
+void {\bfseries init} ()
+\begin{DoxyCompactList}\small\item\em Placeholder for mesh-\/specific initialization (e.\+g., loading from file). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mesh_component_a1a727778a30f7c00f1d82caaecc5fdbd}{update}} (float delta\+Time)
+\begin{DoxyCompactList}\small\item\em Placeholder for mesh-\/specific per-\/frame updates (e.\+g., animation). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mesh_component_a36fc62d4168b22b354c5132fa1bb9b57}{render}} (\mbox{\hyperlink{class_device_context}{Device\+Context}} \&device\+Context)
+\begin{DoxyCompactList}\small\item\em Placeholder for mesh-\/specific rendering commands (often handled by a Renderer). \end{DoxyCompactList}\item 
+\Hypertarget{class_mesh_component_abf479cd528abbc43d4d17b0d7beeec7b}\label{class_mesh_component_abf479cd528abbc43d4d17b0d7beeec7b} 
+void {\bfseries destroy} ()
+\begin{DoxyCompactList}\small\item\em Placeholder for mesh resource cleanup. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_mesh_component_aca93105715e4c0db20da9bef44f9419e}\label{class_mesh_component_aca93105715e4c0db20da9bef44f9419e} 
+std\+::string {\bfseries m\+\_\+name}
+\begin{DoxyCompactList}\small\item\em Optional name for identifying the mesh. \end{DoxyCompactList}\item 
+\Hypertarget{class_mesh_component_a574672bf5e30970697951be110a74426}\label{class_mesh_component_a574672bf5e30970697951be110a74426} 
+std\+::vector$<$ \mbox{\hyperlink{struct_simple_vertex}{Simple\+Vertex}} $>$ {\bfseries m\+\_\+vertex}
+\begin{DoxyCompactList}\small\item\em Vector containing the vertex data (position, texcoord, etc.). \end{DoxyCompactList}\item 
+\Hypertarget{class_mesh_component_a3a6c10b4fdcd60870e052d1b62c72683}\label{class_mesh_component_a3a6c10b4fdcd60870e052d1b62c72683} 
+std\+::vector$<$ unsigned int $>$ {\bfseries m\+\_\+index}
+\begin{DoxyCompactList}\small\item\em Vector containing the indices that define the mesh primitives (e.\+g., triangles). \end{DoxyCompactList}\item 
+\Hypertarget{class_mesh_component_a1c9a3212ca4c3ebd52c536d8e874ea14}\label{class_mesh_component_a1c9a3212ca4c3ebd52c536d8e874ea14} 
+int {\bfseries m\+\_\+num\+Vertex}
+\begin{DoxyCompactList}\small\item\em The total number of vertices in the mesh. \end{DoxyCompactList}\item 
+\Hypertarget{class_mesh_component_aa049bdc296f10d4700dceb2659c47051}\label{class_mesh_component_aa049bdc296f10d4700dceb2659c47051} 
+int {\bfseries m\+\_\+num\+Index}
+\begin{DoxyCompactList}\small\item\em The total number of indices in the mesh. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Holds vertex and index data defining a 3D mesh. 
+
+Stores geometry information, including vertex positions, texture coordinates, and the index list defining triangles or other primitives. Intended to be part of a component-\/based system. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_mesh_component_a36fc62d4168b22b354c5132fa1bb9b57}\index{MeshComponent@{MeshComponent}!render@{render}}
+\index{render@{render}!MeshComponent@{MeshComponent}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily \label{class_mesh_component_a36fc62d4168b22b354c5132fa1bb9b57} 
+void Mesh\+Component\+::render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_device_context}{Device\+Context}} \&}]{device\+Context}{}\end{DoxyParamCaption})}
+
+
+
+Placeholder for mesh-\/specific rendering commands (often handled by a Renderer). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em device\+Context} & The device context. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_mesh_component_a1a727778a30f7c00f1d82caaecc5fdbd}\index{MeshComponent@{MeshComponent}!update@{update}}
+\index{update@{update}!MeshComponent@{MeshComponent}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{class_mesh_component_a1a727778a30f7c00f1d82caaecc5fdbd} 
+void Mesh\+Component\+::update (\begin{DoxyParamCaption}\item[{float}]{delta\+Time}{}\end{DoxyParamCaption})}
+
+
+
+Placeholder for mesh-\/specific per-\/frame updates (e.\+g., animation). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+Time} & Time elapsed since the last frame. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Mesh\+Component.\+h\end{DoxyCompactItemize}

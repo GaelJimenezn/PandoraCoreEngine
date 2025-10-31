@@ -1,0 +1,49 @@
+\doxysection{Render\+Target\+View.\+h}
+\hypertarget{_render_target_view_8h_source}{}\label{_render_target_view_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_prerequisites_8h}{Prerequisites.h}}"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }}
+\DoxyCodeLine{00005\ \mbox{\hyperlink{class_device}{Device}};}
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }}
+\DoxyCodeLine{00007\ \mbox{\hyperlink{class_device_context}{DeviceContext}};}
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }}
+\DoxyCodeLine{00009\ \mbox{\hyperlink{class_texture}{Texture}};}
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }}
+\DoxyCodeLine{00011\ \mbox{\hyperlink{class_depth_stencil_view}{DepthStencilView}};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class}}
+\DoxyCodeLine{00021\ RenderTargetView\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ RenderTargetView()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00024\ \ \ \string~RenderTargetView()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00033\ \ \ HRESULT}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{class_render_target_view_a405299fbcbf695322b7d00454e89b61b}{init}}(\mbox{\hyperlink{class_device}{Device}}\&\ device,\ \mbox{\hyperlink{class_texture}{Texture}}\&\ backBuffer,\ DXGI\_FORMAT\ Format);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00046\ \ \ HRESULT}
+\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{class_render_target_view_a46488093490509a79e6b973b49975ac3}{init}}(\mbox{\hyperlink{class_device}{Device}}\&\ device,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}\&\ inTex,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ D3D11\_RTV\_DIMENSION\ ViewDimension,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ DXGI\_FORMAT\ Format);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00056\ \ \ \mbox{\hyperlink{class_render_target_view_a66cfea699bdc7ac4b4c3560e036f3263}{update}}();}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00066\ \ \ \mbox{\hyperlink{class_render_target_view_ad9ac3fccde4a7428aa872359a73cd78b}{render}}(\mbox{\hyperlink{class_device_context}{DeviceContext}}\&\ deviceContext,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_depth_stencil_view}{DepthStencilView}}\&\ depthStencilView,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numViews,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ ClearColor[4]);}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{class_render_target_view_a5e053b963c38f91d83e8db70bd1dab55}{render}}(\mbox{\hyperlink{class_device_context}{DeviceContext}}\&\ deviceContext,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numViews);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00083\ \ \ \mbox{\hyperlink{class_render_target_view_a0fe752cbf45bf52913494fc734aa2c69}{destroy}}();}
+\DoxyCodeLine{00084\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00090\ \ \ ID3D11RenderTargetView*\ m\_renderTargetView\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00091\ \};}
+
+\end{DoxyCode}

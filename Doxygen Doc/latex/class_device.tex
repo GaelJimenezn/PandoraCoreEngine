@@ -1,0 +1,255 @@
+\doxysection{Device Class Reference}
+\hypertarget{class_device}{}\label{class_device}\index{Device@{Device}}
+
+
+Encapsulates the Direct3D 11 device for resource creation.  
+
+
+
+
+{\ttfamily \#include $<$Device.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_device_aa563dc9fbfc6f57be78d9e8ba612a388}\label{class_device_aa563dc9fbfc6f57be78d9e8ba612a388} 
+void {\bfseries init} ()
+\begin{DoxyCompactList}\small\item\em Placeholder for device initialization logic. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_a7f2a40eff6a12475ce499a6a064859d5}\label{class_device_a7f2a40eff6a12475ce499a6a064859d5} 
+void {\bfseries update} ()
+\begin{DoxyCompactList}\small\item\em Placeholder for per-\/frame device update logic. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_a14d9d7d5067d713870315cc95c884311}\label{class_device_a14d9d7d5067d713870315cc95c884311} 
+void {\bfseries render} ()
+\begin{DoxyCompactList}\small\item\em Placeholder for device-\/specific rendering logic. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_af77aedabe775340d3ef3b77fd35d81ca}\label{class_device_af77aedabe775340d3ef3b77fd35d81ca} 
+void {\bfseries destroy} ()
+\begin{DoxyCompactList}\small\item\em Releases the underlying ID3\+D11\+Device. \end{DoxyCompactList}\item 
+HRESULT \mbox{\hyperlink{class_device_a99f20ad5efa228161d1154625ae6d6e7}{create\+Render\+Target\+View}} (ID3\+D11\+Resource \texorpdfstring{$\ast$}{*}p\+Resource, const D3\+D11\+\_\+\+RENDER\+\_\+\+TARGET\+\_\+\+VIEW\+\_\+\+DESC \texorpdfstring{$\ast$}{*}p\+Desc, ID3\+D11\+Render\+Target\+View \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pp\+RTView)
+\begin{DoxyCompactList}\small\item\em Creates a render target view. \end{DoxyCompactList}\item 
+HRESULT \mbox{\hyperlink{class_device_a2404a8a63146b42e312c816b1fb32047}{create\+Texture2D}} (const D3\+D11\+\_\+\+TEXTURE2\+D\+\_\+\+DESC \texorpdfstring{$\ast$}{*}p\+Desc, const D3\+D11\+\_\+\+SUBRESOURCE\+\_\+\+DATA \texorpdfstring{$\ast$}{*}p\+Initial\+Data, ID3\+D11\+Texture2D \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pp\+Texture2D)
+\begin{DoxyCompactList}\small\item\em Creates a 2D texture resource. \end{DoxyCompactList}\item 
+HRESULT \mbox{\hyperlink{class_device_a72fec3eb1045c68b51aec616521096bd}{create\+Depth\+Stencil\+View}} (ID3\+D11\+Resource \texorpdfstring{$\ast$}{*}p\+Resource, const D3\+D11\+\_\+\+DEPTH\+\_\+\+STENCIL\+\_\+\+VIEW\+\_\+\+DESC \texorpdfstring{$\ast$}{*}p\+Desc, ID3\+D11\+Depth\+Stencil\+View \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pp\+Depth\+Stencil\+View)
+\begin{DoxyCompactList}\small\item\em Creates a depth stencil view. \end{DoxyCompactList}\item 
+HRESULT \mbox{\hyperlink{class_device_a7b116d3a9ce1493cdac48f5087aed4c1}{create\+Vertex\+Shader}} (const void \texorpdfstring{$\ast$}{*}p\+Shader\+Bytecode, unsigned int bytecode\+Length, ID3\+D11\+Class\+Linkage \texorpdfstring{$\ast$}{*}p\+Class\+Linkage, ID3\+D11\+Vertex\+Shader \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pp\+Vertex\+Shader)
+\begin{DoxyCompactList}\small\item\em Creates a vertex shader from compiled bytecode. \end{DoxyCompactList}\item 
+HRESULT \mbox{\hyperlink{class_device_a335ed22e70ea950b33928b3b26b51eb5}{create\+Input\+Layout}} (const D3\+D11\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC \texorpdfstring{$\ast$}{*}p\+Input\+Element\+Descs, unsigned int num\+Elements, const void \texorpdfstring{$\ast$}{*}p\+Shader\+Bytecode\+With\+Input\+Signature, unsigned int bytecode\+Length, ID3\+D11\+Input\+Layout \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pp\+Input\+Layout)
+\begin{DoxyCompactList}\small\item\em Creates an input layout for the input-\/assembler stage. \end{DoxyCompactList}\item 
+HRESULT \mbox{\hyperlink{class_device_a7c8bb4a74e3e8ccd9791fbc7056df76c}{create\+Pixel\+Shader}} (const void \texorpdfstring{$\ast$}{*}p\+Shader\+Bytecode, unsigned int bytecode\+Length, ID3\+D11\+Class\+Linkage \texorpdfstring{$\ast$}{*}p\+Class\+Linkage, ID3\+D11\+Pixel\+Shader \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pp\+Pixel\+Shader)
+\begin{DoxyCompactList}\small\item\em Creates a pixel shader from compiled bytecode. \end{DoxyCompactList}\item 
+HRESULT \mbox{\hyperlink{class_device_ad79e3666e60abece42a4c64ce1ffbab5}{create\+Buffer}} (const D3\+D11\+\_\+\+BUFFER\+\_\+\+DESC \texorpdfstring{$\ast$}{*}p\+Desc, const D3\+D11\+\_\+\+SUBRESOURCE\+\_\+\+DATA \texorpdfstring{$\ast$}{*}p\+Initial\+Data, ID3\+D11\+Buffer \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pp\+Buffer)
+\begin{DoxyCompactList}\small\item\em Creates a buffer resource (vertex, index, constant, etc.). \end{DoxyCompactList}\item 
+HRESULT \mbox{\hyperlink{class_device_a9ae0e14129055352f2aef7370f24c551}{create\+Sampler\+State}} (const D3\+D11\+\_\+\+SAMPLER\+\_\+\+DESC \texorpdfstring{$\ast$}{*}p\+Sampler\+Desc, ID3\+D11\+Sampler\+State \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pp\+Sampler\+State)
+\begin{DoxyCompactList}\small\item\em Creates a sampler state for texture sampling. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+ID3\+D11\+Device \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_device_a9281ad1a4d437348a6119d8ad75f8505}{m\+\_\+device}} = nullptr
+\begin{DoxyCompactList}\small\item\em Pointer to the core Direct3D 11 device interface. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Encapsulates the Direct3D 11 device for resource creation. 
+
+This class acts as a factory for all D3\+D11 resources, such as textures, buffers, and shaders. It wraps the ID3\+D11\+Device interface. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_device_ad79e3666e60abece42a4c64ce1ffbab5}\index{Device@{Device}!createBuffer@{createBuffer}}
+\index{createBuffer@{createBuffer}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{createBuffer()}{createBuffer()}}
+{\footnotesize\ttfamily \label{class_device_ad79e3666e60abece42a4c64ce1ffbab5} 
+HRESULT Device\+::create\+Buffer (\begin{DoxyParamCaption}\item[{const D3\+D11\+\_\+\+BUFFER\+\_\+\+DESC \texorpdfstring{$\ast$}{*}}]{p\+Desc}{, }\item[{const D3\+D11\+\_\+\+SUBRESOURCE\+\_\+\+DATA \texorpdfstring{$\ast$}{*}}]{p\+Initial\+Data}{, }\item[{ID3\+D11\+Buffer \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pp\+Buffer}{}\end{DoxyParamCaption})}
+
+
+
+Creates a buffer resource (vertex, index, constant, etc.). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Desc} & The descriptor for the buffer. \\
+\hline
+{\em p\+Initial\+Data} & Optional data to initialize the buffer with. \\
+\hline
+{\em pp\+Buffer} & \mbox{[}out\mbox{]} The created buffer object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+HRESULT indicating success or failure. 
+\end{DoxyReturn}
+\Hypertarget{class_device_a72fec3eb1045c68b51aec616521096bd}\index{Device@{Device}!createDepthStencilView@{createDepthStencilView}}
+\index{createDepthStencilView@{createDepthStencilView}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{createDepthStencilView()}{createDepthStencilView()}}
+{\footnotesize\ttfamily \label{class_device_a72fec3eb1045c68b51aec616521096bd} 
+HRESULT Device\+::create\+Depth\+Stencil\+View (\begin{DoxyParamCaption}\item[{ID3\+D11\+Resource \texorpdfstring{$\ast$}{*}}]{p\+Resource}{, }\item[{const D3\+D11\+\_\+\+DEPTH\+\_\+\+STENCIL\+\_\+\+VIEW\+\_\+\+DESC \texorpdfstring{$\ast$}{*}}]{p\+Desc}{, }\item[{ID3\+D11\+Depth\+Stencil\+View \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pp\+Depth\+Stencil\+View}{}\end{DoxyParamCaption})}
+
+
+
+Creates a depth stencil view. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Resource} & The resource to be used as a depth-\/stencil buffer. \\
+\hline
+{\em p\+Desc} & An optional descriptor for the depth stencil view. \\
+\hline
+{\em pp\+Depth\+Stencil\+View} & \mbox{[}out\mbox{]} The created depth stencil view. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+HRESULT indicating success or failure. 
+\end{DoxyReturn}
+\Hypertarget{class_device_a335ed22e70ea950b33928b3b26b51eb5}\index{Device@{Device}!createInputLayout@{createInputLayout}}
+\index{createInputLayout@{createInputLayout}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{createInputLayout()}{createInputLayout()}}
+{\footnotesize\ttfamily \label{class_device_a335ed22e70ea950b33928b3b26b51eb5} 
+HRESULT Device\+::create\+Input\+Layout (\begin{DoxyParamCaption}\item[{const D3\+D11\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC \texorpdfstring{$\ast$}{*}}]{p\+Input\+Element\+Descs}{, }\item[{unsigned int}]{num\+Elements}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{p\+Shader\+Bytecode\+With\+Input\+Signature}{, }\item[{unsigned int}]{bytecode\+Length}{, }\item[{ID3\+D11\+Input\+Layout \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pp\+Input\+Layout}{}\end{DoxyParamCaption})}
+
+
+
+Creates an input layout for the input-\/assembler stage. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Input\+Element\+Descs} & An array of input element descriptions. \\
+\hline
+{\em num\+Elements} & The number of elements in the array. \\
+\hline
+{\em p\+Shader\+Bytecode\+With\+Input\+Signature} & Pointer to the compiled shader with an input signature. \\
+\hline
+{\em bytecode\+Length} & The size of the compiled shader in bytes. \\
+\hline
+{\em pp\+Input\+Layout} & \mbox{[}out\mbox{]} The created input layout object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+HRESULT indicating success or failure. 
+\end{DoxyReturn}
+\Hypertarget{class_device_a7c8bb4a74e3e8ccd9791fbc7056df76c}\index{Device@{Device}!createPixelShader@{createPixelShader}}
+\index{createPixelShader@{createPixelShader}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{createPixelShader()}{createPixelShader()}}
+{\footnotesize\ttfamily \label{class_device_a7c8bb4a74e3e8ccd9791fbc7056df76c} 
+HRESULT Device\+::create\+Pixel\+Shader (\begin{DoxyParamCaption}\item[{const void \texorpdfstring{$\ast$}{*}}]{p\+Shader\+Bytecode}{, }\item[{unsigned int}]{bytecode\+Length}{, }\item[{ID3\+D11\+Class\+Linkage \texorpdfstring{$\ast$}{*}}]{p\+Class\+Linkage}{, }\item[{ID3\+D11\+Pixel\+Shader \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pp\+Pixel\+Shader}{}\end{DoxyParamCaption})}
+
+
+
+Creates a pixel shader from compiled bytecode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Shader\+Bytecode} & A pointer to the compiled shader. \\
+\hline
+{\em bytecode\+Length} & The size of the compiled shader in bytes. \\
+\hline
+{\em p\+Class\+Linkage} & A pointer to a class linkage interface. \\
+\hline
+{\em pp\+Pixel\+Shader} & \mbox{[}out\mbox{]} The created pixel shader object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+HRESULT indicating success or failure. 
+\end{DoxyReturn}
+\Hypertarget{class_device_a99f20ad5efa228161d1154625ae6d6e7}\index{Device@{Device}!createRenderTargetView@{createRenderTargetView}}
+\index{createRenderTargetView@{createRenderTargetView}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{createRenderTargetView()}{createRenderTargetView()}}
+{\footnotesize\ttfamily \label{class_device_a99f20ad5efa228161d1154625ae6d6e7} 
+HRESULT Device\+::create\+Render\+Target\+View (\begin{DoxyParamCaption}\item[{ID3\+D11\+Resource \texorpdfstring{$\ast$}{*}}]{p\+Resource}{, }\item[{const D3\+D11\+\_\+\+RENDER\+\_\+\+TARGET\+\_\+\+VIEW\+\_\+\+DESC \texorpdfstring{$\ast$}{*}}]{p\+Desc}{, }\item[{ID3\+D11\+Render\+Target\+View \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pp\+RTView}{}\end{DoxyParamCaption})}
+
+
+
+Creates a render target view. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Resource} & The resource to be used as a render target. \\
+\hline
+{\em p\+Desc} & An optional descriptor for the render target view. \\
+\hline
+{\em pp\+RTView} & \mbox{[}out\mbox{]} The created render target view object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+HRESULT indicating success or failure. 
+\end{DoxyReturn}
+\Hypertarget{class_device_a9ae0e14129055352f2aef7370f24c551}\index{Device@{Device}!createSamplerState@{createSamplerState}}
+\index{createSamplerState@{createSamplerState}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{createSamplerState()}{createSamplerState()}}
+{\footnotesize\ttfamily \label{class_device_a9ae0e14129055352f2aef7370f24c551} 
+HRESULT Device\+::create\+Sampler\+State (\begin{DoxyParamCaption}\item[{const D3\+D11\+\_\+\+SAMPLER\+\_\+\+DESC \texorpdfstring{$\ast$}{*}}]{p\+Sampler\+Desc}{, }\item[{ID3\+D11\+Sampler\+State \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pp\+Sampler\+State}{}\end{DoxyParamCaption})}
+
+
+
+Creates a sampler state for texture sampling. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Sampler\+Desc} & The descriptor for the sampler state. \\
+\hline
+{\em pp\+Sampler\+State} & \mbox{[}out\mbox{]} The created sampler state object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+HRESULT indicating success or failure. 
+\end{DoxyReturn}
+\Hypertarget{class_device_a2404a8a63146b42e312c816b1fb32047}\index{Device@{Device}!createTexture2D@{createTexture2D}}
+\index{createTexture2D@{createTexture2D}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{createTexture2D()}{createTexture2D()}}
+{\footnotesize\ttfamily \label{class_device_a2404a8a63146b42e312c816b1fb32047} 
+HRESULT Device\+::create\+Texture2D (\begin{DoxyParamCaption}\item[{const D3\+D11\+\_\+\+TEXTURE2\+D\+\_\+\+DESC \texorpdfstring{$\ast$}{*}}]{p\+Desc}{, }\item[{const D3\+D11\+\_\+\+SUBRESOURCE\+\_\+\+DATA \texorpdfstring{$\ast$}{*}}]{p\+Initial\+Data}{, }\item[{ID3\+D11\+Texture2D \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pp\+Texture2D}{}\end{DoxyParamCaption})}
+
+
+
+Creates a 2D texture resource. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Desc} & The descriptor for the 2D texture. \\
+\hline
+{\em p\+Initial\+Data} & Optional data to initialize the texture with. \\
+\hline
+{\em pp\+Texture2D} & \mbox{[}out\mbox{]} The created 2D texture object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+HRESULT indicating success or failure. 
+\end{DoxyReturn}
+\Hypertarget{class_device_a7b116d3a9ce1493cdac48f5087aed4c1}\index{Device@{Device}!createVertexShader@{createVertexShader}}
+\index{createVertexShader@{createVertexShader}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{createVertexShader()}{createVertexShader()}}
+{\footnotesize\ttfamily \label{class_device_a7b116d3a9ce1493cdac48f5087aed4c1} 
+HRESULT Device\+::create\+Vertex\+Shader (\begin{DoxyParamCaption}\item[{const void \texorpdfstring{$\ast$}{*}}]{p\+Shader\+Bytecode}{, }\item[{unsigned int}]{bytecode\+Length}{, }\item[{ID3\+D11\+Class\+Linkage \texorpdfstring{$\ast$}{*}}]{p\+Class\+Linkage}{, }\item[{ID3\+D11\+Vertex\+Shader \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pp\+Vertex\+Shader}{}\end{DoxyParamCaption})}
+
+
+
+Creates a vertex shader from compiled bytecode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Shader\+Bytecode} & A pointer to the compiled shader. \\
+\hline
+{\em bytecode\+Length} & The size of the compiled shader in bytes. \\
+\hline
+{\em p\+Class\+Linkage} & A pointer to a class linkage interface. \\
+\hline
+{\em pp\+Vertex\+Shader} & \mbox{[}out\mbox{]} The created vertex shader object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+HRESULT indicating success or failure. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_device_a9281ad1a4d437348a6119d8ad75f8505}\index{Device@{Device}!m\_device@{m\_device}}
+\index{m\_device@{m\_device}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{m\_device}{m\_device}}
+{\footnotesize\ttfamily \label{class_device_a9281ad1a4d437348a6119d8ad75f8505} 
+ID3\+D11\+Device\texorpdfstring{$\ast$}{*} Device\+::m\+\_\+device = nullptr}
+
+
+
+Pointer to the core Direct3D 11 device interface. 
+
+This object is responsible for creating all other D3D resources. It is created during initialization and released on destroy. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Device.\+h\end{DoxyCompactItemize}

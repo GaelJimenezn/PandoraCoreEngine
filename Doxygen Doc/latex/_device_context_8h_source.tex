@@ -1,0 +1,112 @@
+\doxysection{Device\+Context.\+h}
+\hypertarget{_device_context_8h_source}{}\label{_device_context_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_prerequisites_8h}{Prerequisites.h}}"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class}}
+\DoxyCodeLine{00012\ DeviceContext\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ DeviceContext()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00015\ \ \ \string~DeviceContext()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00020\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00021\ \ \ \mbox{\hyperlink{class_device_context_a9bbeaf8534205198a8e2c36568a6f81f}{init}}();}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00027\ \ \ \mbox{\hyperlink{class_device_context_a6d08e8ddde4580145c5556b2b375e2f0}{update}}();}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{class_device_context_af51569641f4df1f98e78d4e5bb71577b}{render}}();}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00039\ \ \ \mbox{\hyperlink{class_device_context_a37a4ea5842700e9c6addac6adca96df2}{destroy}}();}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00045\ \ \ \mbox{\hyperlink{class_device_context_a2279d70fa97e6d0d79aecd0a2f293676}{rsSetViewports}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numViewports,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ D3D11\_VIEWPORT*\ pViewports);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00052\ \ \ \mbox{\hyperlink{class_device_context_a4267d4839b371820d3d3830ff4d242fd}{psSetShaderResources}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ startSlot,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numViews,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ID3D11ShaderResourceView*\ \textcolor{keyword}{const}*\ ppShaderResourceViews);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00060\ \ \ \mbox{\hyperlink{class_device_context_aaca2ee8ca33ac393c3c1025321270247}{iaSetInputLayout}}(ID3D11InputLayout*\ pInputLayout);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00066\ \ \ \mbox{\hyperlink{class_device_context_ac94518a5a91e08d35197681106fb6eba}{vsSetShader}}(ID3D11VertexShader*\ pVertexShader,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ID3D11ClassInstance*\ \textcolor{keyword}{const}*\ ppClassInstances,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numClassInstances);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00074\ \ \ \mbox{\hyperlink{class_device_context_ad295fb0c9e0f447f864ee9ab6b09b53f}{psSetShader}}(ID3D11PixelShader*\ pPixelShader,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ID3D11ClassInstance*\ \textcolor{keyword}{const}*\ ppClassInstances,}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numClassInstances);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00082\ \ \ \mbox{\hyperlink{class_device_context_ac128d9aa6414e5a544fca74560ab0b63}{updateSubresource}}(ID3D11Resource*\ pDstResource,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ dstSubresource,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ D3D11\_BOX*\ pDstBox,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ pSrcData,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ srcRowPitch,}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ srcDepthPitch);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00093\ \ \ \mbox{\hyperlink{class_device_context_a681f867bf1b41464febd87ab0d31c363}{iaSetVertexBuffers}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ startSlot,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numBuffers,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ID3D11Buffer*\ \textcolor{keyword}{const}*\ ppVertexBuffers,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}*\ pStrides,}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}*\ pOffsets);}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00102\ \ \ \mbox{\hyperlink{class_device_context_a60afcda41cfab4c31d46303ed2bb2995}{iaSetIndexBuffer}}(ID3D11Buffer*\ pIndexBuffer,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DXGI\_FORMAT\ format,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ offset);}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00109\ \ \ \mbox{\hyperlink{class_device_context_a219fc19bd74575d753b1a53556715821}{psSetSamplers}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ startSlot,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numSamplers,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ID3D11SamplerState*\ \textcolor{keyword}{const}*\ ppSamplers);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00117\ \ \ \mbox{\hyperlink{class_device_context_af4b2ddc576d96fd8067a5b22373e6c8c}{rsSetState}}(ID3D11RasterizerState*\ pRasterizerState);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00123\ \ \ \mbox{\hyperlink{class_device_context_ac176fc5958953f8e1436067218fba732}{omSetBlendState}}(ID3D11BlendState*\ pBlendState,}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ blendFactor[4],}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ sampleMask);}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00131\ \ \ \mbox{\hyperlink{class_device_context_a015a17c26c42c10236fc14ee02670c04}{omSetRenderTargets}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numViews,}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ID3D11RenderTargetView*\ \textcolor{keyword}{const}*\ ppRenderTargetViews,}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ID3D11DepthStencilView*\ pDepthStencilView);}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00139\ \ \ \mbox{\hyperlink{class_device_context_a357ab352d832dba8a7d1e5b7a67264d2}{iaSetPrimitiveTopology}}(D3D11\_PRIMITIVE\_TOPOLOGY\ topology);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00145\ \ \ \mbox{\hyperlink{class_device_context_a03f0cacfb1f6ce9bff789ee22ca6b83b}{clearRenderTargetView}}(ID3D11RenderTargetView*\ pRenderTargetView,}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ colorRGBA[4]);}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00151\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00152\ \ \ \mbox{\hyperlink{class_device_context_a0217f668bfe5b506e9378e03f3935072}{clearDepthStencilView}}(ID3D11DepthStencilView*\ pDepthStencilView,}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ clearFlags,}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ depth,}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\ stencil);}
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00160\ \ \ \mbox{\hyperlink{class_device_context_abdaf3c356b2b349b421c7b93adf5cf54}{vsSetConstantBuffers}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ startSlot,}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numBuffers,}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ID3D11Buffer*\ \textcolor{keyword}{const}*\ ppConstantBuffers);}
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00167\ \ \ \mbox{\hyperlink{class_device_context_abf40f2c4bf69c97691f78dd0fa7c6e86}{psSetConstantBuffers}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ startSlot,}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numBuffers,}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ID3D11Buffer*\ \textcolor{keyword}{const}*\ ppConstantBuffers);}
+\DoxyCodeLine{00173\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00174\ \ \ \mbox{\hyperlink{class_device_context_ae8b30389af827ebd8205d64bb7f154d4}{drawIndexed}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ indexCount,}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ startIndexLocation,}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ baseVertexLocation);}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00184\ \ \ ID3D11DeviceContext*\ \mbox{\hyperlink{class_device_context_a74703e6c18ffefeb45937677ce734cb7}{m\_deviceContext}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00185\ \};}
+
+\end{DoxyCode}

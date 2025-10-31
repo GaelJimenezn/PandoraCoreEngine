@@ -1,0 +1,59 @@
+\doxysection{Swap\+Chain.\+h}
+\hypertarget{_swap_chain_8h_source}{}\label{_swap_chain_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_prerequisites_8h}{Prerequisites.h}}"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }}
+\DoxyCodeLine{00005\ \mbox{\hyperlink{class_device}{Device}};}
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }}
+\DoxyCodeLine{00007\ \mbox{\hyperlink{class_device_context}{DeviceContext}};}
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }}
+\DoxyCodeLine{00009\ \mbox{\hyperlink{class_window}{Window}};}
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }}
+\DoxyCodeLine{00011\ \mbox{\hyperlink{class_texture}{Texture}};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class}}
+\DoxyCodeLine{00021\ SwapChain\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ SwapChain()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00024\ \ \ \string~SwapChain()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00034\ \ \ HRESULT}
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{class_swap_chain_a0d703e12b7170afb6c6be8639fb31718}{init}}(\mbox{\hyperlink{class_device}{Device}}\&\ device,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \mbox{\hyperlink{class_device_context}{DeviceContext}}\&\ deviceContext,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \mbox{\hyperlink{class_texture}{Texture}}\&\ backBuffer,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \mbox{\hyperlink{class_window}{Window}}\ window);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{class_swap_chain_aa2699480acf4fa5b44b4966c55da7c4c}{update}}();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00050\ \ \ \mbox{\hyperlink{class_swap_chain_a0ed916f089d45681c0eaf4474053bdbd}{render}}();}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00056\ \ \ \mbox{\hyperlink{class_swap_chain_a492d4bf86eae9e273068dee33056eed1}{destroy}}();}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00063\ \ \ \mbox{\hyperlink{class_swap_chain_a1c88d9c1c3baa507cf1ab13d5af902fc}{present}}();}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00070\ \ \ IDXGISwapChain*\ \mbox{\hyperlink{class_swap_chain_a31b575ec300f4915b7d16dbee7191bac}{m\_swapChain}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00076\ \ \ D3D\_DRIVER\_TYPE\ \mbox{\hyperlink{class_swap_chain_a7825f454282109e0b47afe287de4ab1c}{m\_driverType}}\ =\ D3D\_DRIVER\_TYPE\_NULL;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00082\ \ \ D3D\_FEATURE\_LEVEL\ m\_featureLevel\ =\ D3D\_FEATURE\_LEVEL\_11\_0;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ m\_sampleCount;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ m\_qualityLevels;}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00097\ \ \ IDXGIDevice*\ m\_dxgiDevice\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00102\ \ \ IDXGIAdapter*\ m\_dxgiAdapter\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00107\ \ \ IDXGIFactory*\ m\_dxgiFactory\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00108\ \};}
+
+\end{DoxyCode}
