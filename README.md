@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
+
 # 🎮 Pandora Core Engine ✨
 
 <p align="center">
@@ -178,4 +178,3 @@ Asegurarse de que las rutas del DirectX SDK estén correctamente configuradas en
 Abrir el archivo de solución PandoraCoreEngine_2010.sln.
 
 Compilar el proyecto en la configuración deseada (Debug o Release).
->>>>>>> Stashed changes
