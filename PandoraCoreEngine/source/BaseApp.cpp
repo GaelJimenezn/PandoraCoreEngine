@@ -6,34 +6,34 @@ BaseApp::BaseApp(HINSTANCE hInst, int nCmdShow)
 
 int 
 BaseApp::run(HINSTANCE hInst, int nCmdShow) {
-  if (FAILED(m_window.init(hInst, nCmdShow, WndProc))) {
-    return 0;
-  }
-  if (FAILED(init()))
-    return 0;
-  // Main message loop
-  MSG msg = {};
-  LARGE_INTEGER freq, prev;
-  QueryPerformanceFrequency(&freq);
-  QueryPerformanceCounter(&prev);
-  while (WM_QUIT != msg.message)
-  {
-    if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
-    {
-      TranslateMessage(&msg);
-      DispatchMessage(&msg);
-    }
-    else
-    {
-      LARGE_INTEGER curr;
-      QueryPerformanceCounter(&curr);
-      float deltaTime = static_cast<float>(curr.QuadPart - prev.QuadPart) / freq.QuadPart;
-      prev = curr;
-      update(deltaTime);
-      render();
-    }
-  }
-  return (int)msg.wParam;
+	if (FAILED(m_window.init(hInst, nCmdShow, WndProc))) {
+		return 0;
+	}
+	if (FAILED(init()))
+		return 0;
+	// Main message loop
+	MSG msg = {};
+	LARGE_INTEGER freq, prev;
+	QueryPerformanceFrequency(&freq);
+	QueryPerformanceCounter(&prev);
+	while (WM_QUIT != msg.message)
+	{
+		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+		else
+		{
+			LARGE_INTEGER curr;
+			QueryPerformanceCounter(&curr);
+			float deltaTime = static_cast<float>(curr.QuadPart - prev.QuadPart) / freq.QuadPart;
+			prev = curr;
+			update(deltaTime);
+			render();
+		}
+	}
+	return (int)msg.wParam;
 }
 
 HRESULT 
@@ -127,74 +127,13 @@ BaseApp::init() {
 		return hr;
 	}
 
-	// Create vertex buffer
-	SimpleVertex vertices[] =
-	{
-			{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT2(0.0f, 0.0f) },
-			{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT2(1.0f, 0.0f) },
-			{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
-			{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
-
-			{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT2(0.0f, 0.0f) },
-			{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT2(1.0f, 0.0f) },
-			{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
-			{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
-
-			{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT2(0.0f, 0.0f) },
-			{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT2(1.0f, 0.0f) },
-			{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT2(1.0f, 1.0f) },
-			{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
-
-			{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT2(0.0f, 0.0f) },
-			{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT2(1.0f, 0.0f) },
-			{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT2(1.0f, 1.0f) },
-			{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
-
-			{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT2(0.0f, 0.0f) },
-			{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT2(1.0f, 0.0f) },
-			{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT2(1.0f, 1.0f) },
-			{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT2(0.0f, 1.0f) },
-
-			{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT2(0.0f, 0.0f) },
-			{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT2(1.0f, 0.0f) },
-			{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
-			{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
-	};
-
-	unsigned int indices[] =
-	{
-			3,1,0,
-			2,1,3,
-
-			6,4,5,
-			7,4,6,
-
-			11,9,8,
-			10,9,11,
-
-			14,12,13,
-			15,12,14,
-
-			19,17,16,
-			18,17,19,
-
-			22,20,21,
-			23,20,22
-	};
-
-	// Integrar los vertices a meshcomponent
-	for (unsigned int i = 0; i < 24; i++) {
-		m_mesh.m_vertex.push_back(vertices[i]);
+  // modelLoader carga el modelo y llena m_mesh
+	if (!m_modelLoader.loadFromFile("Nissan_400_Z/nissan.obj", m_mesh)) {
+		ERROR(L"BaseApp", L"init", L"No se pudo cargar el modelo con m_modelLoader");
+		return E_FAIL;
 	}
-	m_mesh.m_numVertex = 24;
-
-	// Integrar los indices a meshcomponent
-	for (unsigned int i = 0; i < 36; i++) {
-		m_mesh.m_index.push_back(indices[i]);
-	}
-	m_mesh.m_numIndex = 36;
-
-	// Create vertex buffer
+   
+	// Create vertex buffer 
 	hr = m_vertexBuffer.init(m_device, m_mesh, D3D11_BIND_VERTEX_BUFFER);
 
 	if (FAILED(hr)) {
@@ -203,7 +142,7 @@ BaseApp::init() {
 		return hr;
 	}
 
-	// Create index buffer
+	// Create index buffer 
 	hr = m_indexBuffer.init(m_device, m_mesh, D3D11_BIND_INDEX_BUFFER);
 
 	if (FAILED(hr)) {
@@ -257,8 +196,8 @@ BaseApp::init() {
 	m_World = XMMatrixIdentity();
 
 	// Initialize the view matrix
-	XMVECTOR Eye = XMVectorSet(0.0f, 3.0f, -6.0f, 0.0f);
-	XMVECTOR At = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	XMVECTOR Eye = XMVectorSet(0.0f, 3.0f, 50.0f, 0.0f);
+	XMVECTOR At = XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
 	XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	m_View = XMMatrixLookAtLH(Eye, At, Up);
 
@@ -267,6 +206,10 @@ BaseApp::init() {
 	cbNeverChanges.mView = XMMatrixTranspose(m_View);
 	m_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, m_window.m_width / (FLOAT)m_window.m_height, 0.01f, 100.0f);
 	cbChangesOnResize.mProjection = XMMatrixTranspose(m_Projection);
+
+	m_cbNeverChanges.update(m_deviceContext, nullptr, 0, nullptr, &cbNeverChanges, 0, 0);
+	m_cbChangeOnResize.update(m_deviceContext, nullptr, 0, nullptr, &cbChangesOnResize, 0, 0);
+
 
 	return S_OK;
 }
@@ -287,20 +230,12 @@ void BaseApp::update(float deltaTime)
 			dwTimeStart = dwTimeCur;
 		t = (dwTimeCur - dwTimeStart) / 1000.0f;
 	}
-	// Actualizar la matriz de proyecci�n y vista
-	cbNeverChanges.mView = XMMatrixTranspose(m_View);
-	m_cbNeverChanges.update(m_deviceContext, nullptr, 0, nullptr, &cbNeverChanges, 0, 0);
-	m_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, m_window.m_width / (FLOAT)m_window.m_height, 0.01f, 100.0f);
-	cbChangesOnResize.mProjection = XMMatrixTranspose(m_Projection);
-	m_cbChangeOnResize.update(m_deviceContext, nullptr, 0, nullptr, &cbChangesOnResize, 0, 0);
 
 	// Modify the color
-	m_vMeshColor.x = (sinf(t * 1.0f) + 1.0f) * 0.5f;
-	m_vMeshColor.y = (cosf(t * 3.0f) + 1.0f) * 0.5f;
-	m_vMeshColor.z = (sinf(t * 5.0f) + 1.0f) * 0.5f;
+m_vMeshColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 
 	// Rotate cube around the origin
-	m_World = XMMatrixRotationY(t);
+m_World = XMMatrixIdentity();
 	cb.mWorld = XMMatrixTranspose(m_World);
 	cb.vMeshColor = m_vMeshColor;
 	m_cbChangesEveryFrame.update(m_deviceContext, nullptr, 0, nullptr, &cb, 0, 0);
@@ -310,6 +245,7 @@ void
 BaseApp::render() {
 	// Set Render Target View
 	float ClearColor[4] = { 0.1f, 0.1f, 0.1f, 1.0f };
+	// Tu función render() limpia Y bindea. Esto es correcto.
 	m_renderTargetView.render(m_deviceContext, m_depthStencilView, 1, ClearColor);
 
 	// Set Viewport
@@ -329,7 +265,7 @@ BaseApp::render() {
 	// Asignar buffers constantes
 	m_cbNeverChanges.render(m_deviceContext, 0, 1);
 	m_cbChangeOnResize.render(m_deviceContext, 1, 1);
-	m_cbChangesEveryFrame.render(m_deviceContext, 2, 1);
+	
 	m_cbChangesEveryFrame.render(m_deviceContext, 2, 1, true);
 
 	// Asignar textura y sampler
@@ -365,26 +301,26 @@ BaseApp::destroy() {
 
 LRESULT 
 BaseApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-  //if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
-  //  return true;
-  switch (message)
-  {
-  case WM_CREATE:
-  {
-    CREATESTRUCT* pCreate = reinterpret_cast<CREATESTRUCT*>(lParam);
-    SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)pCreate->lpCreateParams);
-  }
-  return 0;
-  case WM_PAINT:
-  {
-    PAINTSTRUCT ps;
-    BeginPaint(hWnd, &ps);
-    EndPaint(hWnd, &ps);
-  }
-  return 0;
-  case WM_DESTROY:
-    PostQuitMessage(0);
-    return 0;
-  }
-  return DefWindowProc(hWnd, message, wParam, lParam);
+	//if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+	//  return true;
+	switch (message)
+	{
+	case WM_CREATE:
+	{
+		CREATESTRUCT* pCreate = reinterpret_cast<CREATESTRUCT*>(lParam);
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)pCreate->lpCreateParams);
+	}
+	return 0;
+	case WM_PAINT:
+	{
+		PAINTSTRUCT ps;
+		BeginPaint(hWnd, &ps);
+		EndPaint(hWnd, &ps);
+	}
+	return 0;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
+	}
+	return DefWindowProc(hWnd, message, wParam, lParam);
 }

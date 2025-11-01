@@ -12,6 +12,7 @@
 #include "MeshComponent.h"
 #include "Buffer.h"
 #include "SamplerState.h"
+#include "ModelLoader.h"
 
 /**
  * @class BaseApp
@@ -107,6 +108,7 @@ private:
   ShaderProgram    m_shaderProgram;   /**< Manages vertex and pixel shaders. */
   SamplerState     m_samplerState;    /**< Defines texture sampling
                                            behavior. */
+  ModelLoader      m_modelLoader;     /**< Loads 3D models from files. */
 
   // Scene/Object Data
   MeshComponent    m_mesh;            /**< Geometry data for the object

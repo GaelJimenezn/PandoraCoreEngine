@@ -11,6 +11,9 @@
 #include <sstream>
 #include <vector>
 #include <thread>
+#include <fstream>        
+#include <unordered_map> 
+#include <stdexcept>
 
 // DirectX Libraries
 #include <d3d11.h>
