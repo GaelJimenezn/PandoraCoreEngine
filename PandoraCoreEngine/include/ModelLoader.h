@@ -6,7 +6,9 @@ class
 ModelLoader {
 public:
   static bool
-  loadFromFile(const std::string& filename, MeshComponent& outMesh);
+  loadFromFile(const std::string& filename, 
+               MeshComponent& outMesh,
+               std::string& outTextureName);
 
 private:
   static void

@@ -120,7 +120,7 @@ private:
                                            matrix. */
   Buffer           m_cbChangesEveryFrame; /**< Constant buffer for world
                                                matrix and color. */
-  Texture          m_textureCube;     /**< Texture applied to the cube. */
+  Texture         m_modelTexture;     
 
   // Matrices and Rendering State
   XMMATRIX         m_World;           /**< World transformation matrix for

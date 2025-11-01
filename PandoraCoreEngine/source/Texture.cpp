@@ -41,8 +41,26 @@ Texture::init(Device& device,
 	}
 
 	case PNG: {
-		
+	
+		m_textureName = textureName + ".png";
+
+		hr = D3DX11CreateShaderResourceViewFromFile(
+			device.m_device,
+			m_textureName.c_str(),   
+			nullptr,
+			nullptr,
+			&m_textureFromImg,
+			nullptr
+		);
+
+		if (FAILED(hr)) {
+			ERROR("Texture", "init",
+				("Failed to load PNG texture. Verify filepath: "
+				+ m_textureName).c_str());
+			return hr;
+		}
 		break;
+	
 	}
 	case JPG: {
 		

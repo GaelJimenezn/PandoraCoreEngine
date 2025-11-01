@@ -127,12 +127,14 @@ BaseApp::init() {
 		return hr;
 	}
 
-  // modelLoader carga el modelo y llena m_mesh
-	if (!m_modelLoader.loadFromFile("Nissan_400_Z/nissan.obj", m_mesh)) {
+	// --- INICIO DE LA LÓGICA MODIFICADA ---
+	std::string textureNameFromMtl;
+ 	// modelLoader carga el modelo y llena m_mesh
+	if (!m_modelLoader.loadFromFile("Nissan_400_Z/nissan.obj", m_mesh, textureNameFromMtl)) {
 		ERROR(L"BaseApp", L"init", L"No se pudo cargar el modelo con m_modelLoader");
 		return E_FAIL;
 	}
-   
+ 	 
 	// Create vertex buffer 
 	hr = m_vertexBuffer.init(m_device, m_mesh, D3D11_BIND_VERTEX_BUFFER);
 
@@ -176,13 +178,32 @@ BaseApp::init() {
 		return hr;
 	}
 
-	hr = m_textureCube.init(m_device, "seafloor", ExtensionType::DDS);
-	// Load the Texture
+	// --- REEMPLAZAR LA CARGA DE TEXTURA ---
+	// hr = m_textureCube.init(m_device, "seafloor", ExtensionType::DDS); // <-- ESTA LÍNEA SE REEMPLAZA
+
+	std::string textureToLoad;
+	ExtensionType textureType;
+
+	if (textureNameFromMtl.empty()) {
+		// No se encontró textura en el .mtl, cargamos 'seafloor' como fallback
+		ERROR(L"BaseApp", L"init", L"No se encontró 'map_Kd' en .mtl. Cargando 'seafloor' por defecto.");
+		textureToLoad = "seafloor";
+		textureType = ExtensionType::DDS;
+	}
+	else {
+		// ¡Éxito! Construimos la ruta: "Nissan_400_Z/" + "Brake1_diff" (o la que sea)
+		textureToLoad = "Nissan_400_Z/" + textureNameFromMtl;
+		textureType = ExtensionType::PNG;
+	}
+
+	// Usamos la variable m_textureCube (como está en tu .h) para cargar la textura
+	hr = m_modelTexture.init(m_device, textureToLoad, textureType); 
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
-			("Failed to initialize texture Cube. HRESULT: " + std::to_string(hr)).c_str());
+			("Failed to initialize model texture: " + textureToLoad).c_str());
 		return hr;
 	}
+	// --- FIN DE MODIFICACIÓN DE CARGA ---
 
 	// Create the sample state
 	hr = m_samplerState.init(m_device);
@@ -265,11 +286,10 @@ BaseApp::render() {
 	// Asignar buffers constantes
 	m_cbNeverChanges.render(m_deviceContext, 0, 1);
 	m_cbChangeOnResize.render(m_deviceContext, 1, 1);
-	
 	m_cbChangesEveryFrame.render(m_deviceContext, 2, 1, true);
 
 	// Asignar textura y sampler
-	m_textureCube.render(m_deviceContext, 0, 1);
+	m_modelTexture.render(m_deviceContext, 0, 1);
 	m_samplerState.render(m_deviceContext, 0, 1);
 	m_deviceContext.drawIndexed(m_mesh.m_numIndex, 0, 0);
 
@@ -282,7 +302,7 @@ BaseApp::destroy() {
 	if (m_deviceContext.m_deviceContext) m_deviceContext.m_deviceContext->ClearState();
 
 	m_samplerState.destroy();
-	m_textureCube.destroy();
+	m_modelTexture.destroy();
 
 	m_cbNeverChanges.destroy();
 	m_cbChangeOnResize.destroy();

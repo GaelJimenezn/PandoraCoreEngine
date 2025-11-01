@@ -91,15 +91,30 @@ ModelLoader::processFace(
   }
 }
 
-// loadFromFile (Simplificado)
+// loadFromFile (MODIFICADO)
 bool
-ModelLoader::loadFromFile(const std::string& filename, MeshComponent& outMesh) {
+ModelLoader::loadFromFile(const std::string& filename, 
+                          MeshComponent& outMesh,
+                          std::string& outTextureName) { // <--- Parámetro de salida
+
+  outTextureName = ""; // Valor inicial
+
   std::vector<XMFLOAT3> temp_positions;
   std::vector<XMFLOAT2> temp_texcoords;
   std::vector<XMFLOAT3> temp_normals; // La leemos para que no falle el parser
   std::vector<SimpleVertex> outVertices;
   std::vector<unsigned int> outIndices;
   std::unordered_map<std::string, unsigned int> uniqueVertices{};
+
+  // --- NUEVA LÓGICA: Encontrar ruta base y nombre de .mtl ---
+  std::string basePath = "";
+  size_t lastSlash = filename.find_last_of("/\\");
+  if (lastSlash != std::string::npos) {
+    basePath = filename.substr(0, lastSlash + 1); // ej: "Nissan_400_Z/"
+  }
+  std::string mtlFilename = "";
+  // --- FIN NUEVA LÓGICA ---
+
 
   std::ifstream file(filename);
   if (!file.is_open()) {
@@ -151,6 +166,35 @@ ModelLoader::loadFromFile(const std::string& filename, MeshComponent& outMesh) {
                     temp_normals); // Pasamos temp_normals, pero no se usará
       }
     }
+    // --- NUEVA LÓGICA: Leer el .mtl ---
+    else if (prefix == "mtllib") {
+      ss >> mtlFilename; // mtlFilename = "nissan.mtl"
+      
+      // Abrimos el archivo .mtl (ej: "Nissan_400_Z/nissan.mtl")
+      std::ifstream mtlFile(basePath + mtlFilename);
+      if (mtlFile.is_open()) {
+        std::string mtlLine;
+        while (std::getline(mtlFile, mtlLine)) {
+          std::stringstream mtlSS(mtlLine);
+          std::string mtlPrefix;
+          mtlSS >> mtlPrefix;
+
+          // Buscamos la primera textura difusa
+          if (mtlPrefix == "map_Kd") {
+            std::string textureFilenamePng;
+            mtlSS >> textureFilenamePng; // ej: "Brake1_diff.png"
+            
+            // Le quitamos la extensión (.png)
+            outTextureName = textureFilenamePng.substr(0, textureFilenamePng.find_last_of('.'));
+            
+            // ¡Ya encontramos una! Salimos del bucle del .mtl
+            break; 
+          }
+        }
+        mtlFile.close();
+      }
+    }
+    // --- FIN NUEVA LÓGICA ---
   }
 
   file.close();
