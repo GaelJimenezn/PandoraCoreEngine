@@ -50,6 +50,7 @@ struct
 SimpleVertex {
   XMFLOAT3 Pos; /**< 3D position of the vertex (x, y, z). */
   XMFLOAT2 Tex; /**< 2D texture coordinate of the vertex (u, v). */
+  XMFLOAT3 Normal;
 };
 
 struct 

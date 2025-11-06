@@ -1,7 +1,7 @@
 #include "ModelLoader.h"
-#include "MeshComponent.h" //
+#include "MeshComponent.h" 
 
-// Helper 'split'
+// Helper 'split' (sin cambios)
 static std::vector<std::string>
 split(const std::string& s, char delimiter) {
   std::vector<std::string> tokens;
@@ -13,7 +13,6 @@ split(const std::string& s, char delimiter) {
   return tokens;
 }
 
-// processFace (Simplificado)
 void
 ModelLoader::processFace(
     const std::vector<std::string>& faceData,
@@ -22,7 +21,7 @@ ModelLoader::processFace(
     std::vector<unsigned int>& outIndices,
     const std::vector<XMFLOAT3>& temp_positions,
     const std::vector<XMFLOAT2>& temp_texcoords,
-    const std::vector<XMFLOAT3>& temp_normals) { // temp_normals no se usa
+    const std::vector<XMFLOAT3>& temp_normals) { 
 
   std::vector<unsigned int> faceIndices;
 
@@ -33,28 +32,45 @@ ModelLoader::processFace(
     else {
       std::vector<std::string> indices = split(vertexString, '/');
       
-      // Solo nos importan 2 índices (v y vt)
-      if (indices.size() < 2) { 
-        ERROR(L"ModelLoader", L"processFace", L"Formato de cara invalido (se esperan v/vt)");
-        continue;
-      }
-
       try {
         SimpleVertex newVert = {};
+        int posIdx = -1, texIdx = -1, normIdx = -1;
+
+        if (indices.empty() || indices[0].empty()) continue; 
+        posIdx = std::stoi(indices[0]) - 1;
         
-        int posIdx = std::stoi(indices[0]) - 1; // v
-        int texIdx = std::stoi(indices[1]) - 1; // vt
-
+        // Validación
         if (posIdx < 0 || posIdx >= temp_positions.size()) continue;
-        if (texIdx < 0 || texIdx >= temp_texcoords.size()) continue;
-
         newVert.Pos = temp_positions[posIdx];
-        newVert.Tex = temp_texcoords[texIdx];
-        // SIN newVert.Normal
 
+        if (indices.size() > 1 && !indices[1].empty()) {
+          texIdx = std::stoi(indices[1]) - 1;
+          if (texIdx >= 0 && texIdx < temp_texcoords.size()) {
+            newVert.Tex = temp_texcoords[texIdx];
+          } else {
+            newVert.Tex = XMFLOAT2(0.0f, 0.0f); // Default
+          }
+        } else {
+   
+          newVert.Tex = XMFLOAT2(0.0f, 0.0f); // Default
+        }
+
+  
+        if (indices.size() > 2 && !indices[2].empty()) {
+          normIdx = std::stoi(indices[2]) - 1;
+          if (normIdx >= 0 && normIdx < temp_normals.size()) {
+            newVert.Normal = temp_normals[normIdx];
+          } else {
+            newVert.Normal = XMFLOAT3(0.0f, 1.0f, 0.0f); // Default
+          }
+        } else {
+          
+          newVert.Normal = XMFLOAT3(0.0f, 1.0f, 0.0f); // Default
+        }
+
+        // Añadir el vértice y el índice
         outVertices.push_back(newVert);
         unsigned int newIndex = static_cast<unsigned int>(outVertices.size() - 1);
-
         uniqueVertices[vertexString] = newIndex;
         faceIndices.push_back(newIndex);
       }
@@ -75,7 +91,7 @@ ModelLoader::processFace(
     }
   }
 
-  // Triangular la cara
+  // Triangular la cara (sin cambios)
   if (faceIndices.size() == 3) {
     outIndices.push_back(faceIndices[0]);
     outIndices.push_back(faceIndices[1]);
@@ -94,27 +110,14 @@ ModelLoader::processFace(
 // loadFromFile (MODIFICADO)
 bool
 ModelLoader::loadFromFile(const std::string& filename, 
-                          MeshComponent& outMesh,
-                          std::string& outTextureName) { // <--- Parámetro de salida
-
-  outTextureName = ""; // Valor inicial
+                          MeshComponent& outMesh) {
 
   std::vector<XMFLOAT3> temp_positions;
   std::vector<XMFLOAT2> temp_texcoords;
-  std::vector<XMFLOAT3> temp_normals; // La leemos para que no falle el parser
+  std::vector<XMFLOAT3> temp_normals; 
   std::vector<SimpleVertex> outVertices;
   std::vector<unsigned int> outIndices;
   std::unordered_map<std::string, unsigned int> uniqueVertices{};
-
-  // --- NUEVA LÓGICA: Encontrar ruta base y nombre de .mtl ---
-  std::string basePath = "";
-  size_t lastSlash = filename.find_last_of("/\\");
-  if (lastSlash != std::string::npos) {
-    basePath = filename.substr(0, lastSlash + 1); // ej: "Nissan_400_Z/"
-  }
-  std::string mtlFilename = "";
-  // --- FIN NUEVA LÓGICA ---
-
 
   std::ifstream file(filename);
   if (!file.is_open()) {
@@ -144,10 +147,11 @@ ModelLoader::loadFromFile(const std::string& filename,
       }
     }
     else if (prefix == "vn") {
-       // Leemos la normal, pero la ignoramos
+       // Ahora sí leemos la normal
        XMFLOAT3 norm;
-       ss >> norm.x >> norm.y >> norm.z;
-       temp_normals.push_back(norm); 
+       if(ss >> norm.x >> norm.y >> norm.z) {
+         temp_normals.push_back(norm); 
+       }
     }
     else if (prefix == "f") {
       std::vector<std::string> faceData;
@@ -163,43 +167,13 @@ ModelLoader::loadFromFile(const std::string& filename,
                     outIndices,
                     temp_positions,
                     temp_texcoords,
-                    temp_normals); // Pasamos temp_normals, pero no se usará
+                    temp_normals); 
       }
     }
-    // --- NUEVA LÓGICA: Leer el .mtl ---
-    else if (prefix == "mtllib") {
-      ss >> mtlFilename; // mtlFilename = "nissan.mtl"
-      
-      // Abrimos el archivo .mtl (ej: "Nissan_400_Z/nissan.mtl")
-      std::ifstream mtlFile(basePath + mtlFilename);
-      if (mtlFile.is_open()) {
-        std::string mtlLine;
-        while (std::getline(mtlFile, mtlLine)) {
-          std::stringstream mtlSS(mtlLine);
-          std::string mtlPrefix;
-          mtlSS >> mtlPrefix;
-
-          // Buscamos la primera textura difusa
-          if (mtlPrefix == "map_Kd") {
-            std::string textureFilenamePng;
-            mtlSS >> textureFilenamePng; // ej: "Brake1_diff.png"
-            
-            // Le quitamos la extensión (.png)
-            outTextureName = textureFilenamePng.substr(0, textureFilenamePng.find_last_of('.'));
-            
-            // ¡Ya encontramos una! Salimos del bucle del .mtl
-            break; 
-          }
-        }
-        mtlFile.close();
-      }
-    }
-    // --- FIN NUEVA LÓGICA ---
   }
 
   file.close();
 
-  // Carga final
   outMesh.m_name = filename;
   outMesh.m_vertex = std::move(outVertices);
   outMesh.m_index = std::move(outIndices);

@@ -2,6 +2,7 @@
 
 BaseApp::BaseApp(HINSTANCE hInst, int nCmdShow)
 {
+
 }
 
 int 
@@ -11,6 +12,7 @@ BaseApp::run(HINSTANCE hInst, int nCmdShow) {
 	}
 	if (FAILED(init()))
 		return 0;
+	
 	// Main message loop
 	MSG msg = {};
 	LARGE_INTEGER freq, prev;
@@ -42,7 +44,6 @@ BaseApp::init() {
 
 	// Crear swapchain
 	hr = m_swapChain.init(m_device, m_deviceContext, m_backBuffer, m_window);
-
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
 			("Failed to initialize SwpaChian. HRESULT: " + std::to_string(hr)).c_str());
@@ -51,7 +52,6 @@ BaseApp::init() {
 
 	// Crear render target view
 	hr = m_renderTargetView.init(m_device, m_backBuffer, DXGI_FORMAT_R8G8B8A8_UNORM);
-
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
 			("Failed to initialize RenderTargetView. HRESULT: " + std::to_string(hr)).c_str());
@@ -66,7 +66,6 @@ BaseApp::init() {
 		D3D11_BIND_DEPTH_STENCIL,
 		4,
 		0);
-
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
 			("Failed to initialize DepthStencil. HRESULT: " + std::to_string(hr)).c_str());
@@ -77,7 +76,6 @@ BaseApp::init() {
 	hr = m_depthStencilView.init(m_device,
 		m_depthStencil,
 		DXGI_FORMAT_D24_UNORM_S8_UINT);
-
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
 			("Failed to initialize DepthStencilView. HRESULT: " + std::to_string(hr)).c_str());
@@ -87,7 +85,6 @@ BaseApp::init() {
 
 	// Crear el m_viewport
 	hr = m_viewport.init(m_window);
-
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
 			("Failed to initialize Viewport. HRESULT: " + std::to_string(hr)).c_str());
@@ -96,7 +93,6 @@ BaseApp::init() {
 
 	// Load Resources
 
-
 	// Define the input layout
 	std::vector<D3D11_INPUT_ELEMENT_DESC> Layout;
 	D3D11_INPUT_ELEMENT_DESC position;
@@ -104,7 +100,7 @@ BaseApp::init() {
 	position.SemanticIndex = 0;
 	position.Format = DXGI_FORMAT_R32G32B32_FLOAT;
 	position.InputSlot = 0;
-	position.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT /*0*/;
+	position.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
 	position.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	position.InstanceDataStepRate = 0;
 	Layout.push_back(position);
@@ -114,10 +110,20 @@ BaseApp::init() {
 	texcoord.SemanticIndex = 0;
 	texcoord.Format = DXGI_FORMAT_R32G32_FLOAT;
 	texcoord.InputSlot = 0;
-	texcoord.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT /*0*/;
+	texcoord.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
 	texcoord.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	texcoord.InstanceDataStepRate = 0;
 	Layout.push_back(texcoord);
+
+	D3D11_INPUT_ELEMENT_DESC normal;
+	normal.SemanticName = "NORMAL";
+	normal.SemanticIndex = 0;
+	normal.Format = DXGI_FORMAT_R32G32B32_FLOAT;
+	normal.InputSlot = 0;
+	normal.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+	normal.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+	normal.InstanceDataStepRate = 0;
+	Layout.push_back(normal);
 
 	// Create the Shader Program
 	hr = m_shaderProgram.init(m_device, "PandoraCoreEngine.fx", Layout);
@@ -127,17 +133,13 @@ BaseApp::init() {
 		return hr;
 	}
 
-	// --- INICIO DE LA LÓGICA MODIFICADA ---
-	std::string textureNameFromMtl;
- 	// modelLoader carga el modelo y llena m_mesh
-	if (!m_modelLoader.loadFromFile("Nissan_400_Z/nissan.obj", m_mesh, textureNameFromMtl)) {
-		ERROR(L"BaseApp", L"init", L"No se pudo cargar el modelo con m_modelLoader");
+	if (!m_modelLoader.loadFromFile("nissan_gt-r.obj", m_mesh)) { 
+		ERROR(L"BaseApp", L"init", L"No se pudo cargar el modelo 'nissan_gt-r.obj'");
 		return E_FAIL;
 	}
- 	 
+	 
 	// Create vertex buffer 
 	hr = m_vertexBuffer.init(m_device, m_mesh, D3D11_BIND_VERTEX_BUFFER);
-
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
 			("Failed to initialize VertexBuffer. HRESULT: " + std::to_string(hr)).c_str());
@@ -146,7 +148,6 @@ BaseApp::init() {
 
 	// Create index buffer 
 	hr = m_indexBuffer.init(m_device, m_mesh, D3D11_BIND_INDEX_BUFFER);
-
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
 			("Failed to initialize IndexBuffer. HRESULT: " + std::to_string(hr)).c_str());
@@ -178,34 +179,13 @@ BaseApp::init() {
 		return hr;
 	}
 
-	// --- REEMPLAZAR LA CARGA DE TEXTURA ---
-	// hr = m_textureCube.init(m_device, "seafloor", ExtensionType::DDS); // <-- ESTA LÍNEA SE REEMPLAZA
-
-	std::string textureToLoad;
-	ExtensionType textureType;
-
-	if (textureNameFromMtl.empty()) {
-		// No se encontró textura en el .mtl, cargamos 'seafloor' como fallback
-		ERROR(L"BaseApp", L"init", L"No se encontró 'map_Kd' en .mtl. Cargando 'seafloor' por defecto.");
-		textureToLoad = "seafloor";
-		textureType = ExtensionType::DDS;
-	}
-	else {
-		// ¡Éxito! Construimos la ruta: "Nissan_400_Z/" + "Brake1_diff" (o la que sea)
-		textureToLoad = "Nissan_400_Z/" + textureNameFromMtl;
-		textureType = ExtensionType::PNG;
-	}
-
-	// Usamos la variable m_textureCube (como está en tu .h) para cargar la textura
-	hr = m_modelTexture.init(m_device, textureToLoad, textureType); 
+	hr = m_modelTexture.init(m_device, "seafloor", ExtensionType::DDS); 
 	if (FAILED(hr)) {
-		ERROR("Main", "InitDevice",
-			("Failed to initialize model texture: " + textureToLoad).c_str());
+	ERROR("Main", "InitDevice",
+("Failed to initialize texture Cube. HRESULT: " + std::to_string(hr)).c_str());
 		return hr;
 	}
-	// --- FIN DE MODIFICACIÓN DE CARGA ---
 
-	// Create the sample state
 	hr = m_samplerState.init(m_device);
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
@@ -217,15 +197,15 @@ BaseApp::init() {
 	m_World = XMMatrixIdentity();
 
 	// Initialize the view matrix
-	XMVECTOR Eye = XMVectorSet(0.0f, 3.0f, 50.0f, 0.0f);
-	XMVECTOR At = XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
+	XMVECTOR Eye = XMVectorSet(0.0f, 3.0f, -10.0f, 0.0f); // Estaba en 50.0f
+	XMVECTOR At = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);   // Mirando al centro
 	XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	m_View = XMMatrixLookAtLH(Eye, At, Up);
 
 
 	// Initialize the projection matrix
 	cbNeverChanges.mView = XMMatrixTranspose(m_View);
-	m_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, m_window.m_width / (FLOAT)m_window.m_height, 0.01f, 100.0f);
+	m_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, m_window.m_width / (FLOAT)m_window.m_height, 0.01f, 1000.0f); // <-- Aumentado el far plane
 	cbChangesOnResize.mProjection = XMMatrixTranspose(m_Projection);
 
 	m_cbNeverChanges.update(m_deviceContext, nullptr, 0, nullptr, &cbNeverChanges, 0, 0);
@@ -253,10 +233,10 @@ void BaseApp::update(float deltaTime)
 	}
 
 	// Modify the color
-m_vMeshColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_vMeshColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f); // <-- El Bugatti se verá blanco
 
-	// Rotate cube around the origin
-m_World = XMMatrixIdentity();
+	// Rotar
+	m_World = XMMatrixRotationY(t * 0.5f); // <-- Añadida rotación para que se vea
 	cb.mWorld = XMMatrixTranspose(m_World);
 	cb.vMeshColor = m_vMeshColor;
 	m_cbChangesEveryFrame.update(m_deviceContext, nullptr, 0, nullptr, &cb, 0, 0);
@@ -265,8 +245,7 @@ m_World = XMMatrixIdentity();
 void 
 BaseApp::render() {
 	// Set Render Target View
-	float ClearColor[4] = { 0.1f, 0.1f, 0.1f, 1.0f };
-	// Tu función render() limpia Y bindea. Esto es correcto.
+	float ClearColor[4] = { 0.1f, 0.1f, 0.1f, 1.0f }; 
 	m_renderTargetView.render(m_deviceContext, m_depthStencilView, 1, ClearColor);
 
 	// Set Viewport
@@ -278,8 +257,7 @@ BaseApp::render() {
 	// Set shader program
 	m_shaderProgram.render(m_deviceContext);
 
-	// Render the cube
-	 // Asignar buffers Vertex e Index
+	// Render the model
 	m_vertexBuffer.render(m_deviceContext, 0, 1);
 	m_indexBuffer.render(m_deviceContext, 0, 1, false, DXGI_FORMAT_R32_UINT);
 
@@ -288,9 +266,11 @@ BaseApp::render() {
 	m_cbChangeOnResize.render(m_deviceContext, 1, 1);
 	m_cbChangesEveryFrame.render(m_deviceContext, 2, 1, true);
 
-	// Asignar textura y sampler
-	m_modelTexture.render(m_deviceContext, 0, 1);
+	// Asignar sampler
+	// m_modelTexture.render(m_deviceContext, 0, 1); // <-- ELIMINADO (No hay textura)
 	m_samplerState.render(m_deviceContext, 0, 1);
+	
+	// Dibujar
 	m_deviceContext.drawIndexed(m_mesh.m_numIndex, 0, 0);
 
 	// Present our back buffer to our front buffer
@@ -302,7 +282,7 @@ BaseApp::destroy() {
 	if (m_deviceContext.m_deviceContext) m_deviceContext.m_deviceContext->ClearState();
 
 	m_samplerState.destroy();
-	m_modelTexture.destroy();
+	// m_modelTexture.destroy(); // <-- ELIMINADO
 
 	m_cbNeverChanges.destroy();
 	m_cbChangeOnResize.destroy();

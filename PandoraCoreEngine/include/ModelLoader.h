@@ -5,10 +5,15 @@ class MeshComponent;
 class
 ModelLoader {
 public:
+  /**
+   * @brief Carga un modelo .obj desde un archivo.
+   * @param filename Ruta al archivo .obj.
+   * @param outMesh El componente Mesh donde se guardarán los datos.
+   * @return true si la carga fue exitosa, false en caso contrario.
+   */
   static bool
   loadFromFile(const std::string& filename, 
-               MeshComponent& outMesh,
-               std::string& outTextureName);
+               MeshComponent& outMesh); // <-- PARÁMETRO 'outTextureName' ELIMINADO
 
 private:
   static void
