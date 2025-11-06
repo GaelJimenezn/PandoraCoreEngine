@@ -17,7 +17,8 @@ public:
   /**
    * @brief Constructor, initializes vertex and index counts to zero.
    */
-  MeshComponent() : m_numVertex(0), m_numIndex(0)/*, Component(ComponentType::MESH)*/ {}
+  MeshComponent() : m_numVertex(0), m_numIndex(0)/*, 
+    Component(ComponentType::MESH)*/ {}
 
   /**
    * @brief Default virtual destructor.
@@ -26,7 +27,8 @@ public:
   ~MeshComponent() = default;
 
   /**
-   * @brief Placeholder for mesh-specific initialization (e.g., loading from file).
+   * @brief Placeholder for mesh-specific initialization 
+   (e.g., loading from file).
    */
   void
   init();

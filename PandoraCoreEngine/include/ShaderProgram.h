@@ -28,9 +28,12 @@ public:
   ~ShaderProgram() = default; // Implicitly calls destroy() if needed
 
   /**
-   * @brief Initializes the shader program by compiling shaders and creating layout.
+   * @brief Initializes the shader program by 
+   * compiling shaders and creating layout.
    * @param device The graphics device used for resource creation.
-   * @param fileName The base name of the HLSL shader file (expects .fx extension).
+   * @param fileName The base name of the 
+   * HLSL shader file (expects .fx extension).
+   * HLSL shader file (expects .fx extension).
    * @param Layout A vector describing the vertex input layout elements.
    * @return HRESULT indicating success or failure.
    */
@@ -99,7 +102,8 @@ private:
  /**
   * @brief Compiles an HLSL shader from a file.
   * @param szFileName Path to the HLSL file.
-  * @param szEntryPoint Name of the shader entry point function (e.g., "VS", "PS").
+  * @param szEntryPoint Name of the shader 
+  * entry point function (e.g., "VS", "PS").
   * @param szShaderModel Shader model target (e.g., "vs_4_0", "ps_4_0").
   * @param ppBlobOut [out] Receives a pointer to the compiled shader bytecode.
   * @return HRESULT indicating success or failure.
@@ -133,7 +137,8 @@ private:
   std::string m_shaderFileName;
 
   /**
-   * @brief Compiled vertex shader bytecode data. Released after input layout creation.
+   * @brief Compiled vertex shader bytecode data. Released after 
+   * input layout creation.
    */
   ID3DBlob* m_vertexShaderData = nullptr;
 

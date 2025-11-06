@@ -27,8 +27,10 @@ public:
   /**
    * @brief Initializes the input layout object.
    * @param device The graphics device used for creation.
-   * @param layout A vector of D3D11_INPUT_ELEMENT_DESC describing the vertex format.
-   * @param VertexShaderData A blob containing the compiled vertex shader bytecode,
+   * @param layout A vector of D3D11_INPUT_ELEMENT_DESC 
+   * describing the vertex format.
+   * @param VertexShaderData A blob containing the compiled vertex
+   * shader bytecode,
    * which includes the required input signature.
    * @return HRESULT indicating success or failure.
    */

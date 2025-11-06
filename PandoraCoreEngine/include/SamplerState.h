@@ -23,7 +23,8 @@ public:
   ~SamplerState() = default;
 
   /**
-   * @brief Initializes the sampler state with default linear filtering and wrapping.
+   * @brief Initializes the sampler state with 
+   * default linear filtering and wrapping.
    * @param device The graphics device used for resource creation.
    * @return HRESULT indicating success or failure.
    */

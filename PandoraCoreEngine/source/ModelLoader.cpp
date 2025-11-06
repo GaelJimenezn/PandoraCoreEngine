@@ -1,7 +1,6 @@
 #include "ModelLoader.h"
 #include "MeshComponent.h" 
 
-// Helper 'split' (sin cambios)
 static std::vector<std::string>
 split(const std::string& s, char delimiter) {
   std::vector<std::string> tokens;
@@ -68,7 +67,6 @@ ModelLoader::processFace(
           newVert.Normal = XMFLOAT3(0.0f, 1.0f, 0.0f); // Default
         }
 
-        // Añadir el vértice y el índice
         outVertices.push_back(newVert);
         unsigned int newIndex = static_cast<unsigned int>(outVertices.size() - 1);
         uniqueVertices[vertexString] = newIndex;
@@ -91,7 +89,6 @@ ModelLoader::processFace(
     }
   }
 
-  // Triangular la cara (sin cambios)
   if (faceIndices.size() == 3) {
     outIndices.push_back(faceIndices[0]);
     outIndices.push_back(faceIndices[1]);
@@ -107,7 +104,6 @@ ModelLoader::processFace(
   }
 }
 
-// loadFromFile (MODIFICADO)
 bool
 ModelLoader::loadFromFile(const std::string& filename, 
                           MeshComponent& outMesh) {
@@ -147,7 +143,6 @@ ModelLoader::loadFromFile(const std::string& filename,
       }
     }
     else if (prefix == "vn") {
-       // Ahora sí leemos la normal
        XMFLOAT3 norm;
        if(ss >> norm.x >> norm.y >> norm.z) {
          temp_normals.push_back(norm); 
@@ -189,7 +184,8 @@ ModelLoader::loadFromFile(const std::string& filename,
 
   std::wostringstream wss;
   std::wstring w_filename(filename.begin(), filename.end());
-  wss << L"Exito. " << w_filename << L" [V: " << outMesh.m_numVertex << L", I: " << outMesh.m_numIndex << L"]";
+  wss << L"Exito. " << w_filename << L" [V: " 
+    << outMesh.m_numVertex << L", I: " << outMesh.m_numIndex << L"]";
   MESSAGE(L"ModelLoader", L"loadFromFile", wss.str().c_str());
   
   return true;
