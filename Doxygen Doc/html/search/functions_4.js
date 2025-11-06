@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['meshcomponent_0',['MeshComponent',['../class_mesh_component.html#a6f23f9f4c0fb23ee33a3798708c9a741',1,'MeshComponent']]]
+  ['loadfromfile_0',['loadFromFile',['../class_model_loader.html#a808f6a6fc6618ce8568b721d4929e2b3',1,'ModelLoader']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Pandora Core Engine Docs: Prerequisites.h Source File</title>
+<title>Pandora Core Engine Docs: PandoraCoreEngine/include/Prerequisites.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -109,100 +109,121 @@ $(function(){initNavTree('_prerequisites_8h_source.html',''); initResizable(true
 <a href="_prerequisites_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">// STD Libraries</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;windows.h&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;xnamath.h&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;thread&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">// DirectX Libraries</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;d3d11.h&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;d3dx11.h&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;d3dcompiler.h&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;Resource.h&quot;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">// MACROS</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#define SAFE_RELEASE(x) if(x != nullptr) { x-&gt;Release(); x = nullptr; }</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#define MESSAGE( classObj, method, state )   \</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">{                                            \</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">   std::wostringstream os_;                  \</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">   os_ &lt;&lt; classObj &lt;&lt; &quot;::&quot; &lt;&lt; method &lt;&lt; &quot; : &quot; &lt;&lt; &quot;[CREATION OF RESOURCE &quot; \</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">   &lt;&lt; &quot;: &quot; &lt;&lt; state &lt;&lt; &quot;] \n&quot;;               \</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">   OutputDebugStringW( os_.str().c_str() );  \</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">}</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#define ERROR(classObj, method, errorMSG)                     \</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">{                                                             \</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">  try {                                                       \</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">    std::wostringstream os_;                                  \</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">    os_ &lt;&lt; L&quot;ERROR : &quot; &lt;&lt; classObj &lt;&lt; L&quot;::&quot; &lt;&lt; method         \</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">        &lt;&lt; L&quot; : &quot; &lt;&lt; errorMSG &lt;&lt; L&quot;\n&quot;;                       \</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">    OutputDebugStringW(os_.str().c_str());                    \</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">  } catch (...) {                                             \</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">    OutputDebugStringW(L&quot;Failed to log error message.\n&quot;);    \</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">  }                                                           \</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">}</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// Structures</span></div>
-<div class="foldopen" id="foldopen00045" data-start="{" data-end="};">
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="struct_simple_vertex.html">   45</a></span><span class="keyword">struct </span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><a class="code hl_struct" href="struct_simple_vertex.html">SimpleVertex</a> {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="struct_simple_vertex.html#a6a7d53a8aab8bf354b9f431d87c94a7c">   47</a></span>  XMFLOAT3 <a class="code hl_variable" href="struct_simple_vertex.html#a6a7d53a8aab8bf354b9f431d87c94a7c">Pos</a>; </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="struct_simple_vertex.html#a9ec347accd80550ea746c15b6a967d5c">   48</a></span>  XMFLOAT2 <a class="code hl_variable" href="struct_simple_vertex.html#a9ec347accd80550ea746c15b6a967d5c">Tex</a>; </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>};</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;windows.h&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;xnamath.h&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;thread&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;fstream&gt;</span>        </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;unordered_map&gt;</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">// DirectX Libraries</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;d3d11.h&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;d3dx11.h&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;d3dcompiler.h&gt;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &quot;Resource.h&quot;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">// MACROS</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="_prerequisites_8h.html#a2bc549675ca29f733709b4656d22d52a">   39</a></span><span class="preprocessor">#define SAFE_RELEASE(x) if(x != nullptr) { x-&gt;Release(); x = nullptr; }</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span></div>
+<div class="foldopen" id="foldopen00048" data-start="" data-end="">
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="_prerequisites_8h.html#a8fe30e7b51deb1d5519885ad20b879c8">   48</a></span><span class="preprocessor">#define MESSAGE( classObj, method, state )   \</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">{                                            \</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">   std::wostringstream os_;                  \</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">   os_ &lt;&lt; classObj &lt;&lt; &quot;::&quot; &lt;&lt; method &lt;&lt; &quot; : &quot; &lt;&lt; &quot;[CREATION OF RESOURCE &quot; \</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">   &lt;&lt; &quot;: &quot; &lt;&lt; state &lt;&lt; &quot;] \n&quot;;               \</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">   OutputDebugStringW( os_.str().c_str() );  \</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">}</span></div>
 </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="foldopen" id="foldopen00051" data-start="{" data-end="};">
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="struct_c_b_never_changes.html">   51</a></span><span class="keyword">struct </span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><a class="code hl_struct" href="struct_c_b_never_changes.html">CBNeverChanges</a> {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="struct_c_b_never_changes.html#acd055b3c683bf3156c0101432b160341">   53</a></span>  XMMATRIX <a class="code hl_variable" href="struct_c_b_never_changes.html#acd055b3c683bf3156c0101432b160341">mView</a>; </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
+<div class="foldopen" id="foldopen00064" data-start="" data-end="">
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="_prerequisites_8h.html#ab5d83f25f2317ec67a651392ed1ac091">   64</a></span><span class="preprocessor">#define ERROR(classObj, method, errorMSG)                     \</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">{                                                             \</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">  try {                                                       \</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">    std::wostringstream os_;                                  \</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">    os_ &lt;&lt; L&quot;ERROR : &quot; &lt;&lt; classObj &lt;&lt; L&quot;::&quot; &lt;&lt; method         \</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">        &lt;&lt; L&quot; : &quot; &lt;&lt; errorMSG &lt;&lt; L&quot;\n&quot;;                       \</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">    OutputDebugStringW(os_.str().c_str());                    \</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">  } catch (...) {                                             \</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">    OutputDebugStringW(L&quot;Failed to log error message.\n&quot;);    \</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">  }                                                           \</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">}</span></div>
 </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="foldopen" id="foldopen00056" data-start="{" data-end="};">
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="struct_c_b_change_on_resize.html">   56</a></span><span class="keyword">struct</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><a class="code hl_struct" href="struct_c_b_change_on_resize.html">CBChangeOnResize</a> {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="struct_c_b_change_on_resize.html#a05d19ea07d230d3d9bec6007f5140ee4">   58</a></span>  XMMATRIX <a class="code hl_variable" href="struct_c_b_change_on_resize.html#a05d19ea07d230d3d9bec6007f5140ee4">mProjection</a>; </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>};</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">// Structures</span></div>
+<div class="foldopen" id="foldopen00082" data-start="{" data-end="};">
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="struct_simple_vertex.html">   82</a></span><span class="keyword">struct </span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><a class="code hl_struct" href="struct_simple_vertex.html">SimpleVertex</a> {</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="struct_simple_vertex.html#a6a7d53a8aab8bf354b9f431d87c94a7c">   84</a></span>  XMFLOAT3 <a class="code hl_variable" href="struct_simple_vertex.html#a6a7d53a8aab8bf354b9f431d87c94a7c">Pos</a>;    </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="struct_simple_vertex.html#a9ec347accd80550ea746c15b6a967d5c">   85</a></span>  XMFLOAT2 <a class="code hl_variable" href="struct_simple_vertex.html#a9ec347accd80550ea746c15b6a967d5c">Tex</a>;    </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="struct_simple_vertex.html#aa37228a0b5fc22e029db76d8882cd37d">   86</a></span>  XMFLOAT3 <a class="code hl_variable" href="struct_simple_vertex.html#aa37228a0b5fc22e029db76d8882cd37d">Normal</a>; </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>};</div>
 </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="foldopen" id="foldopen00061" data-start="{" data-end="};">
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="struct_c_b_changes_every_frame.html">   61</a></span><span class="keyword">struct </span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><a class="code hl_struct" href="struct_c_b_changes_every_frame.html">CBChangesEveryFrame</a> {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="struct_c_b_changes_every_frame.html#afdd7407c25935c0bde9fb2d6726d7b89">   63</a></span>  XMMATRIX <a class="code hl_variable" href="struct_c_b_changes_every_frame.html#afdd7407c25935c0bde9fb2d6726d7b89">mWorld</a>;      </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="struct_c_b_changes_every_frame.html#ab57ba6cac51afbcd84e4688d399c1811">   64</a></span>  XMFLOAT4 <a class="code hl_variable" href="struct_c_b_changes_every_frame.html#ab57ba6cac51afbcd84e4688d399c1811">vMeshColor</a>;  </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>};</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span></div>
+<div class="foldopen" id="foldopen00093" data-start="{" data-end="};">
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="struct_c_b_never_changes.html">   93</a></span><span class="keyword">struct </span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><a class="code hl_struct" href="struct_c_b_never_changes.html">CBNeverChanges</a> {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="struct_c_b_never_changes.html#acd055b3c683bf3156c0101432b160341">   95</a></span>  XMMATRIX <a class="code hl_variable" href="struct_c_b_never_changes.html#acd055b3c683bf3156c0101432b160341">mView</a>; </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>};</div>
 </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keyword">enum</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>ExtensionType {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  DDS = 0,</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  PNG = 1,</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  JPG = 2</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>};</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keyword">enum</span> ShaderType {</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  VERTEX_SHADER = 0,</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  PIXEL_SHADER = 1</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>};</div>
-<div class="ttc" id="astruct_c_b_change_on_resize_html"><div class="ttname"><a href="struct_c_b_change_on_resize.html">CBChangeOnResize</a></div><div class="ttdef"><b>Definition</b> Prerequisites.h:57</div></div>
-<div class="ttc" id="astruct_c_b_change_on_resize_html_a05d19ea07d230d3d9bec6007f5140ee4"><div class="ttname"><a href="struct_c_b_change_on_resize.html#a05d19ea07d230d3d9bec6007f5140ee4">CBChangeOnResize::mProjection</a></div><div class="ttdeci">XMMATRIX mProjection</div><div class="ttdef"><b>Definition</b> Prerequisites.h:58</div></div>
-<div class="ttc" id="astruct_c_b_changes_every_frame_html"><div class="ttname"><a href="struct_c_b_changes_every_frame.html">CBChangesEveryFrame</a></div><div class="ttdef"><b>Definition</b> Prerequisites.h:62</div></div>
-<div class="ttc" id="astruct_c_b_changes_every_frame_html_ab57ba6cac51afbcd84e4688d399c1811"><div class="ttname"><a href="struct_c_b_changes_every_frame.html#ab57ba6cac51afbcd84e4688d399c1811">CBChangesEveryFrame::vMeshColor</a></div><div class="ttdeci">XMFLOAT4 vMeshColor</div><div class="ttdef"><b>Definition</b> Prerequisites.h:64</div></div>
-<div class="ttc" id="astruct_c_b_changes_every_frame_html_afdd7407c25935c0bde9fb2d6726d7b89"><div class="ttname"><a href="struct_c_b_changes_every_frame.html#afdd7407c25935c0bde9fb2d6726d7b89">CBChangesEveryFrame::mWorld</a></div><div class="ttdeci">XMMATRIX mWorld</div><div class="ttdef"><b>Definition</b> Prerequisites.h:63</div></div>
-<div class="ttc" id="astruct_c_b_never_changes_html"><div class="ttname"><a href="struct_c_b_never_changes.html">CBNeverChanges</a></div><div class="ttdef"><b>Definition</b> Prerequisites.h:52</div></div>
-<div class="ttc" id="astruct_c_b_never_changes_html_acd055b3c683bf3156c0101432b160341"><div class="ttname"><a href="struct_c_b_never_changes.html#acd055b3c683bf3156c0101432b160341">CBNeverChanges::mView</a></div><div class="ttdeci">XMMATRIX mView</div><div class="ttdef"><b>Definition</b> Prerequisites.h:53</div></div>
-<div class="ttc" id="astruct_simple_vertex_html"><div class="ttname"><a href="struct_simple_vertex.html">SimpleVertex</a></div><div class="ttdef"><b>Definition</b> Prerequisites.h:46</div></div>
-<div class="ttc" id="astruct_simple_vertex_html_a6a7d53a8aab8bf354b9f431d87c94a7c"><div class="ttname"><a href="struct_simple_vertex.html#a6a7d53a8aab8bf354b9f431d87c94a7c">SimpleVertex::Pos</a></div><div class="ttdeci">XMFLOAT3 Pos</div><div class="ttdef"><b>Definition</b> Prerequisites.h:47</div></div>
-<div class="ttc" id="astruct_simple_vertex_html_a9ec347accd80550ea746c15b6a967d5c"><div class="ttname"><a href="struct_simple_vertex.html#a9ec347accd80550ea746c15b6a967d5c">SimpleVertex::Tex</a></div><div class="ttdeci">XMFLOAT2 Tex</div><div class="ttdef"><b>Definition</b> Prerequisites.h:48</div></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span></div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="};">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="struct_c_b_change_on_resize.html">  102</a></span><span class="keyword">struct</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><a class="code hl_struct" href="struct_c_b_change_on_resize.html">CBChangeOnResize</a> {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="struct_c_b_change_on_resize.html#a05d19ea07d230d3d9bec6007f5140ee4">  104</a></span>  XMMATRIX <a class="code hl_variable" href="struct_c_b_change_on_resize.html#a05d19ea07d230d3d9bec6007f5140ee4">mProjection</a>; </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>};</div>
+</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span></div>
+<div class="foldopen" id="foldopen00111" data-start="{" data-end="};">
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="struct_c_b_changes_every_frame.html">  111</a></span><span class="keyword">struct </span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><a class="code hl_struct" href="struct_c_b_changes_every_frame.html">CBChangesEveryFrame</a> {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="struct_c_b_changes_every_frame.html#afdd7407c25935c0bde9fb2d6726d7b89">  113</a></span>  XMMATRIX <a class="code hl_variable" href="struct_c_b_changes_every_frame.html#afdd7407c25935c0bde9fb2d6726d7b89">mWorld</a>;      </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="struct_c_b_changes_every_frame.html#ab57ba6cac51afbcd84e4688d399c1811">  114</a></span>  XMFLOAT4 <a class="code hl_variable" href="struct_c_b_changes_every_frame.html#ab57ba6cac51afbcd84e4688d399c1811">vMeshColor</a>;  </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>};</div>
+</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span></div>
+<div class="foldopen" id="foldopen00121" data-start="{" data-end="};">
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="_prerequisites_8h.html#ab8685fb7f8f0003664786f0e1e04f65a">  121</a></span><span class="keyword">enum</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><a class="code hl_enumeration" href="_prerequisites_8h.html#ab8685fb7f8f0003664786f0e1e04f65a">ExtensionType</a> {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="_prerequisites_8h.html#ab8685fb7f8f0003664786f0e1e04f65aa539f41b68fd1d3b17779d462aad6f8b3">  123</a></span>  <a class="code hl_enumvalue" href="_prerequisites_8h.html#ab8685fb7f8f0003664786f0e1e04f65aa539f41b68fd1d3b17779d462aad6f8b3">DDS</a> = 0, </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="_prerequisites_8h.html#ab8685fb7f8f0003664786f0e1e04f65aa842c5fc4bbe3f780e57c76d1a3cafe9f">  124</a></span>  <a class="code hl_enumvalue" href="_prerequisites_8h.html#ab8685fb7f8f0003664786f0e1e04f65aa842c5fc4bbe3f780e57c76d1a3cafe9f">PNG</a> = 1, </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="_prerequisites_8h.html#ab8685fb7f8f0003664786f0e1e04f65aa193eff471c99a2d5cad5433221091f7f">  125</a></span>  <a class="code hl_enumvalue" href="_prerequisites_8h.html#ab8685fb7f8f0003664786f0e1e04f65aa193eff471c99a2d5cad5433221091f7f">JPG</a> = 2  </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>};</div>
+</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span></div>
+<div class="foldopen" id="foldopen00132" data-start="{" data-end="};">
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="_prerequisites_8h.html#a6230e1b9ecbf2d82d10856fd7e1fde46">  132</a></span><span class="keyword">enum</span> <a class="code hl_enumeration" href="_prerequisites_8h.html#a6230e1b9ecbf2d82d10856fd7e1fde46">ShaderType</a> {</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="_prerequisites_8h.html#a6230e1b9ecbf2d82d10856fd7e1fde46a63f069899614a9d92dd3c59d0aa97c91">  133</a></span>  <a class="code hl_enumvalue" href="_prerequisites_8h.html#a6230e1b9ecbf2d82d10856fd7e1fde46a63f069899614a9d92dd3c59d0aa97c91">VERTEX_SHADER</a> = 0, </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="_prerequisites_8h.html#a6230e1b9ecbf2d82d10856fd7e1fde46a279b3a8fd9f35e982c7c0e8733b1e66d">  134</a></span>  <a class="code hl_enumvalue" href="_prerequisites_8h.html#a6230e1b9ecbf2d82d10856fd7e1fde46a279b3a8fd9f35e982c7c0e8733b1e66d">PIXEL_SHADER</a> = 1   </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>};</div>
+</div>
+<div class="ttc" id="a_prerequisites_8h_html_a6230e1b9ecbf2d82d10856fd7e1fde46"><div class="ttname"><a href="_prerequisites_8h.html#a6230e1b9ecbf2d82d10856fd7e1fde46">ShaderType</a></div><div class="ttdeci">ShaderType</div><div class="ttdoc">Defines the types of shaders that can be created.</div><div class="ttdef"><b>Definition</b> Prerequisites.h:132</div></div>
+<div class="ttc" id="a_prerequisites_8h_html_a6230e1b9ecbf2d82d10856fd7e1fde46a279b3a8fd9f35e982c7c0e8733b1e66d"><div class="ttname"><a href="_prerequisites_8h.html#a6230e1b9ecbf2d82d10856fd7e1fde46a279b3a8fd9f35e982c7c0e8733b1e66d">PIXEL_SHADER</a></div><div class="ttdeci">@ PIXEL_SHADER</div><div class="ttdef"><b>Definition</b> Prerequisites.h:134</div></div>
+<div class="ttc" id="a_prerequisites_8h_html_a6230e1b9ecbf2d82d10856fd7e1fde46a63f069899614a9d92dd3c59d0aa97c91"><div class="ttname"><a href="_prerequisites_8h.html#a6230e1b9ecbf2d82d10856fd7e1fde46a63f069899614a9d92dd3c59d0aa97c91">VERTEX_SHADER</a></div><div class="ttdeci">@ VERTEX_SHADER</div><div class="ttdef"><b>Definition</b> Prerequisites.h:133</div></div>
+<div class="ttc" id="a_prerequisites_8h_html_ab8685fb7f8f0003664786f0e1e04f65a"><div class="ttname"><a href="_prerequisites_8h.html#ab8685fb7f8f0003664786f0e1e04f65a">ExtensionType</a></div><div class="ttdeci">ExtensionType</div><div class="ttdoc">Defines supported texture file extensions.</div><div class="ttdef"><b>Definition</b> Prerequisites.h:122</div></div>
+<div class="ttc" id="a_prerequisites_8h_html_ab8685fb7f8f0003664786f0e1e04f65aa193eff471c99a2d5cad5433221091f7f"><div class="ttname"><a href="_prerequisites_8h.html#ab8685fb7f8f0003664786f0e1e04f65aa193eff471c99a2d5cad5433221091f7f">JPG</a></div><div class="ttdeci">@ JPG</div><div class="ttdef"><b>Definition</b> Prerequisites.h:125</div></div>
+<div class="ttc" id="a_prerequisites_8h_html_ab8685fb7f8f0003664786f0e1e04f65aa539f41b68fd1d3b17779d462aad6f8b3"><div class="ttname"><a href="_prerequisites_8h.html#ab8685fb7f8f0003664786f0e1e04f65aa539f41b68fd1d3b17779d462aad6f8b3">DDS</a></div><div class="ttdeci">@ DDS</div><div class="ttdef"><b>Definition</b> Prerequisites.h:123</div></div>
+<div class="ttc" id="a_prerequisites_8h_html_ab8685fb7f8f0003664786f0e1e04f65aa842c5fc4bbe3f780e57c76d1a3cafe9f"><div class="ttname"><a href="_prerequisites_8h.html#ab8685fb7f8f0003664786f0e1e04f65aa842c5fc4bbe3f780e57c76d1a3cafe9f">PNG</a></div><div class="ttdeci">@ PNG</div><div class="ttdef"><b>Definition</b> Prerequisites.h:124</div></div>
+<div class="ttc" id="astruct_c_b_change_on_resize_html"><div class="ttname"><a href="struct_c_b_change_on_resize.html">CBChangeOnResize</a></div><div class="ttdoc">Constant buffer struct for data that changes on window resize (e.g., Projection matrix).</div><div class="ttdef"><b>Definition</b> Prerequisites.h:103</div></div>
+<div class="ttc" id="astruct_c_b_change_on_resize_html_a05d19ea07d230d3d9bec6007f5140ee4"><div class="ttname"><a href="struct_c_b_change_on_resize.html#a05d19ea07d230d3d9bec6007f5140ee4">CBChangeOnResize::mProjection</a></div><div class="ttdeci">XMMATRIX mProjection</div><div class="ttdef"><b>Definition</b> Prerequisites.h:104</div></div>
+<div class="ttc" id="astruct_c_b_changes_every_frame_html"><div class="ttname"><a href="struct_c_b_changes_every_frame.html">CBChangesEveryFrame</a></div><div class="ttdoc">Constant buffer struct for data that changes every frame (e.g., World matrix).</div><div class="ttdef"><b>Definition</b> Prerequisites.h:112</div></div>
+<div class="ttc" id="astruct_c_b_changes_every_frame_html_ab57ba6cac51afbcd84e4688d399c1811"><div class="ttname"><a href="struct_c_b_changes_every_frame.html#ab57ba6cac51afbcd84e4688d399c1811">CBChangesEveryFrame::vMeshColor</a></div><div class="ttdeci">XMFLOAT4 vMeshColor</div><div class="ttdef"><b>Definition</b> Prerequisites.h:114</div></div>
+<div class="ttc" id="astruct_c_b_changes_every_frame_html_afdd7407c25935c0bde9fb2d6726d7b89"><div class="ttname"><a href="struct_c_b_changes_every_frame.html#afdd7407c25935c0bde9fb2d6726d7b89">CBChangesEveryFrame::mWorld</a></div><div class="ttdeci">XMMATRIX mWorld</div><div class="ttdef"><b>Definition</b> Prerequisites.h:113</div></div>
+<div class="ttc" id="astruct_c_b_never_changes_html"><div class="ttname"><a href="struct_c_b_never_changes.html">CBNeverChanges</a></div><div class="ttdoc">Constant buffer struct for data that rarely changes (e.g., View matrix).</div><div class="ttdef"><b>Definition</b> Prerequisites.h:94</div></div>
+<div class="ttc" id="astruct_c_b_never_changes_html_acd055b3c683bf3156c0101432b160341"><div class="ttname"><a href="struct_c_b_never_changes.html#acd055b3c683bf3156c0101432b160341">CBNeverChanges::mView</a></div><div class="ttdeci">XMMATRIX mView</div><div class="ttdef"><b>Definition</b> Prerequisites.h:95</div></div>
+<div class="ttc" id="astruct_simple_vertex_html"><div class="ttname"><a href="struct_simple_vertex.html">SimpleVertex</a></div><div class="ttdoc">Defines the data structure for a single vertex.</div><div class="ttdef"><b>Definition</b> Prerequisites.h:83</div></div>
+<div class="ttc" id="astruct_simple_vertex_html_a6a7d53a8aab8bf354b9f431d87c94a7c"><div class="ttname"><a href="struct_simple_vertex.html#a6a7d53a8aab8bf354b9f431d87c94a7c">SimpleVertex::Pos</a></div><div class="ttdeci">XMFLOAT3 Pos</div><div class="ttdef"><b>Definition</b> Prerequisites.h:84</div></div>
+<div class="ttc" id="astruct_simple_vertex_html_a9ec347accd80550ea746c15b6a967d5c"><div class="ttname"><a href="struct_simple_vertex.html#a9ec347accd80550ea746c15b6a967d5c">SimpleVertex::Tex</a></div><div class="ttdeci">XMFLOAT2 Tex</div><div class="ttdef"><b>Definition</b> Prerequisites.h:85</div></div>
+<div class="ttc" id="astruct_simple_vertex_html_aa37228a0b5fc22e029db76d8882cd37d"><div class="ttname"><a href="struct_simple_vertex.html#aa37228a0b5fc22e029db76d8882cd37d">SimpleVertex::Normal</a></div><div class="ttdeci">XMFLOAT3 Normal</div><div class="ttdef"><b>Definition</b> Prerequisites.h:86</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="_prerequisites_8h.html">Prerequisites.h</a></li>
+    <li class="navelem"><a class="el" href="dir_299e61417e892be8589db483489d46e4.html">PandoraCoreEngine</a></li><li class="navelem"><a class="el" href="dir_c5147c8cb0b70b0fca7866e8f8ded607.html">include</a></li><li class="navelem"><a class="el" href="_prerequisites_8h.html">Prerequisites.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>

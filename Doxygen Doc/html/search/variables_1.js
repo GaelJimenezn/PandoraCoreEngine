@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pos_0',['Pos',['../struct_simple_vertex.html#a6a7d53a8aab8bf354b9f431d87c94a7c',1,'SimpleVertex']]]
+  ['normal_0',['Normal',['../struct_simple_vertex.html#aa37228a0b5fc22e029db76d8882cd37d',1,'SimpleVertex']]]
 ];

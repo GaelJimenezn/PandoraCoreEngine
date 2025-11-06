@@ -1,0 +1,27 @@
+\doxysection{Model\+Loader.\+h}
+\hypertarget{_model_loader_8h_source}{}\label{_model_loader_8h_source}\index{PandoraCoreEngine/include/ModelLoader.h@{PandoraCoreEngine/include/ModelLoader.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_prerequisites_8h}{Prerequisites.h}}"{}}}
+\DoxyCodeLine{00003\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_mesh_component}{MeshComponent}};\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class}}
+\DoxyCodeLine{00013\ \mbox{\hyperlink{class_model_loader}{ModelLoader}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00022\ \ \ \mbox{\hyperlink{class_model_loader_a808f6a6fc6618ce8568b721d4929e2b3}{loadFromFile}}(\textcolor{keyword}{const}\ std::string\&\ filename,\ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_mesh_component}{MeshComponent}}\&\ outMesh);\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00046\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00047\ \ \ processFace(\textcolor{keyword}{const}\ std::vector<std::string>\&\ faceData,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::unordered\_map<std::string,\ unsigned\ int>\&\ uniqueVertices,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<SimpleVertex>\&\ outVertices,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<unsigned\ int>\&\ outIndices,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<XMFLOAT3>\&\ temp\_positions,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<XMFLOAT2>\&\ temp\_texcoords,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<XMFLOAT3>\&\ temp\_normals);}
+\DoxyCodeLine{00054\ \};}
+
+\end{DoxyCode}

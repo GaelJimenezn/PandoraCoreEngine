@@ -1,0 +1,49 @@
+\doxysection{Model\+Loader Class Reference}
+\hypertarget{class_model_loader}{}\label{class_model_loader}\index{ModelLoader@{ModelLoader}}
+
+
+Clase de utilidad estática para cargar modelos 3D desde archivos .obj.  
+
+
+
+
+{\ttfamily \#include $<$Model\+Loader.\+h$>$}
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{class_model_loader_a808f6a6fc6618ce8568b721d4929e2b3}{load\+From\+File}} (const std\+::string \&filename, \mbox{\hyperlink{class_mesh_component}{Mesh\+Component}} \&out\+Mesh)
+\begin{DoxyCompactList}\small\item\em Carga un modelo .obj desde un archivo. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Clase de utilidad estática para cargar modelos 3D desde archivos .obj. 
+
+Proporciona métodos para parsear la geometría (vértices, texturas, normales) y las caras de un archivo .obj, optimizando los datos para su renderizado. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_model_loader_a808f6a6fc6618ce8568b721d4929e2b3}\index{ModelLoader@{ModelLoader}!loadFromFile@{loadFromFile}}
+\index{loadFromFile@{loadFromFile}!ModelLoader@{ModelLoader}}
+\doxysubsubsection{\texorpdfstring{loadFromFile()}{loadFromFile()}}
+{\footnotesize\ttfamily \label{class_model_loader_a808f6a6fc6618ce8568b721d4929e2b3} 
+static bool Model\+Loader\+::load\+From\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{, }\item[{\mbox{\hyperlink{class_mesh_component}{Mesh\+Component}} \&}]{out\+Mesh}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Carga un modelo .obj desde un archivo. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & Ruta al archivo .obj. \\
+\hline
+{\em out\+Mesh} & El componente Mesh donde se guardarán los datos. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true si la carga fue exitosa, false en caso contrario. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Pandora\+Core\+Engine/include/Model\+Loader.\+h\end{DoxyCompactItemize}

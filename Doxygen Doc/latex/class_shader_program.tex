@@ -25,7 +25,7 @@ void {\bfseries update} ()
 \begin{DoxyCompactList}\small\item\em Placeholder for potential shader update logic (e.\+g., reloading). \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_shader_program_a3d839da206404e2676ec39603d412b87}{render}} (\mbox{\hyperlink{class_device_context}{Device\+Context}} \&device\+Context)
 \begin{DoxyCompactList}\small\item\em Binds the vertex shader, pixel shader, and input layout to the pipeline. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_shader_program_a3524e39bfa351287079a3eb2ae8dd885}{render}} (\mbox{\hyperlink{class_device_context}{Device\+Context}} \&device\+Context, Shader\+Type type)
+void \mbox{\hyperlink{class_shader_program_a3524e39bfa351287079a3eb2ae8dd885}{render}} (\mbox{\hyperlink{class_device_context}{Device\+Context}} \&device\+Context, \mbox{\hyperlink{_prerequisites_8h_a6230e1b9ecbf2d82d10856fd7e1fde46}{Shader\+Type}} type)
 \begin{DoxyCompactList}\small\item\em Binds a specific shader type (Vertex or Pixel) to the pipeline. \end{DoxyCompactList}\item 
 \Hypertarget{class_shader_program_a7ccfd4eb43ffdafcc4ad911249c9d770}\label{class_shader_program_a7ccfd4eb43ffdafcc4ad911249c9d770} 
 void {\bfseries destroy} ()
@@ -64,7 +64,7 @@ Initializes the shader program by compiling shaders and creating layout.
 \begin{DoxyParams}{Parameters}
 {\em device} & The graphics device used for resource creation. \\
 \hline
-{\em file\+Name} & The base name of the HLSL shader file (expects .fx extension). \\
+{\em file\+Name} & The base name of the HLSL shader file (expects .fx extension). HLSL shader file (expects .fx extension). \\
 \hline
 {\em Layout} & A vector describing the vertex input layout elements. \\
 \hline
@@ -91,7 +91,7 @@ Binds the vertex shader, pixel shader, and input layout to the pipeline.
 \index{render@{render}!ShaderProgram@{ShaderProgram}}
 \doxysubsubsection{\texorpdfstring{render()}{render()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{class_shader_program_a3524e39bfa351287079a3eb2ae8dd885} 
-void Shader\+Program\+::render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_device_context}{Device\+Context}} \&}]{device\+Context}{, }\item[{Shader\+Type}]{type}{}\end{DoxyParamCaption})}
+void Shader\+Program\+::render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_device_context}{Device\+Context}} \&}]{device\+Context}{, }\item[{\mbox{\hyperlink{_prerequisites_8h_a6230e1b9ecbf2d82d10856fd7e1fde46}{Shader\+Type}}}]{type}{}\end{DoxyParamCaption})}
 
 
 
@@ -108,4 +108,4 @@ Binds a specific shader type (Vertex or Pixel) to the pipeline.
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-Shader\+Program.\+h\end{DoxyCompactItemize}
+Pandora\+Core\+Engine/include/Shader\+Program.\+h\end{DoxyCompactItemize}

@@ -1,5 +1,6 @@
 \doxysection{Base\+App.\+h}
-\hypertarget{_base_app_8h_source}{}\label{_base_app_8h_source}
+\hypertarget{_base_app_8h_source}{}\label{_base_app_8h_source}\index{PandoraCoreEngine/include/BaseApp.h@{PandoraCoreEngine/include/BaseApp.h}}
+
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_prerequisites_8h}{Prerequisites.h}}"{}}}
@@ -15,66 +16,68 @@
 \DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}MeshComponent.h"{}}}
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}Buffer.h"{}}}
 \DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}SamplerState.h"{}}}
-\DoxyCodeLine{00015\ }
-\DoxyCodeLine{00024\ \textcolor{keyword}{class}}
-\DoxyCodeLine{00025\ \mbox{\hyperlink{class_base_app_a3f3785ed6c6ad8232ed9bd424763751c}{BaseApp}}\ \{}
-\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00032\ \ \ \mbox{\hyperlink{class_base_app_a3f3785ed6c6ad8232ed9bd424763751c}{BaseApp}}(HINSTANCE\ hInst,\ \textcolor{keywordtype}{int}\ nCmdShow);}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00037\ \ \ \mbox{\hyperlink{class_base_app_acd5dea4cb74bc7bbdc200426873723f5}{\string~BaseApp}}()\ \{\ \mbox{\hyperlink{class_base_app_a45e22a14bfc1f98f452b08ebb3386b2b}{destroy}}();\ \}}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{int}}
-\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{class_base_app_a3cf0b29ba0e997d8cbac4fca91635cb9}{run}}(HINSTANCE\ hInst,\ \textcolor{keywordtype}{int}\ nCmdShow);}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00053\ \ \ HRESULT}
-\DoxyCodeLine{00054\ \ \ \mbox{\hyperlink{class_base_app_a2c64e873874aed23aa14e0c8a659e3ca}{init}}();}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{void}}
-\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{class_base_app_abdc46a4c89b86fd0441615214e19fb4d}{update}}(\textcolor{keywordtype}{float}\ deltaTime);}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{void}}
-\DoxyCodeLine{00069\ \ \ \mbox{\hyperlink{class_base_app_a4002d0cff2225b7b79501aeb17a3e970}{render}}();}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{void}}
-\DoxyCodeLine{00075\ \ \ \mbox{\hyperlink{class_base_app_a45e22a14bfc1f98f452b08ebb3386b2b}{destroy}}();}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{static}\ LRESULT\ CALLBACK}
-\DoxyCodeLine{00088\ \ \ WndProc(HWND\ hWnd,\ UINT\ message,\ WPARAM\ wParam,\ LPARAM\ lParam);}
-\DoxyCodeLine{00089\ }
-\DoxyCodeLine{00090\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00091\ \ \ \textcolor{comment}{//\ Core\ Engine\ Components}}
-\DoxyCodeLine{00092\ \ \ \mbox{\hyperlink{class_window}{Window}}\ \ \ \ \ \ \ \ \ \ \ m\_window;\ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00093\ \ \ \mbox{\hyperlink{class_device}{Device}}\ \ \ \ \ \ \ \ \ \ \ m\_device;\ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00094\ \ \ \mbox{\hyperlink{class_device_context}{DeviceContext}}\ \ \ \ m\_deviceContext;\ \ \ }
-\DoxyCodeLine{00095\ \ \ \mbox{\hyperlink{class_swap_chain}{SwapChain}}\ \ \ \ \ \ \ \ m\_swapChain;\ \ \ \ \ \ \ }
-\DoxyCodeLine{00097\ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ \ \ \ \ \ \ \ \ \ m\_backBuffer;\ \ \ \ \ \ }
-\DoxyCodeLine{00099\ \ \ \mbox{\hyperlink{class_render_target_view}{RenderTargetView}}\ m\_renderTargetView;}
-\DoxyCodeLine{00101\ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ \ \ \ \ \ \ \ \ \ m\_depthStencil;\ \ \ \ }
-\DoxyCodeLine{00103\ \ \ \mbox{\hyperlink{class_depth_stencil_view}{DepthStencilView}}\ m\_depthStencilView;}
-\DoxyCodeLine{00105\ \ \ \mbox{\hyperlink{class_viewport}{Viewport}}\ \ \ \ \ \ \ \ \ m\_viewport;\ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00107\ \ \ \mbox{\hyperlink{class_shader_program}{ShaderProgram}}\ \ \ \ m\_shaderProgram;\ \ \ }
-\DoxyCodeLine{00108\ \ \ \mbox{\hyperlink{class_sampler_state}{SamplerState}}\ \ \ \ \ m\_samplerState;\ \ \ \ }
-\DoxyCodeLine{00110\ }
-\DoxyCodeLine{00111\ \ \ \textcolor{comment}{//\ Scene/Object\ Data}}
-\DoxyCodeLine{00112\ \ \ \mbox{\hyperlink{class_mesh_component}{MeshComponent}}\ \ \ \ m\_mesh;\ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00114\ \ \ \mbox{\hyperlink{class_buffer}{Buffer}}\ \ \ \ \ \ \ \ \ \ \ m\_vertexBuffer;\ \ \ \ }
-\DoxyCodeLine{00115\ \ \ \mbox{\hyperlink{class_buffer}{Buffer}}\ \ \ \ \ \ \ \ \ \ \ m\_indexBuffer;\ \ \ \ \ }
-\DoxyCodeLine{00116\ \ \ \mbox{\hyperlink{class_buffer}{Buffer}}\ \ \ \ \ \ \ \ \ \ \ m\_cbNeverChanges;\ \ }
-\DoxyCodeLine{00117\ \ \ \mbox{\hyperlink{class_buffer}{Buffer}}\ \ \ \ \ \ \ \ \ \ \ m\_cbChangeOnResize;}
-\DoxyCodeLine{00119\ \ \ \mbox{\hyperlink{class_buffer}{Buffer}}\ \ \ \ \ \ \ \ \ \ \ m\_cbChangesEveryFrame;\ }
-\DoxyCodeLine{00121\ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ \ \ \ \ \ \ \ \ \ m\_textureCube;\ \ \ \ \ }
-\DoxyCodeLine{00122\ }
-\DoxyCodeLine{00123\ \ \ \textcolor{comment}{//\ Matrices\ and\ Rendering\ State}}
-\DoxyCodeLine{00124\ \ \ XMMATRIX\ \ \ \ \ \ \ \ \ m\_World;\ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00126\ \ \ XMMATRIX\ \ \ \ \ \ \ \ \ m\_View;\ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00127\ \ \ XMMATRIX\ \ \ \ \ \ \ \ \ m\_Projection;\ \ \ \ \ \ }
-\DoxyCodeLine{00128\ \ \ XMFLOAT4\ \ \ \ \ \ \ \ \ m\_vMeshColor;\ \ \ \ \ \ }
-\DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ \ \ \textcolor{comment}{//\ Constant\ Buffer\ Data\ Structures\ (CPU-\/side\ copies)}}
-\DoxyCodeLine{00131\ \ \ \mbox{\hyperlink{struct_c_b_change_on_resize}{CBChangeOnResize}}\ cbChangesOnResize;\ }
-\DoxyCodeLine{00133\ \ \ \mbox{\hyperlink{struct_c_b_never_changes}{CBNeverChanges}}\ \ \ cbNeverChanges;\ \ \ \ }
-\DoxyCodeLine{00134\ \ \ \mbox{\hyperlink{struct_c_b_changes_every_frame}{CBChangesEveryFrame}}\ cb;\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00136\ \};}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}ModelLoader.h"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{class}}
+\DoxyCodeLine{00026\ \mbox{\hyperlink{class_base_app_a3f3785ed6c6ad8232ed9bd424763751c}{BaseApp}}\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{class_base_app_a3f3785ed6c6ad8232ed9bd424763751c}{BaseApp}}(HINSTANCE\ hInst,\ \textcolor{keywordtype}{int}\ nCmdShow);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00038\ \ \ \mbox{\hyperlink{class_base_app_acd5dea4cb74bc7bbdc200426873723f5}{\string~BaseApp}}()\ \{\ \mbox{\hyperlink{class_base_app_a45e22a14bfc1f98f452b08ebb3386b2b}{destroy}}();\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{class_base_app_a3cf0b29ba0e997d8cbac4fca91635cb9}{run}}(HINSTANCE\ hInst,\ \textcolor{keywordtype}{int}\ nCmdShow);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00054\ \ \ HRESULT}
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{class_base_app_a2c64e873874aed23aa14e0c8a659e3ca}{init}}();}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{class_base_app_abdc46a4c89b86fd0441615214e19fb4d}{update}}(\textcolor{keywordtype}{float}\ deltaTime);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00070\ \ \ \mbox{\hyperlink{class_base_app_a4002d0cff2225b7b79501aeb17a3e970}{render}}();}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{class_base_app_a45e22a14bfc1f98f452b08ebb3386b2b}{destroy}}();}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{static}\ LRESULT\ CALLBACK}
+\DoxyCodeLine{00089\ \ \ WndProc(HWND\ hWnd,\ UINT\ message,\ WPARAM\ wParam,\ LPARAM\ lParam);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00092\ \ \ \textcolor{comment}{//\ Core\ Engine\ Components}}
+\DoxyCodeLine{00093\ \ \ \mbox{\hyperlink{class_window}{Window}}\ \ \ \ \ \ \ \ \ \ \ m\_window;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00094\ \ \ \mbox{\hyperlink{class_device}{Device}}\ \ \ \ \ \ \ \ \ \ \ m\_device;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00095\ \ \ \mbox{\hyperlink{class_device_context}{DeviceContext}}\ \ \ \ m\_deviceContext;\ \ \ }
+\DoxyCodeLine{00096\ \ \ \mbox{\hyperlink{class_swap_chain}{SwapChain}}\ \ \ \ \ \ \ \ m\_swapChain;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00098\ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ \ \ \ \ \ \ \ \ \ m\_backBuffer;\ \ \ \ \ \ }
+\DoxyCodeLine{00100\ \ \ \mbox{\hyperlink{class_render_target_view}{RenderTargetView}}\ m\_renderTargetView;}
+\DoxyCodeLine{00102\ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ \ \ \ \ \ \ \ \ \ m\_depthStencil;\ \ \ \ }
+\DoxyCodeLine{00104\ \ \ \mbox{\hyperlink{class_depth_stencil_view}{DepthStencilView}}\ m\_depthStencilView;}
+\DoxyCodeLine{00106\ \ \ \mbox{\hyperlink{class_viewport}{Viewport}}\ \ \ \ \ \ \ \ \ m\_viewport;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00108\ \ \ \mbox{\hyperlink{class_shader_program}{ShaderProgram}}\ \ \ \ m\_shaderProgram;\ \ \ }
+\DoxyCodeLine{00109\ \ \ \mbox{\hyperlink{class_sampler_state}{SamplerState}}\ \ \ \ \ m\_samplerState;\ \ \ \ }
+\DoxyCodeLine{00111\ \ \ \mbox{\hyperlink{class_model_loader}{ModelLoader}}\ \ \ \ \ \ m\_modelLoader;\ \ \ \ \ }
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \textcolor{comment}{//\ Scene/Object\ Data}}
+\DoxyCodeLine{00114\ \ \ \mbox{\hyperlink{class_mesh_component}{MeshComponent}}\ \ \ \ m\_mesh;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00116\ \ \ \mbox{\hyperlink{class_buffer}{Buffer}}\ \ \ \ \ \ \ \ \ \ \ m\_vertexBuffer;\ \ \ \ }
+\DoxyCodeLine{00117\ \ \ \mbox{\hyperlink{class_buffer}{Buffer}}\ \ \ \ \ \ \ \ \ \ \ m\_indexBuffer;\ \ \ \ \ }
+\DoxyCodeLine{00118\ \ \ \mbox{\hyperlink{class_buffer}{Buffer}}\ \ \ \ \ \ \ \ \ \ \ m\_cbNeverChanges;\ \ }
+\DoxyCodeLine{00119\ \ \ \mbox{\hyperlink{class_buffer}{Buffer}}\ \ \ \ \ \ \ \ \ \ \ m\_cbChangeOnResize;}
+\DoxyCodeLine{00121\ \ \ \mbox{\hyperlink{class_buffer}{Buffer}}\ \ \ \ \ \ \ \ \ \ \ m\_cbChangesEveryFrame;\ }
+\DoxyCodeLine{00123\ \ \ \mbox{\hyperlink{class_texture}{Texture}}\ \ \ \ \ \ \ \ \ m\_modelTexture;\ \ \ \ \ }
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \textcolor{comment}{//\ Matrices\ and\ Rendering\ State}}
+\DoxyCodeLine{00126\ \ \ XMMATRIX\ \ \ \ \ \ \ \ \ m\_World;\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00128\ \ \ XMMATRIX\ \ \ \ \ \ \ \ \ m\_View;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00129\ \ \ XMMATRIX\ \ \ \ \ \ \ \ \ m\_Projection;\ \ \ \ \ \ }
+\DoxyCodeLine{00130\ \ \ XMFLOAT4\ \ \ \ \ \ \ \ \ m\_vMeshColor;\ \ \ \ \ \ }
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \textcolor{comment}{//\ Constant\ Buffer\ Data\ Structures\ (CPU-\/side\ copies)}}
+\DoxyCodeLine{00133\ \ \ \mbox{\hyperlink{struct_c_b_change_on_resize}{CBChangeOnResize}}\ cbChangesOnResize;\ }
+\DoxyCodeLine{00135\ \ \ \mbox{\hyperlink{struct_c_b_never_changes}{CBNeverChanges}}\ \ \ cbNeverChanges;\ \ \ \ }
+\DoxyCodeLine{00136\ \ \ \mbox{\hyperlink{struct_c_b_changes_every_frame}{CBChangesEveryFrame}}\ cb;\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00138\ \};}
 
 \end{DoxyCode}

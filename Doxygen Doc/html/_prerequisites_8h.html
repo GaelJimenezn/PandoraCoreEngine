@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Pandora Core Engine Docs: Prerequisites.h File Reference</title>
+<title>Pandora Core Engine Docs: PandoraCoreEngine/include/Prerequisites.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -119,6 +119,10 @@ $(function(){initNavTree('_prerequisites_8h.html',''); initResizable(true); });
 <code>#include &lt;sstream&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;thread&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;stdexcept&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
 <code>#include &lt;d3d11.h&gt;</code><br />
 <code>#include &lt;d3dx11.h&gt;</code><br />
 <code>#include &lt;d3dcompiler.h&gt;</code><br />
@@ -129,33 +133,42 @@ $(function(){initNavTree('_prerequisites_8h.html',''); initResizable(true); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_simple_vertex.html">SimpleVertex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the data structure for a single vertex.  <a href="struct_simple_vertex.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_b_never_changes.html">CBNeverChanges</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constant buffer struct for data that rarely changes (e.g., View matrix).  <a href="struct_c_b_never_changes.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_b_change_on_resize.html">CBChangeOnResize</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constant buffer struct for data that changes on window resize (e.g., Projection matrix).  <a href="struct_c_b_change_on_resize.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_b_changes_every_frame.html">CBChangesEveryFrame</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constant buffer struct for data that changes every frame (e.g., World matrix).  <a href="struct_c_b_changes_every_frame.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a2bc549675ca29f733709b4656d22d52a" id="r_a2bc549675ca29f733709b4656d22d52a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2bc549675ca29f733709b4656d22d52a">SAFE_RELEASE</a>(x)</td></tr>
+<tr class="memdesc:a2bc549675ca29f733709b4656d22d52a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Safely releases a COM object and sets its pointer to nullptr.  <br /></td></tr>
 <tr class="separator:a2bc549675ca29f733709b4656d22d52a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fe30e7b51deb1d5519885ad20b879c8" id="r_a8fe30e7b51deb1d5519885ad20b879c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8fe30e7b51deb1d5519885ad20b879c8">MESSAGE</a>(classObj,  method,  state)</td></tr>
+<tr class="memdesc:a8fe30e7b51deb1d5519885ad20b879c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs a standard creation/status message to the debug output.  <br /></td></tr>
 <tr class="separator:a8fe30e7b51deb1d5519885ad20b879c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5d83f25f2317ec67a651392ed1ac091" id="r_ab5d83f25f2317ec67a651392ed1ac091"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5d83f25f2317ec67a651392ed1ac091">ERROR</a>(classObj,  method,  errorMSG)</td></tr>
+<tr class="memdesc:ab5d83f25f2317ec67a651392ed1ac091"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs an error message to the debug output, safely enclosed in try-catch.  <br /></td></tr>
 <tr class="separator:ab5d83f25f2317ec67a651392ed1ac091"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ab8685fb7f8f0003664786f0e1e04f65a" id="r_ab8685fb7f8f0003664786f0e1e04f65a"><td class="memItemLeft" align="right" valign="top"><a id="ab8685fb7f8f0003664786f0e1e04f65a" name="ab8685fb7f8f0003664786f0e1e04f65a"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>ExtensionType</b> { <b>DDS</b> = 0
-, <b>PNG</b> = 1
-, <b>JPG</b> = 2
+<tr class="memitem:ab8685fb7f8f0003664786f0e1e04f65a" id="r_ab8685fb7f8f0003664786f0e1e04f65a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab8685fb7f8f0003664786f0e1e04f65a">ExtensionType</a> { <a class="el" href="#ab8685fb7f8f0003664786f0e1e04f65aa539f41b68fd1d3b17779d462aad6f8b3">DDS</a> = 0
+, <a class="el" href="#ab8685fb7f8f0003664786f0e1e04f65aa842c5fc4bbe3f780e57c76d1a3cafe9f">PNG</a> = 1
+, <a class="el" href="#ab8685fb7f8f0003664786f0e1e04f65aa193eff471c99a2d5cad5433221091f7f">JPG</a> = 2
  }</td></tr>
+<tr class="memdesc:ab8685fb7f8f0003664786f0e1e04f65a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines supported texture file extensions.  <a href="#ab8685fb7f8f0003664786f0e1e04f65a">More...</a><br /></td></tr>
 <tr class="separator:ab8685fb7f8f0003664786f0e1e04f65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6230e1b9ecbf2d82d10856fd7e1fde46" id="r_a6230e1b9ecbf2d82d10856fd7e1fde46"><td class="memItemLeft" align="right" valign="top"><a id="a6230e1b9ecbf2d82d10856fd7e1fde46" name="a6230e1b9ecbf2d82d10856fd7e1fde46"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>ShaderType</b> { <b>VERTEX_SHADER</b> = 0
-, <b>PIXEL_SHADER</b> = 1
+<tr class="memitem:a6230e1b9ecbf2d82d10856fd7e1fde46" id="r_a6230e1b9ecbf2d82d10856fd7e1fde46"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6230e1b9ecbf2d82d10856fd7e1fde46">ShaderType</a> { <a class="el" href="#a6230e1b9ecbf2d82d10856fd7e1fde46a63f069899614a9d92dd3c59d0aa97c91">VERTEX_SHADER</a> = 0
+, <a class="el" href="#a6230e1b9ecbf2d82d10856fd7e1fde46a279b3a8fd9f35e982c7c0e8733b1e66d">PIXEL_SHADER</a> = 1
  }</td></tr>
+<tr class="memdesc:a6230e1b9ecbf2d82d10856fd7e1fde46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the types of shaders that can be created.  <a href="#a6230e1b9ecbf2d82d10856fd7e1fde46">More...</a><br /></td></tr>
 <tr class="separator:a6230e1b9ecbf2d82d10856fd7e1fde46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -195,6 +208,16 @@ Enumerations</h2></td></tr>
 <div class="line">  }                                                           \</div>
 <div class="line">}</div>
 </div><!-- fragment -->
+<p>Logs an error message to the debug output, safely enclosed in try-catch. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">classObj</td><td>The name of the class (as a wide string). </td></tr>
+    <tr><td class="paramname">method</td><td>The name of the method (as a wide string). </td></tr>
+    <tr><td class="paramname">errorMSG</td><td>The error description (as a wide string). </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a8fe30e7b51deb1d5519885ad20b879c8" name="a8fe30e7b51deb1d5519885ad20b879c8"></a>
@@ -227,6 +250,16 @@ Enumerations</h2></td></tr>
 <div class="line">   OutputDebugStringW( os_.str().c_str() );  \</div>
 <div class="line">}</div>
 </div><!-- fragment -->
+<p>Logs a standard creation/status message to the debug output. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">classObj</td><td>The name of the class (as a wide string). </td></tr>
+    <tr><td class="paramname">method</td><td>The name of the method (as a wide string). </td></tr>
+    <tr><td class="paramname">state</td><td>The status message to log (as a wide string). </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a2bc549675ca29f733709b4656d22d52a" name="a2bc549675ca29f733709b4656d22d52a"></a>
@@ -245,6 +278,61 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">if</span>(x != <span class="keyword">nullptr</span>) { x-&gt;Release(); x = <span class="keyword">nullptr</span>; }</div>
 </div><!-- fragment -->
+<p>Safely releases a COM object and sets its pointer to nullptr. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The COM object (e.g., ID3D11Buffer*) to release. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ab8685fb7f8f0003664786f0e1e04f65a" name="ab8685fb7f8f0003664786f0e1e04f65a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8685fb7f8f0003664786f0e1e04f65a">&#9670;&#160;</a></span>ExtensionType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#ab8685fb7f8f0003664786f0e1e04f65a">ExtensionType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines supported texture file extensions. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab8685fb7f8f0003664786f0e1e04f65aa539f41b68fd1d3b17779d462aad6f8b3" name="ab8685fb7f8f0003664786f0e1e04f65aa539f41b68fd1d3b17779d462aad6f8b3"></a>DDS&#160;</td><td class="fielddoc"><p>DirectDraw Surface (.dds) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab8685fb7f8f0003664786f0e1e04f65aa842c5fc4bbe3f780e57c76d1a3cafe9f" name="ab8685fb7f8f0003664786f0e1e04f65aa842c5fc4bbe3f780e57c76d1a3cafe9f"></a>PNG&#160;</td><td class="fielddoc"><p>Portable Network Graphics (.png) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab8685fb7f8f0003664786f0e1e04f65aa193eff471c99a2d5cad5433221091f7f" name="ab8685fb7f8f0003664786f0e1e04f65aa193eff471c99a2d5cad5433221091f7f"></a>JPG&#160;</td><td class="fielddoc"><p>Joint Photographic Experts Group (.jpg) </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a6230e1b9ecbf2d82d10856fd7e1fde46" name="a6230e1b9ecbf2d82d10856fd7e1fde46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6230e1b9ecbf2d82d10856fd7e1fde46">&#9670;&#160;</a></span>ShaderType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a6230e1b9ecbf2d82d10856fd7e1fde46">ShaderType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines the types of shaders that can be created. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a6230e1b9ecbf2d82d10856fd7e1fde46a63f069899614a9d92dd3c59d0aa97c91" name="a6230e1b9ecbf2d82d10856fd7e1fde46a63f069899614a9d92dd3c59d0aa97c91"></a>VERTEX_SHADER&#160;</td><td class="fielddoc"><p>Represents a Vertex Shader. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a6230e1b9ecbf2d82d10856fd7e1fde46a279b3a8fd9f35e982c7c0e8733b1e66d" name="a6230e1b9ecbf2d82d10856fd7e1fde46a279b3a8fd9f35e982c7c0e8733b1e66d"></a>PIXEL_SHADER&#160;</td><td class="fielddoc"><p>Represents a Pixel Shader. </p>
+</td></tr>
+</table>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -252,7 +340,7 @@ Enumerations</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="_prerequisites_8h.html">Prerequisites.h</a></li>
+    <li class="navelem"><a class="el" href="dir_299e61417e892be8589db483489d46e4.html">PandoraCoreEngine</a></li><li class="navelem"><a class="el" href="dir_c5147c8cb0b70b0fca7866e8f8ded607.html">include</a></li><li class="navelem"><a class="el" href="_prerequisites_8h.html">Prerequisites.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>

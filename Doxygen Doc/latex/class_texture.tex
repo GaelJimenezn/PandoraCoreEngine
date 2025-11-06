@@ -12,7 +12,7 @@ Manages a 2D texture resource and its shader resource view.
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-HRESULT \mbox{\hyperlink{class_texture_a8c07d83beec59b6d5501bb98d726746f}{init}} (\mbox{\hyperlink{class_device}{Device}} \&device, const std\+::string \&texture\+Name, Extension\+Type extension\+Type)
+HRESULT \mbox{\hyperlink{class_texture_a8c07d83beec59b6d5501bb98d726746f}{init}} (\mbox{\hyperlink{class_device}{Device}} \&device, const std\+::string \&texture\+Name, \mbox{\hyperlink{_prerequisites_8h_ab8685fb7f8f0003664786f0e1e04f65a}{Extension\+Type}} extension\+Type)
 \begin{DoxyCompactList}\small\item\em Initializes a texture by loading it from an image file. \end{DoxyCompactList}\item 
 HRESULT \mbox{\hyperlink{class_texture_a4adaa026f13720fa65b71d48ad224d0d}{init}} (\mbox{\hyperlink{class_device}{Device}} \&device, unsigned int width, unsigned int height, DXGI\+\_\+\+FORMAT Format, unsigned int Bind\+Flags, unsigned int sample\+Count=1, unsigned int quality\+Levels=0)
 \begin{DoxyCompactList}\small\item\em Initializes an empty texture resource from memory. \end{DoxyCompactList}\item 
@@ -48,7 +48,7 @@ This class can handle textures loaded from files or created procedurally in memo
 \index{init@{init}!Texture@{Texture}}
 \doxysubsubsection{\texorpdfstring{init()}{init()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily \label{class_texture_a8c07d83beec59b6d5501bb98d726746f} 
-HRESULT Texture\+::init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_device}{Device}} \&}]{device}{, }\item[{const std\+::string \&}]{texture\+Name}{, }\item[{Extension\+Type}]{extension\+Type}{}\end{DoxyParamCaption})}
+HRESULT Texture\+::init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_device}{Device}} \&}]{device}{, }\item[{const std\+::string \&}]{texture\+Name}{, }\item[{\mbox{\hyperlink{_prerequisites_8h_ab8685fb7f8f0003664786f0e1e04f65a}{Extension\+Type}}}]{extension\+Type}{}\end{DoxyParamCaption})}
 
 
 
@@ -164,4 +164,4 @@ This view allows shaders to read from the texture resource.
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-Texture.\+h\end{DoxyCompactItemize}
+Pandora\+Core\+Engine/include/Texture.\+h\end{DoxyCompactItemize}

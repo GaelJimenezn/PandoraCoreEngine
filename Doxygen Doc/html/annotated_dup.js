@@ -10,6 +10,7 @@ var annotated_dup =
     [ "DeviceContext", "class_device_context.html", "class_device_context" ],
     [ "InputLayout", "class_input_layout.html", "class_input_layout" ],
     [ "MeshComponent", "class_mesh_component.html", "class_mesh_component" ],
+    [ "ModelLoader", "class_model_loader.html", null ],
     [ "RenderTargetView", "class_render_target_view.html", "class_render_target_view" ],
     [ "SamplerState", "class_sampler_state.html", "class_sampler_state" ],
     [ "ShaderProgram", "class_shader_program.html", "class_shader_program" ],
