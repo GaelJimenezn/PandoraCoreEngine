@@ -1,180 +1,144 @@
-
 # 🎮 Pandora Core Engine ✨
 
-<p align="center">
-  <img src="URL_TO_YOUR_DEMO_GIF_OR_IMAGE.gif" alt="Pandora Core Engine Demo" width="600"/>
-</p>
+<p align="center">     <img src="URL_TO_YOUR_DEMO_GIF_OR_IMAGE.gif" alt="Pandora Core Engine Demo" width="600"/> </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Language-C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B" alt="Language C++">
-  <img src="https://img.shields.io/badge/API-DirectX_11-0078D7?style=for-the-badge&logo=windows" alt="API DirectX 11">
-  <img src="https://img.shields.io/badge/Platform-Windows-0078D7?style=for-the-badge&logo=windows" alt="Platform Windows">
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License MIT">
-</p>
+<p align="center">   <img src="https://img.shields.io/badge/Language-C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B" alt="Language C++">   <img src="https://img.shields.io/badge/API-DirectX_11-0078D7?style=for-the-badge&logo=windows" alt="API DirectX 11">   <img src="https://img.shields.io/badge/Platform-Windows-0078D7?style=for-the-badge&logo=windows" alt="Platform Windows">   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License MIT"> </p>
 
-Pandora Core Engine is a 3D rendering engine built from scratch in C++ using DirectX 11. Created for the 3D Computer Graphics course (Class of 2026), this engine implements a real-time rendering pipeline to display a rotating, textured cube.
+Pandora Core Engine es un motor de renderizado 3D construido desde cero en C++ utilizando DirectX 11. Creado para la materia "Gráficas Computacionales 3D" (Generación 2026), este motor implementa un pipeline de renderizado en tiempo real para mostrar un cubo texturizado en rotación.
 
-## 📜 Table of Contents
-* [🚀 Key Features](#-key-features)
-* [🏗️ Engine Architecture](#️-engine-architecture)
-* [🎨 Rendering Pipeline](#-rendering-pipeline)
-* [📊 Architecture Diagrams](#-architecture-diagrams)
-* [⚙️ Compile & Run](#️-compile--run)
+## 📜 Tabla de Contenidos
 
-## 🚀 Key Features
+  * [🚀 Características Principales](https://www.google.com/search?q=%23-caracter%C3%ADsticas-principales)
+  * [🏗️ Arquitectura del Motor](https://www.google.com/search?q=%23%EF%B8%8F-arquitectura-del-motor)
+  * [📊 Diagramas de Arquitectura](https://www.google.com/search?q=%23-diagramas-de-arquitectura)
+      * [Diagrama de Flujo de Ejecución](https://www.google.com/search?q=%231-diagrama-de-flujo-de-ejecuci%C3%B3n)
+      * [Diagrama de Clases (Abstracción)](https://www.google.com/search?q=%232-diagrama-de-clases-abstracci%C3%B3n)
+  * [🎨 Pipeline de Renderizado](https://www.google.com/search?q=%23-pipeline-de-renderizado)
+  * [⚙️ Compilar y Ejecutar](https://www.google.com/search?q=%23%EF%B8%8F-compilar-y-ejecutar)
 
-* **DirectX 11 Abstraction:** Clean and reusable C++ classes encapsulating low-level API components.
-* **Minimal Rendering Pipeline:**
-    * Native Win32 window creation.
-    * `Device` & `DeviceContext` management.
-    * `SwapChain` setup.
-    * `RenderTargetView` & `DepthStencilView` handling.
-* **Geometry Rendering:** Renders a 3D cube using vertex and index buffers.
-* **Shaders & Texturing:** Vertex and Pixel Shaders written in HLSL.
-* **MSAA Support:** Multisample anti-aliasing for smoother visuals.
+## 🚀 Características Principales
 
-## 🏗️ Engine Architecture
+  * **Abstracción de DirectX 11:** Clases C++ limpias y reutilizables que encapsulan los componentes de bajo nivel de la API (Device, Buffers, Textures, etc.).
+  * **Clase `BaseApp`:** Orquesta toda la lógica de la aplicación, incluyendo la inicialización, el bucle principal (`run`), actualización (`update`) y renderizado (`render`).
+  * **Pipeline de Renderizado Mínimo:**
+      * Creación de ventana nativa Win32 (`Window`).
+      * Gestión de `Device` y `DeviceContext`.
+      * Configuración de `SwapChain`.
+      * Manejo de `RenderTargetView` y `DepthStencilView`.
+  * **Renderizado de Geometría:** Carga y dibuja mallas usando `Buffer` para vértices e índices.
+  * **Shaders y Texturizado:** Carga y administra Vertex y Pixel Shaders (`ShaderProgram`) escritos en HLSL.
+  * **Carga de Modelos:** Incluye un `ModelLoader` básico para cargar geometría.
+  * **Soporte MSAA:** Configura multisample anti-aliasing para suavizar los bordes.
 
-The engine uses the separation of responsibilities principle, giving each class a clear and defined role.
+## 🏗️ Arquitectura del Motor
 
-| Class              | Description                                                      |
-| ------------------ | ---------------------------------------------------------------- |
-| `Window`           | Manages the native Win32 window (HWND).                          |
-| `Device`           | Factory for GPU resources (textures, buffers, shaders).          |
-| `DeviceContext`    | Sends commands to the GPU and binds resources to the pipeline.   |
-| `SwapChain`        | Manages the buffer chain for presentation to the screen.         |
-| `Texture`          | Represents 2D texture resources and their shader views.          |
-| `RenderTargetView` | The color buffer where the scene is rendered to.                 |
-| `DepthStencilView` | The depth buffer used for correct object occlusion.              |
+El motor utiliza el principio de separación de responsabilidades. La lógica de la aplicación (`BaseApp`) posee y gestiona las clases de abstracción de bajo nivel de DirectX.
 
+| Clase | Descripción |
+| :--- | :--- |
+| **`BaseApp`** | **Orquestador principal.** Inicializa todos los sistemas, maneja el bucle de mensajes de Windows y llama a `update()` y `render()` cada fotograma. |
+| `Window` | Encapsula la creación y el manejo de la ventana nativa de Win32 (HWND). |
+| `Device` | Fábrica para los recursos de la GPU (texturas, búferes, shaders). Envuelve `ID3D11Device`. |
+| `DeviceContext` | Envía comandos a la GPU y asigna recursos al pipeline. Envuelve `ID3D11DeviceContext`. |
+| `SwapChain` | Gestiona la cadena de búferes (front/back buffer) para la presentación. |
+| `Texture` | Representa recursos de texturas 2D y sus vistas (`ShaderResourceView`). |
+| `RenderTargetView` | Búfer de color (generalmente el back buffer) donde se dibuja la escena. |
+| `DepthStencilView` | Búfer de profundidad/plantilla usado para la oclusión correcta. |
+| `Buffer` | Clase genérica para búferes de la GPU (Vertex, Index, Constant Buffers). |
+| `ShaderProgram` | Administra un par de Vertex y Pixel Shaders compilados. |
+| `InputLayout` | Define cómo la GPU debe interpretar los datos del buffer de vértices. |
+| `ModelLoader` | Utilidad para cargar datos de geometría (vértices/índices) desde archivos. |
+| `MeshComponent`| Representa una malla renderizable (conjunto de búferes y texturas). |
 
-## 🎨 Rendering Pipeline
+## 📊 Diagramas de Arquitectura
 
-Every frame follows this execution flow:
+#### 1\. Diagrama de Flujo de Ejecución
 
-1.  **Update:** Transformation matrices and other dynamic data are updated.
-2.  **Clear Buffers:** The `RenderTargetView` and `DepthStencilView` are cleared.
-3.  **Bind Resources:**
-    * Input Layout, Vertex & Index Buffers.
-    * Vertex Shader & Pixel Shader.
-    * Constant Buffers (data for shaders).
-    * Textures & Samplers.
-4.  **Draw Call:** `DrawIndexed()` is invoked to render the geometry.
-5.  **Present:** The `SwapChain` buffers are swapped to display the new frame.
+Este diagrama muestra el flujo de control de la aplicación, comenzando desde el punto de entrada `wWinMain` hasta el bucle de renderizado dentro de `BaseApp`.
 
-## 📊 Architecture Diagrams
+```mermaid
+graph TD
+    A[wWinMain] -- "Crea instancia de BaseApp" --> B(app.init)
+    B -- "1. Crear Window" --> C(Crear Device)
+    C -- "2. Crear Device" --> D(Crear SwapChain)
+    D -- "3. Crear SwapChain" --> E(Crear Render/Depth Views)
+    E -- "4. Crear Vistas" --> F(Cargar Shaders)
+    F -- "5. Cargar Shaders" --> G(Cargar Geometría)
+    G -- "Inicialización completa" --> H(app.run)
+    H -- "Inicia bucle" --> I{Bucle Principal}
+    I -- "Cada frame" --> J(app.update)
+    J -- "Actualiza matrices, etc." --> K(app.render)
+    K -- "1. Limpiar Buffers" --> L(Asignar Recursos)
+    L -- "2. Asignar Recursos" --> M(DeviceContext->DrawIndexed)
+    M -- "3. Dibujar" --> N(SwapChain->Present)
+    N -- "4. Presentar" --> I
+    I -- "Recibe WM_QUIT" --> O(app.cleanup)
+```
 
-#### 1️⃣ Class Diagram
+#### 2\. Diagrama de Clases (Abstracción)
+
+Este diagrama muestra las relaciones de propiedad entre la clase `BaseApp` y los componentes de bajo nivel que abstrae.
+
 ```mermaid
 classDiagram
     direction LR
-    class PandoraCoreEngine {
-        +wWinMain()
-        +InitDevice()
-        +Render()
-        +CleanupDevice()
+    class BaseApp {
+        +init()
+        +run()
+        +update()
+        +render()
+        +cleanup()
     }
-
-    class Window { +HWND m_hWnd +init() }
-    class Device { +ID3D11Device* m_device +createTexture2D() +createBuffer() +createShader() }
-    class DeviceContext { +ID3D11DeviceContext* m_deviceContext +drawIndexed() +updateSubresource() }
-    class SwapChain { +IDXGISwapChain* m_swapChain +present() }
+    class Window { +HWND m_hWnd }
+    class Device { +ID3D11Device* m_device }
+    class DeviceContext { +ID3D11DeviceContext* m_context }
+    class SwapChain { +IDXGISwapChain* m_swapChain }
+    class RenderTargetView { +ID3D11RenderTargetView* m_rtv }
+    class DepthStencilView { +ID3D11DepthStencilView* m_dsv }
     class Texture { +ID3D11Texture2D* m_texture }
-    class RenderTargetView { +ID3D11RenderTargetView* m_renderTargetView }
-    class DepthStencilView { +ID3D11DepthStencilView* m_depthStencilView }
+    class Buffer { +ID3D11Buffer* m_buffer }
+    class ShaderProgram { +ID3D11VertexShader* vs }
+    class ModelLoader { +loadModel() }
+    
+    BaseApp o-- Window : "m_window"
+    BaseApp o-- Device : "m_device"
+    BaseApp o-- DeviceContext : "m_deviceContext"
+    BaseApp o-- SwapChain : "m_swapChain"
+    BaseApp o-- RenderTargetView : "m_renderTargetView"
+    BaseApp o-- DepthStencilView : "m_depthStencilView"
+    BaseApp ..> Texture : crea/usa
+    BaseApp ..> Buffer : crea/usa
+    BaseApp ..> ShaderProgram : crea/usa
+    BaseApp ..> ModelLoader : usa
+```
 
-    PandoraCoreEngine o-- Window
-    PandoraCoreEngine o-- Device
-    PandoraCoreEngine o-- DeviceContext
-    PandoraCoreEngine o-- SwapChain
-    PandoraCoreEngine o-- RenderTargetView
-    PandoraCoreEngine o-- DepthStencilView
-    PandoraCoreEngine o-- Texture
+## 🎨 Pipeline de Renderizado
 
-    SwapChain ..> Window : uses
-    SwapChain ..> Device : creates
-    SwapChain ..> DeviceContext : creates
-    SwapChain ..> Texture : fills
-    RenderTargetView ..> Device : created by
-    RenderTargetView ..> Texture : uses
-    DepthStencilView ..> Device : created by
-    DepthStencilView ..> Texture : uses
-=======
-Pandora Core Engine
-Pandora Core Engine es un motor de renderizado 3D fundamental construido desde cero utilizando C++ y la API de DirectX 11. Este proyecto fue desarrollado como parte de la materia "Gráficas Computacionales 3D" (Generación 2026) y sirve como una implementación práctica de los conceptos clave del pipeline de gráficos en tiempo real.
+Cada fotograma sigue este flujo de ejecución dentro de `BaseApp::render()`:
 
-El motor es capaz de inicializar una ventana, configurar un dispositivo de DirectX 11, gestionar los búferes de presentación y renderizar una escena 3D simple con un cubo texturizado que rota.
+1.  **Actualización:** `BaseApp::update()` actualiza las matrices de transformación (Mundo, Vista, Proyección).
+2.  **Limpiar Buffers:** Se limpian el `RenderTargetView` y el `DepthStencilView`.
+3.  **Asignar Recursos (Binding):**
+      * Input Layout, Vertex Buffer e Index Buffer.
+      * Vertex Shader y Pixel Shader (`ShaderProgram`).
+      * Constant Buffers (con las matrices actualizadas).
+      * Texturas y Samplers.
+4.  **Llamada de Dibujado:** Se invoca a `DeviceContext::DrawIndexed()` para renderizar la geometría.
+5.  **Presentar:** Se llama a `SwapChain::Present()` para intercambiar los búferes y mostrar el nuevo fotograma.
 
-Características Principales
-Abstracción de DirectX 11: El código encapsula los componentes de bajo nivel de DirectX en clases C++ limpias y reutilizables.
+## ⚙️ Compilar y Ejecutar
 
-Pipeline de Renderizado Mínimo: Implementa un pipeline gráfico funcional, incluyendo:
+### Prerrequisitos
 
-Creación de ventana nativa con la API de Win32.
+  * Windows 10 o superior.
+  * Visual Studio 2010 o una versión más reciente.
+  * **DirectX SDK (Junio 2010)**. Es crucial tener este SDK instalado, ya que el proyecto utiliza componentes heredados como D3DX11.
 
-Gestión del Device para la creación de recursos y DeviceContext para la ejecución de comandos.
+### Compilación
 
-Configuración del SwapChain para la presentación en pantalla.
+1.  Clonar el repositorio.
+2.  Asegurarse de que las rutas del DirectX SDK (Junio 2010) estén correctamente configuradas en las propiedades del proyecto en Visual Studio (`Include` y `Library Directories`).
+3.  Abrir el archivo de solución `PandoraCoreEngine_2010.sln`.
+4.  Compilar el proyecto en la configuración deseada (Debug o Release).
 
-Uso de RenderTargetView y DepthStencilView para gestionar los búferes de color y profundidad.
-
-Renderizado de Geometría: Carga y dibuja un cubo 3D utilizando buffers de vértices e índices.
-
-Shaders y Texturizado: Utiliza Vertex y Pixel Shaders escritos en HLSL para aplicar transformaciones y texturas a los objetos en la escena.
-
-Soporte para MSAA: Configura el multisampling anti-aliasing para mejorar la calidad visual y suavizar los bordes de la geometría.
-
-Arquitectura del Motor
-La arquitectura del motor se basa en la separación de responsabilidades, donde cada clase tiene un propósito bien definido dentro del pipeline de renderizado:
-
-Window: Encapsula la creación y el manejo de la ventana nativa de Win32, que sirve como superficie principal para el renderizado.
-
-Device: Actúa como una fábrica para todos los recursos de la GPU (texturas, buffers, shaders, etc.). Envuelve la interfaz ID3D11Device.
-
-DeviceContext: Envuelve ID3D11DeviceContext y se utiliza para generar los comandos de renderizado, asignar recursos al pipeline y ejecutar las llamadas de dibujado.
-
-SwapChain: Gestiona la cadena de búferes (front y back buffer) utilizada para mostrar las imágenes renderizadas en la pantalla.
-
-Texture: Administra los recursos de texturas 2D y sus vistas (ShaderResourceView) para que puedan ser utilizadas por los shaders.
-
-RenderTargetView: Representa el búfer (generalmente el back buffer) en el que se dibuja la escena.
-
-DepthStencilView: Gestiona el búfer de profundidad para asegurar que la geometría se dibuje con la oclusión correcta.
-
-Pipeline de Renderizado Implementado
-El flujo de renderizado en cada fotograma sigue estos pasos:
-
-Actualización: Se actualizan las matrices de transformación (Mundo, Vista, Proyección) y otros datos dinámicos, como el color del objeto.
-
-Limpieza de Buffers: Se limpian el RenderTargetView a un color de fondo y el DepthStencilView para iniciar el frame con un estado limpio.
-
-Asignación de Recursos: Se asignan al pipeline los recursos necesarios para el dibujado:
-
-Input Layout, Vertex Buffer e Index Buffer.
-
-Vertex Shader y Pixel Shader.
-
-Constant Buffers con las matrices actualizadas.
-
-Texturas y Samplers.
-
-Llamada de Dibujado: Se invoca a DrawIndexed() para renderizar la geometría del cubo.
-
-Presentación: Se llama a Present() en el SwapChain para intercambiar el back buffer con el front buffer, mostrando la imagen final en la pantalla.
-
-Cómo Compilar y Ejecutar
-Prerrequisitos
-Windows 10 o superior.
-
-Visual Studio 2010 o una versión más reciente.
-
-DirectX SDK (Junio 2010), ya que el proyecto utiliza D3DX11.
-
-Compilación
-Clonar el repositorio.
-
-Asegurarse de que las rutas del DirectX SDK estén correctamente configuradas en las propiedades del proyecto en Visual Studio (Include y Library Directories).
-
-Abrir el archivo de solución PandoraCoreEngine_2010.sln.
-
-Compilar el proyecto en la configuración deseada (Debug o Release).
+-----
