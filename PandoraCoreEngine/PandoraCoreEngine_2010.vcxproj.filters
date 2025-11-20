@@ -18,6 +18,9 @@
     <Filter Include="source">
       <UniqueIdentifier>{8f81217d-7110-44db-b12a-c26ecb507597}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Pattems">
+      <UniqueIdentifier>{cb4531d8-d469-44b8-b284-9e7f6ebbab04}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\window.h">
@@ -68,6 +71,12 @@
     <ClInclude Include="include\ModelLoader.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\Model3D.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IResource.h">
+      <Filter>include\Pattems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Window.cpp">
@@ -113,6 +122,9 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\ModelLoader.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Model3D.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
