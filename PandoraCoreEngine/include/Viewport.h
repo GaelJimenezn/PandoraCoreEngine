@@ -6,66 +6,92 @@ class DeviceContext;
 
 /**
  * @class Viewport
- * @brief Manages the Direct3D 11 viewport configuration.
- * @details Encapsulates a D3D11_VIEWPORT structure, which defines the
- * dimensions and depth range of the area within a render target where
- * the scene will be drawn.
+ * @brief Encapsula un @c D3D11_VIEWPORT para definir la región de renderizado en la pantalla.
+ *
+ * Un viewport en Direct3D 11 especifica el área rectangular del render target donde
+ * se dibujarán las primitivas. Incluye dimensiones, profundidad mínima y máxima,
+ * así como el origen en la superficie de render.
+ *
+ * Esta clase permite inicializar un viewport a partir de una ventana o de dimensiones
+ * específicas, y aplicarlo al pipeline gráfico.
  */
-class
+class 
 Viewport {
-
 public:
   /**
-   * @brief Default constructor.
+   * @brief Constructor por defecto.
    */
   Viewport() = default;
 
   /**
-   * @brief Default destructor.
+   * @brief Destructor por defecto.
    */
   ~Viewport() = default;
 
   /**
-   * @brief Initializes the viewport based on the dimensions of a Window.
-   * @param window The application window providing the dimensions.
-   * @return HRESULT indicating success or failure.
+   * @brief Inicializa el viewport a partir de una ventana.
+   *
+   * Utiliza el tamaño del cliente de la ventana para definir las dimensiones
+   * del viewport.
+   *
+   * @param window Referencia a la ventana que define el área de renderizado.
+   * @return @c S_OK si la inicialización fue exitosa.
+   *
+   * @post El miembro @c m_viewport contendrá las dimensiones de la ventana.
    */
-  HRESULT
+  HRESULT 
   init(const Window& window);
 
   /**
-   * @brief Initializes the viewport with explicit width and height.
-   * @param width The width of the viewport in pixels.
-   * @param height The height of the viewport in pixels.
-   * @return HRESULT indicating success or failure.
+   * @brief Inicializa el viewport con dimensiones específicas.
+   *
+   * Define un viewport con el ancho y alto especificados.
+   * Los valores de profundidad mínima y máxima se establecen por defecto
+   * en 0.0f y 1.0f respectivamente.
+   *
+   * @param width  Ancho del viewport en píxeles.
+   * @param height Alto del viewport en píxeles.
+   * @return @c S_OK si la inicialización fue exitosa.
    */
-  HRESULT
+  HRESULT 
   init(unsigned int width, unsigned int height);
 
   /**
-   * @brief Placeholder for potential viewport update logic (e.g., resizing).
+   * @brief Actualiza los parámetros del viewport.
+   *
+   * Método de marcador para futuras extensiones (por ejemplo,
+   * manejo de redimensionado dinámico de la ventana).
+   *
+   * @note Actualmente no realiza ninguna operación.
    */
-  void
+  void 
   update();
 
   /**
-   * @brief Binds the viewport configuration to the rasterizer stage.
-   * @param deviceContext The device context for issuing commands.
+   * @brief Aplica el viewport al contexto de dispositivo.
+   *
+   * Llama a @c RSSetViewports para establecer este viewport
+   * en la etapa de rasterización del pipeline.
+   *
+   * @param deviceContext Contexto de dispositivo donde se aplicará.
+   *
+   * @pre El viewport debe haber sido inicializado con @c init().
    */
-  void
+  void 
   render(DeviceContext& deviceContext);
 
   /**
-   * @brief Placeholder for viewport destruction logic (if needed).
+   * @brief Libera recursos asociados al viewport.
+   *
+   * En este caso, no hay recursos COM asociados, por lo que
+   * la implementación es vacía.
    */
-  void
-  destroy();
+  void 
+  destroy() {}
 
 public:
   /**
-   * @brief The Direct3D 11 viewport structure.
-   * @details Stores the top-left corner (TopLeftX, TopLeftY),
-   * dimensions (Width, Height), and depth range (MinDepth, MaxDepth).
+   * @brief Estructura de Direct3D que define el viewport.
    */
   D3D11_VIEWPORT m_viewport;
 };

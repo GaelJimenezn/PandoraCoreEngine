@@ -21,6 +21,27 @@
     <Filter Include="include\Pattems">
       <UniqueIdentifier>{cb4531d8-d469-44b8-b284-9e7f6ebbab04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\ECS">
+      <UniqueIdentifier>{c76a1056-183b-4d2b-affb-972a14d9a38e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineUtilities">
+      <UniqueIdentifier>{b4d8b712-6511-439b-9d05-4c4bed0f1eb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineUtilities\Matrix">
+      <UniqueIdentifier>{17f4ce3a-9563-4f9e-b8aa-c73b616563c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineUtilities\Memory">
+      <UniqueIdentifier>{8779633c-e43d-4488-8ac1-ff2563867765}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineUtilities\Structures">
+      <UniqueIdentifier>{753c8bfa-a87e-410c-888e-ae3aac0efaad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineUtilities\Utilities">
+      <UniqueIdentifier>{596dd9b5-2f8d-4797-8fe5-0b3d1279575f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineUtilities\Vectors">
+      <UniqueIdentifier>{87cb744b-5c86-4837-be94-1d2a8e5838a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\window.h">
@@ -68,9 +89,6 @@
     <ClInclude Include="include\BaseApp.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\ModelLoader.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="include\Model3D.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -78,6 +96,69 @@
       <Filter>include\Pattems</Filter>
     </ClInclude>
     <ClInclude Include="include\ResourceManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Actor.h">
+      <Filter>include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Component.h">
+      <Filter>include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Entity.h">
+      <Filter>include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Transform.h">
+      <Filter>include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Matrix\Matrix2x2.h">
+      <Filter>include\EngineUtilities\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Matrix\Matrix3x3.h">
+      <Filter>include\EngineUtilities\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Matrix\Matrix4x4.h">
+      <Filter>include\EngineUtilities\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Memory\TSharedPointer.h">
+      <Filter>include\EngineUtilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Memory\TStaticPtr.h">
+      <Filter>include\EngineUtilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Memory\TUniquePtr.h">
+      <Filter>include\EngineUtilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Memory\TWeakPointer.h">
+      <Filter>include\EngineUtilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Vectors\Quaternion.h">
+      <Filter>include\EngineUtilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Vectors\Vector2.h">
+      <Filter>include\EngineUtilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Vectors\Vector3.h">
+      <Filter>include\EngineUtilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Vectors\Vector4.h">
+      <Filter>include\EngineUtilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Utilities\EngineMath.h">
+      <Filter>include\EngineUtilities\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Structures\TArray.h">
+      <Filter>include\EngineUtilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Structures\TMap.h">
+      <Filter>include\EngineUtilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Structures\TPair.h">
+      <Filter>include\EngineUtilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Structures\TSet.h">
+      <Filter>include\EngineUtilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Resource.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
@@ -122,9 +203,6 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\BaseApp.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModelLoader.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\Model3D.cpp">

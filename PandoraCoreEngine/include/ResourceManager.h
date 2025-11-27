@@ -1,4 +1,4 @@
-ï»¿#pragma once
+#pragma once
 #include "Prerequisites.h"
 #include "IResource.h"
 
@@ -24,7 +24,7 @@ public:
                                Args&&... args) {
 		static_assert(std::is_base_of<IResource, T>::value,
                       "T debe heredar de IResource");
-		// 1. ï¿½Ya existe el recurso en el cachï¿½?
+		// 1. ¿Ya existe el recurso en el caché?
 		auto it = m_resources.find(key);
 		if (it != m_resources.end()) {
 			// Intentar castear al tipo correcto
@@ -34,11 +34,11 @@ public:
 			}
 		}
 
-		// 2. No existe o no estï¿½ cargado -> crearlo y cargarlo
+		// 2. No existe o no está cargado -> crearlo y cargarlo
 		std::shared_ptr<T> resource = std::make_shared<T>(key, std::forward<Args>(args)...);
 
 		if (!resource->load(filename)) {
-			// Puedes manejar errores mï¿½s fino aquï¿½
+			// Puedes manejar errores más fino aquí
 			return nullptr;
 		}
 
@@ -46,7 +46,7 @@ public:
 			return nullptr;
 		}
 
-		// 3. Guardar en el cachï¿½ y devolver
+		// 3. Guardar en el caché y devolver
 		m_resources[key] = resource;
 		return resource;
 	}
@@ -61,7 +61,7 @@ public:
 		return std::dynamic_pointer_cast<T>(it->second);
 	}
 
-	/// Liberar un recurso especï¿½fico
+	/// Liberar un recurso específico
 	void Unload(const std::string& key)
 	{
 		auto it = m_resources.find(key);

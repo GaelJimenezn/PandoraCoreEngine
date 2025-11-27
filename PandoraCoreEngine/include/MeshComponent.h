@@ -1,83 +1,100 @@
-ï»¿#pragma once
+#pragma once
 #include "Prerequisites.h"
-//#include "ECS\Component.h" // Assuming Component system integration is planned
-
+//#include "ECS\Component.h"
 class DeviceContext;
-
 /**
  * @class MeshComponent
- * @brief Holds vertex and index data defining a 3D mesh.
- * @details Stores geometry information, including vertex positions, texture
- * coordinates, and the index list defining triangles or other primitives.
- * Intended to be part of a component-based system.
+ * @brief Componente ECS que almacena la información de geometría (malla) de un actor.
+ *
+ * Un @c MeshComponent contiene los vértices e índices que describen la geometría de un objeto.
+ * Forma parte del sistema ECS y se asocia a entidades como @c Actor.
+ *
+ * La malla incluye:
+ * - Lista de vértices (posición, normal, UV, etc.).
+ * - Lista de índices que definen las primitivas (triángulos, líneas).
+ * - Contadores de vértices e índices.
  */
-class
-MeshComponent /*: public Component // Potential inheritance */ {
+class 
+MeshComponent /*: public Component*/ {
 public:
   /**
-   * @brief Constructor, initializes vertex and index counts to zero.
+   * @brief Constructor por defecto.
+   *
+   * Inicializa el componente de malla con cero vértices e índices
+   * y lo registra como tipo @c MESH en el sistema ECS.
    */
-  MeshComponent() : m_numVertex(0), m_numIndex(0)/*, 
-    Component(ComponentType::MESH)*/ {}
+  MeshComponent() : m_numVertex(0), m_numIndex(0)/*, Component(ComponentType::MESH)*/ {}
 
   /**
-   * @brief Default virtual destructor.
+   * @brief Destructor virtual por defecto.
    */
-  virtual
+  virtual 
   ~MeshComponent() = default;
 
   /**
-   * @brief Placeholder for mesh-specific initialization 
-   (e.g., loading from file).
+   * @brief Inicializa el componente de malla.
+   *
+   * Método heredado de @c Component.
+   * Puede usarse para reservar memoria o cargar datos en mallas derivadas.
    */
-  void
-  init();
+  void 
+  init() /*override {}*/;
 
   /**
-   * @brief Placeholder for mesh-specific per-frame updates (e.g., animation).
-   * @param deltaTime Time elapsed since the last frame.
+   * @brief Actualiza la malla.
+   *
+   * Método heredado de @c Component.
+   * Útil para actualizar animaciones de vértices, morphing u otros procesos relacionados.
+   *
+   * @param deltaTime Tiempo transcurrido desde la última actualización.
    */
-  void
-  update(float deltaTime);
+  void 
+  update(float deltaTime)/* override {}*/;
 
   /**
-   * @brief Placeholder for mesh-specific rendering commands 
-   *(often handled by a Renderer).
-   * @param deviceContext The device context.
+   * @brief Renderiza la malla.
+   *
+   * Método heredado de @c Component.
+   * Normalmente se usaría junto con @c DeviceContext para dibujar buffers
+   * asociados a la malla.
+   *
+   * @param deviceContext Contexto del dispositivo para operaciones gráficas.
    */
-  void
-  render(DeviceContext& deviceContext);
+  void 
+  render(DeviceContext& deviceContext) /*override {}*/;
 
   /**
-   * @brief Placeholder for mesh resource cleanup.
+   * @brief Libera los recursos asociados al componente de malla.
+   *
+   * Método heredado de @c Component.
+   * En implementaciones más complejas, puede liberar buffers de GPU.
    */
   void
-  destroy();
+  destroy() /*override {}*/;
 
 public:
   /**
-   * @brief Optional name for identifying the mesh.
+   * @brief Nombre de la malla.
    */
   std::string m_name;
 
   /**
-   * @brief Vector containing the vertex data (position, texcoord, etc.).
+   * @brief Lista de vértices de la malla.
    */
   std::vector<SimpleVertex> m_vertex;
 
   /**
-   * @brief Vector containing the indices that define the mesh primitives 
-   *(e.g., triangles).
+   * @brief Lista de índices que definen las primitivas de la malla.
    */
   std::vector<unsigned int> m_index;
 
   /**
-   * @brief The total number of vertices in the mesh.
+   * @brief Número total de vértices en la malla.
    */
   int m_numVertex;
 
   /**
-   * @brief The total number of indices in the mesh.
+   * @brief Número total de índices en la malla.
    */
   int m_numIndex;
 };

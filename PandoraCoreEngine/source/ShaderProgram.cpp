@@ -85,10 +85,8 @@ ShaderProgram::CreateShader(Device& device, ShaderType type) {
 	HRESULT hr = S_OK;
 	ID3DBlob* shaderData = nullptr;
 
-	const char* 
-	shaderEntryPoint = (type == ShaderType::PIXEL_SHADER) ? "PS" : "VS";
-	const char* 
-	shaderModel = (type == ShaderType::PIXEL_SHADER) ? "ps_4_0" : "vs_4_0";
+	const char* shaderEntryPoint = (type == ShaderType::PIXEL_SHADER) ? "PS" : "VS";
+	const char* shaderModel = (type == ShaderType::PIXEL_SHADER) ? "ps_4_0" : "vs_4_0";
 
 	// Compile the shader from file
 	hr = CompileShaderFromFile(m_shaderFileName.data(),
@@ -104,13 +102,13 @@ ShaderProgram::CreateShader(Device& device, ShaderType type) {
 
 	// Create the shader object
 	if (type == PIXEL_SHADER) {
-		hr = device.createPixelShader(shaderData->GetBufferPointer(),
+		hr = device.CreatePixelShader(shaderData->GetBufferPointer(),
 																	shaderData->GetBufferSize(),
 																	nullptr,
 																	&m_PixelShader);
 	}
 	else {
-		hr = device.createVertexShader(shaderData->GetBufferPointer(),
+		hr = device.CreateVertexShader(shaderData->GetBufferPointer(),
 																	 shaderData->GetBufferSize(),
 																	 nullptr,
 																	 &m_VertexShader);
@@ -170,7 +168,10 @@ ShaderProgram::CompileShaderFromFile(char* szFileName,
 
 	DWORD dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
 #if defined( DEBUG ) || defined( _DEBUG )
-
+	// Set the D3DCOMPILE_DEBUG flag to embed debug information in the shaders.
+	// Setting this flag improves the shader debugging experience, but still allows 
+	// the shaders to be optimized and to run exactly the way they will run in 
+	// the release configuration of this program.
 	dwShaderFlags |= D3DCOMPILE_DEBUG;
 #endif
 	ID3DBlob* pErrorBlob;

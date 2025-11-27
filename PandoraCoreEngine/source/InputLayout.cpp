@@ -1,4 +1,4 @@
-ï»¿#include "InputLayout.h"
+#include "InputLayout.h"
 #include "Device.h"
 #include "DeviceContext.h"
 
@@ -15,7 +15,7 @@ InputLayout::init(Device& device,
 		return E_POINTER;
 	}
 
-	HRESULT hr = device.createInputLayout(Layout.data(),
+	HRESULT hr = device.CreateInputLayout(Layout.data(),
 																				static_cast<unsigned int>(Layout.size()),
 																				VertexShaderData->GetBufferPointer(),
 																				VertexShaderData->GetBufferSize(),
@@ -32,6 +32,7 @@ InputLayout::init(Device& device,
 
 void
 InputLayout::update() {
+	// Método vacío, se puede utilizar en caso de necesitar cambios dinámicos en el layout
 }
 
 void
