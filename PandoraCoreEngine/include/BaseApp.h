@@ -12,7 +12,7 @@
 #include "MeshComponent.h"
 #include "Buffer.h"
 #include "SamplerState.h"
-#include "ModelLoader.h"
+#include "Model3D.h" // Updated: Replaced ModelLoader with Model3D
 
 /**
  * @class BaseApp
@@ -35,7 +35,7 @@ public:
   /**
    * @brief Destructor. Calls the destroy() method to clean up resources.
    */
-  ~BaseApp() { destroy(); }
+  ~BaseApp();
 
   /**
    * @brief Enters the main application loop.
@@ -108,23 +108,24 @@ private:
   ShaderProgram    m_shaderProgram;   /**< Manages vertex and pixel shaders. */
   SamplerState     m_samplerState;    /**< Defines texture sampling
                                            behavior. */
-  ModelLoader      m_modelLoader;     /**< Loads 3D models from files. */
-
+  
   // Scene/Object Data
-  MeshComponent    m_mesh;            /**< Geometry data for the object
-                                           (cube). */
-  Buffer           m_vertexBuffer;    /**< GPU buffer for vertex data. */
-  Buffer           m_indexBuffer;     /**< GPU buffer for index data. */
+  Model3D* m_model;           /**< The loaded 3D model resource. */
+  
+  // Changed to vectors to support multiple meshes (FBX structure)
+  std::vector<Buffer> m_vertexBuffers; /**< GPU buffers for vertex data. */
+  std::vector<Buffer> m_indexBuffers;  /**< GPU buffers for index data. */
+
   Buffer           m_cbNeverChanges;  /**< Constant buffer for view matrix. */
   Buffer           m_cbChangeOnResize;/**< Constant buffer for projection
                                            matrix. */
   Buffer           m_cbChangesEveryFrame; /**< Constant buffer for world
                                                matrix and color. */
-  Texture         m_modelTexture;     
+  Texture          m_modelTexture;      
 
   // Matrices and Rendering State
   XMMATRIX         m_World;           /**< World transformation matrix for
-                                           the cube. */
+                                           the object. */
   XMMATRIX         m_View;            /**< Camera view matrix. */
   XMMATRIX         m_Projection;      /**< Camera projection matrix. */
   XMFLOAT4         m_vMeshColor;      /**< Color tint applied to the mesh. */
