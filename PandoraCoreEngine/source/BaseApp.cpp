@@ -1,4 +1,4 @@
-#include "BaseApp.h"
+ï»¿#include "BaseApp.h"
 #include "ResourceManager.h"
 int 
 BaseApp::run(HINSTANCE hInst, int nCmdShow) {
@@ -124,11 +124,14 @@ BaseApp::init() {
 	}
 
 	m_model = new Model3D("nissan.fbx", ModelType::FBX);
-	TRex = m_model->GetMeshes();
-
+	Models = m_model->GetMeshes();
+	if (Models.empty()) {
+        ERROR("Main", "InitDevice", "No meshes found in the model.");
+        return E_FAIL;
+    }
 
 	// Create vertex buffer
-	hr = m_vertexBuffer.init(m_device, TRex[0], D3D11_BIND_VERTEX_BUFFER);
+	hr = m_vertexBuffer.init(m_device, Models[0], D3D11_BIND_VERTEX_BUFFER);
 
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
@@ -137,7 +140,7 @@ BaseApp::init() {
 	}
 
 	// Create index buffer
-	hr = m_indexBuffer.init(m_device, TRex[0], D3D11_BIND_INDEX_BUFFER);
+	hr = m_indexBuffer.init(m_device, Models[0], D3D11_BIND_INDEX_BUFFER);
 
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
@@ -172,7 +175,7 @@ BaseApp::init() {
 		return hr;
 	}
 
-	hr = m_textureCube.init(m_device, "nissan_bake.png", ExtensionType::PNG);
+	hr = m_textureCube.init(m_device, "nissan_bake", ExtensionType::PNG);
 	// Load the Texture
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
@@ -188,18 +191,20 @@ BaseApp::init() {
 		return hr;
 	}
 
-  m_World = XMMatrixIdentity();
+	// Initialize the world matrices
+	m_World = XMMatrixIdentity();
 
-    XMVECTOR Eye = XMVectorSet(0.0f, 3.0f, -6.0f, 0.0f);
-    XMVECTOR At = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-    XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-    m_View = XMMatrixLookAtLH(Eye, At, Up);
+	// Initialize the view matrix
+	XMVECTOR Eye = XMVectorSet(0.0f, 3.0f, -6.0f, 0.0f);
+	XMVECTOR At = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	m_View = XMMatrixLookAtLH(Eye, At, Up);
 
-    cbNeverChanges.mView = XMMatrixTranspose(m_View);
-    m_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, 
-			m_window.m_width / (FLOAT)m_window.m_height, 0.01f, 100.0f);
-    cbChangesOnResize.mProjection = XMMatrixTranspose(m_Projection);
 
+	// Initialize the projection matrix
+	cbNeverChanges.mView = XMMatrixTranspose(m_View);
+	m_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, m_window.m_width / (FLOAT)m_window.m_height, 0.01f, 100.0f);
+	cbChangesOnResize.mProjection = XMMatrixTranspose(m_Projection);
 
 	return S_OK;
 }
@@ -220,7 +225,7 @@ void BaseApp::update(float deltaTime)
 			dwTimeStart = dwTimeCur;
 		t = (dwTimeCur - dwTimeStart) / 1000.0f;
 	}
-	// Actualizar la matriz de proyección y vista
+	// Actualizar la matriz de proyecciï¿½n y vista
 	cbNeverChanges.mView = XMMatrixTranspose(m_View);
 	m_cbNeverChanges.update(m_deviceContext, nullptr, 0, nullptr, &cbNeverChanges, 0, 0);
 	m_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, m_window.m_width / (FLOAT)m_window.m_height, 0.01f, 100.0f);
@@ -235,9 +240,9 @@ void BaseApp::update(float deltaTime)
 	// Aplicar escala
 	XMMATRIX scaleMatrix = XMMatrixScaling(1.0f, 1.0f, 1.0f);
 	// Aplicar rotacion
-	XMMATRIX rotationMatrix = XMMatrixRotationRollPitchYaw(-0.60f, 3.0f, -0.20f);
+	XMMATRIX rotationMatrix = XMMatrixRotationRollPitchYaw(0.f, 10.0f, 0.0f);
 	// Aplicar traslacion
-	XMMATRIX translationMatrix = XMMatrixTranslation(2.0f, -4.9f, 11.0f);
+	XMMATRIX translationMatrix = XMMatrixTranslation(0.0f, 1.0f, 0.0f);
 
 	// Componer la matriz final en el orden: scale -> rotation -> translation
 	m_World = scaleMatrix * rotationMatrix * translationMatrix;
@@ -275,7 +280,7 @@ BaseApp::render() {
 	// Asignar textura y sampler
 	m_textureCube.render(m_deviceContext, 0, 1);
 	m_samplerState.render(m_deviceContext, 0, 1);
-	m_deviceContext.DrawIndexed(TRex[0].m_numIndex, 0, 0);
+	m_deviceContext.DrawIndexed(Models[0].m_numIndex, 0, 0);
 	
 	// Set primitive topology
 	m_deviceContext.IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);

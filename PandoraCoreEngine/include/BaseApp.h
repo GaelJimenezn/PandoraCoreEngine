@@ -65,7 +65,7 @@ private:
 	XMMATRIX                            m_Projection;
 	XMFLOAT4                            m_vMeshColor;// (0.7f, 0.7f, 0.7f, 1.0f);
 
-	std::vector<MeshComponent> TRex;
+	std::vector<MeshComponent>					Models;
 	Model3D*														m_model;
 
 
