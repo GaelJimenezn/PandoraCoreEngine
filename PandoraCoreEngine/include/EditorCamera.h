@@ -1,19 +1,19 @@
 #pragma once
 #include "Prerequisites.h"
 #include <cmath>
+#include <algorithm>
+
+// Asegúrate de que en Prerequisites o aquí estén definidos:
+// using namespace DirectX; 
 
 class EditorCamera {
 public:
 	EditorCamera() = default;
 	~EditorCamera() = default;
 
-	// Inicializa la camara en una posicion mirando al centro
 	void init(EU::Vector3 startPos, EU::Vector3 targetPos);
-
-	// Actualiza input y matrices
 	void update(float deltaTime);
 
-	// Getters
 	XMMATRIX getViewMatrix() const { return m_viewMatrix; }
 	XMVECTOR getPosition() const { return m_currentPos; }
 
@@ -32,8 +32,8 @@ private:
 	float m_pitch = 0.0f;
 	float m_yaw = 0.0f;
 
-	// Configuración
-	float m_speedOrbit = 0.005f;
-	float m_speedZoom = 2.0f;
-	float m_speedPan = 0.02f;
+	// Configuración de velocidades
+	float m_speedOrbit = 0.005f; // Sensibilidad rotación
+	float m_speedZoom = 0.5f;    // Sensibilidad rueda
+	float m_speedPan = 0.01f;    // Sensibilidad movimiento lateral
 };
