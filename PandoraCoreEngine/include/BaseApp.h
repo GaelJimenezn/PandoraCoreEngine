@@ -13,33 +13,29 @@
 #include "Buffer.h"
 #include "SamplerState.h"
 #include "Model3D.h"
-// Inclusión necesaria para usar Actores
-#include "ECS/Actor.h" 
+#include "ECS/Actor.h"
 
-class 
-BaseApp {
+// --- MODULOS NUEVOS ---
+#include "EditorUI.h" 
+#include "EditorCamera.h" // Nueva camara
+
+class BaseApp {
 public:
 	BaseApp() = default;
 	~BaseApp() { destroy(); }
 
-	int 
-	run(HINSTANCE hInst, int nCmdShow);
-	
-	HRESULT
-	init();
-
-	void 
-	update(float deltaTime);
-
-	void 
-	render();
-
-	void 
-	destroy();
+	int run(HINSTANCE hInst, int nCmdShow);
+	HRESULT init();
+	void update(float deltaTime);
+	void render();
+	void destroy();
 
 private:
-	static LRESULT CALLBACK 
-	WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+	
+	// Helpers para el borde brillante
+	HRESULT initOutlineStates();
+	void renderOutline(int actorIndex);
 
 private:
 	Window                              m_window;
@@ -53,29 +49,27 @@ private:
 	Viewport                            m_viewport;
 	ShaderProgram						m_shaderProgram;
 
-	// --- RECURSOS MOVIDOS A ACTORES ---
-	// Ya no necesitamos buffers individuales aquí porque cada Actor tiene los suyos
-	// Buffer							m_vertexBuffer;
-	// Buffer							m_indexBuffer;
-	// Texture 							m_textureCube;
-	// SamplerState						m_samplerState;
-	// ----------------------------------
-
 	Buffer								m_cbNeverChanges;
 	Buffer								m_cbChangeOnResize;
 	
-	// La matriz de proyección y vista se quedan (cámara), pero la de Mundo se va al Actor
-	// XMMATRIX                         m_World; 
-	XMMATRIX                            m_View;
+	// Ya no usamos m_View directamente, usamos la camara
+	// XMMATRIX                         m_View; 
 	XMMATRIX                            m_Projection;
 
 	Model3D*							m_model;
 
-	// --- SISTEMA DE ACTORES ---
 	std::vector<EU::TSharedPointer<Actor>> m_actors;
-	EU::TSharedPointer<Actor>              m_nissanActor; // Tu actor principal
-	// --------------------------
+	EU::TSharedPointer<Actor>              m_nissanActor;
 
 	CBChangeOnResize					cbChangesOnResize;
 	CBNeverChanges						cbNeverChanges;
+
+	// --- EDITOR ---
+	Editor::EditorUI                    m_editor;
+	EditorCamera                        m_camera; // NUEVA CAMARA ORBITAL
+	int                                 m_selectedActorIndex = -1;
+
+	// Estados DX11 para Outline
+	ID3D11DepthStencilState* m_stencilStateWrite = nullptr;
+	ID3D11DepthStencilState* m_stencilStateMask = nullptr;
 };

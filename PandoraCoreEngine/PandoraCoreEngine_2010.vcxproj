@@ -436,6 +436,8 @@
     <ClCompile Include="source\Device.cpp" />
     <ClCompile Include="source\DeviceContext.cpp" />
     <ClCompile Include="source\ECS\Actor.cpp" />
+    <ClCompile Include="source\EditorCamera.cpp" />
+    <ClCompile Include="source\EditorUI.cpp" />
     <ClCompile Include="source\ImGui\imgui.cpp" />
     <ClCompile Include="source\ImGui\imgui_demo.cpp" />
     <ClCompile Include="source\ImGui\imgui_draw.cpp" />
@@ -466,6 +468,8 @@
     <ClInclude Include="include\ECS\Component.h" />
     <ClInclude Include="include\ECS\Entity.h" />
     <ClInclude Include="include\ECS\Transform.h" />
+    <ClInclude Include="include\EditorCamera.h" />
+    <ClInclude Include="include\EditorUI.h" />
     <ClInclude Include="include\EngineUtilities\Matrix\Matrix2x2.h" />
     <ClInclude Include="include\EngineUtilities\Matrix\Matrix3x3.h" />
     <ClInclude Include="include\EngineUtilities\Matrix\Matrix4x4.h" />

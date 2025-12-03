@@ -194,6 +194,12 @@
     <ClInclude Include="include\ImGui\imstb_truetype.h">
       <Filter>include\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="include\EditorUI.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EditorCamera.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Window.cpp">
@@ -264,6 +270,12 @@
     </ClCompile>
     <ClCompile Include="source\ImGui\imgui_widgets.cpp">
       <Filter>source\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EditorUI.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EditorCamera.cpp">
+      <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
