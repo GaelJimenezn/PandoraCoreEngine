@@ -2,7 +2,8 @@
 #include "ImGui/imgui.h"
 #include <algorithm> // Para std::clamp
 
-void EditorCamera::init(EU::Vector3 startPos, EU::Vector3 targetPos) {
+void 
+EditorCamera::init(EU::Vector3 startPos, EU::Vector3 targetPos) {
 	m_focalPoint = targetPos;
 
 	// Calcular vector inicial
@@ -19,12 +20,14 @@ void EditorCamera::init(EU::Vector3 startPos, EU::Vector3 targetPos) {
 	updateViewMatrix();
 }
 
-void EditorCamera::update(float deltaTime) {
+void 
+EditorCamera::update(float deltaTime) {
 	handleInput(deltaTime);
 	updateViewMatrix();
 }
 
-void EditorCamera::handleInput(float deltaTime) {
+void 
+EditorCamera::handleInput(float deltaTime) {
 	ImGuiIO& io = ImGui::GetIO();
 
 	// 1. ZOOM CON RUEDA
@@ -73,7 +76,8 @@ void EditorCamera::handleInput(float deltaTime) {
 	}
 }
 
-void EditorCamera::updateViewMatrix() {
+void 
+EditorCamera::updateViewMatrix() {
 	// Polares a Cartesianas
 	float x = m_distance * std::cos(m_pitch) * std::sin(m_yaw);
 	float y = m_distance * std::sin(m_pitch);

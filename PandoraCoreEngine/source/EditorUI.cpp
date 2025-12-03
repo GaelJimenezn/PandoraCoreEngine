@@ -3,9 +3,11 @@
 // Definición externa necesaria para que Windows envíe los inputs a ImGui
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-namespace Editor {
+namespace 
+Editor {
 
-	void EditorUI::init(HWND hWnd, ID3D11Device* device, ID3D11DeviceContext* context) {
+	void 
+	EditorUI::init(HWND hWnd, ID3D11Device* device, ID3D11DeviceContext* context) {
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -19,7 +21,8 @@ namespace Editor {
 		ImGui_ImplDX11_Init(device, context);
 	}
 
-	void EditorUI::setupStyle() {
+	void 
+	EditorUI::setupStyle() {
 		ImGuiStyle& style = ImGui::GetStyle();
 		style.WindowRounding = 8.0f;
 		style.FrameRounding = 4.0f;
@@ -46,7 +49,8 @@ namespace Editor {
 		colors[ImGuiCol_CheckMark] = accent;
 	}
 
-	void EditorUI::render(std::vector<EU::TSharedPointer<Actor>>& actors, int* selectedIndex) {
+	void 
+	EditorUI::render(std::vector<EU::TSharedPointer<Actor>>& actors, int* selectedIndex) {
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
@@ -72,7 +76,8 @@ namespace Editor {
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	}
 
-	void EditorUI::drawHierarchy(std::vector<EU::TSharedPointer<Actor>>& actors, int* selectedIndex) {
+	void 
+	EditorUI::drawHierarchy(std::vector<EU::TSharedPointer<Actor>>& actors, int* selectedIndex) {
 		ImGui::TextDisabled("ESCENA");
 		ImGui::Separator();
 		ImGui::Spacing();
@@ -101,7 +106,8 @@ namespace Editor {
 		}
 	}
 
-	void EditorUI::drawInspector(EU::TSharedPointer<Actor> actor) {
+	void 
+	EditorUI::drawInspector(EU::TSharedPointer<Actor> actor) {
 		ImGui::Begin("Inspector", nullptr);
 		
 		if (!actor.isNull()) {
@@ -150,13 +156,15 @@ namespace Editor {
 		ImGui::End();
 	}
 
-	void EditorUI::destroy() {
+	void 
+	EditorUI::destroy() {
 		ImGui_ImplDX11_Shutdown();
 		ImGui_ImplWin32_Shutdown();
 		ImGui::DestroyContext();
 	}
 
-	LRESULT EditorUI::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+	LRESULT 
+	EditorUI::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		return ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
 	}
 }
