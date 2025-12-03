@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Prerequisites.h"
 class DeviceContext;
 
@@ -6,8 +6,8 @@ class DeviceContext;
  * @class Component
  * @brief Clase base abstracta para todos los componentes del juego.
  *
- * La clase Component define la interfaz básica que todos los componentes deben implementar,
- * permitiendo actualizar y renderizar el componente, así como obtener su tipo.
+ * La clase Component define la interfaz bï¿½sica que todos los componentes deben implementar,
+ * permitiendo actualizar y renderizar el componente, asï¿½ como obtener su tipo.
  */
 class 
 Component {
@@ -33,15 +33,15 @@ public:
   init() = 0;
 
   /**
-   * @brief Método virtual puro para actualizar el componente.
-   * @param deltaTime El tiempo transcurrido desde la última actualización.
+   * @brief Mï¿½todo virtual puro para actualizar el componente.
+   * @param deltaTime El tiempo transcurrido desde la ï¿½ltima actualizaciï¿½n.
    */
   virtual void 
   update(float deltaTime) = 0;
 
   /**
-   * @brief Método virtual puro para renderizar el componente.
-   * @param deviceContext Contexto del dispositivo para operaciones gráficas.
+   * @brief Mï¿½todo virtual puro para renderizar el componente.
+   * @param deviceContext Contexto del dispositivo para operaciones grï¿½ficas.
    */
   virtual void 
   render(DeviceContext& deviceContext) = 0;

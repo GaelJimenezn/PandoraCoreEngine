@@ -1,5 +1,6 @@
 ﻿#include "BaseApp.h"
 #include "ResourceManager.h"
+
 int 
 BaseApp::run(HINSTANCE hInst, int nCmdShow) {
   if (FAILED(m_window.init(hInst, nCmdShow, WndProc))) {
@@ -38,60 +39,70 @@ BaseApp::init() {
 
 	// Crear swapchain
 	hr = m_swapChain.init(m_device, m_deviceContext, m_backBuffer, m_window);
-
-	if (FAILED(hr)) {
-		ERROR("Main", "InitDevice",
-			("Failed to initialize SwpaChian. HRESULT: " + std::to_string(hr)).c_str());
-		return hr;
-	}
+	if (FAILED(hr)) return hr;
 
 	// Crear render target view
 	hr = m_renderTargetView.init(m_device, m_backBuffer, DXGI_FORMAT_R8G8B8A8_UNORM);
-
-	if (FAILED(hr)) {
-		ERROR("Main", "InitDevice",
-			("Failed to initialize RenderTargetView. HRESULT: " + std::to_string(hr)).c_str());
-		return hr;
-	}
+	if (FAILED(hr)) return hr;
 
 	// Crear textura de depth stencil
-	hr = m_depthStencil.init(m_device,
-		m_window.m_width,
-		m_window.m_height,
-		DXGI_FORMAT_D24_UNORM_S8_UINT,
-		D3D11_BIND_DEPTH_STENCIL,
-		4,
-		0);
-
-	if (FAILED(hr)) {
-		ERROR("Main", "InitDevice",
-			("Failed to initialize DepthStencil. HRESULT: " + std::to_string(hr)).c_str());
-		return hr;
-	}
+	hr = m_depthStencil.init(m_device, m_window.m_width, m_window.m_height,
+		DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_BIND_DEPTH_STENCIL, 4, 0);
+	if (FAILED(hr)) return hr;
 
 	// Crear el depth stencil view
-	hr = m_depthStencilView.init(m_device,
-		m_depthStencil,
-		DXGI_FORMAT_D24_UNORM_S8_UINT);
-
-	if (FAILED(hr)) {
-		ERROR("Main", "InitDevice",
-			("Failed to initialize DepthStencilView. HRESULT: " + std::to_string(hr)).c_str());
-		return hr;
-	}
-
+	hr = m_depthStencilView.init(m_device, m_depthStencil, DXGI_FORMAT_D24_UNORM_S8_UINT);
+	if (FAILED(hr)) return hr;
 
 	// Crear el m_viewport
 	hr = m_viewport.init(m_window);
+	if (FAILED(hr)) return hr;
 
-	if (FAILED(hr)) {
-		ERROR("Main", "InitDevice",
-			("Failed to initialize Viewport. HRESULT: " + std::to_string(hr)).c_str());
-		return hr;
+	// --- INICIALIZACIÓN DE ACTORES (MIGRADO) ---
+	
+	// Crear el Actor
+	m_nissanActor = EU::MakeShared<Actor>(m_device);
+
+	if (!m_nissanActor.isNull()) {
+		// 1. Cargar el Modelo (Nissan)
+		m_model = new Model3D("nissan.fbx", ModelType::FBX);
+		std::vector<MeshComponent> modelMeshes = m_model->GetMeshes();
+		
+		if (modelMeshes.empty()) {
+			ERROR("Main", "InitDevice", "No meshes found in nissan.fbx");
+			return E_FAIL;
+		}
+
+		// 2. Cargar Textura
+		Texture nissanTexture;
+		hr = nissanTexture.init(m_device, "nissan_bake", ExtensionType::PNG);
+		if (FAILED(hr)) {
+			ERROR("Main", "InitDevice", "Failed to load nissan_bake texture");
+			return hr;
+		}
+		std::vector<Texture> textures;
+		textures.push_back(nissanTexture);
+
+		// 3. Configurar el Actor
+		m_nissanActor->setMesh(m_device, modelMeshes);
+		m_nissanActor->setTextures(textures);
+		m_nissanActor->setName("NissanEntity");
+		
+		// Configurar Transformación inicial (Escala, Rotación, Posición)
+		m_nissanActor->getComponent<Transform>()->setTransform(
+			EU::Vector3(0.0f, 1.0f, 0.0f),  // Posición
+			EU::Vector3(0.0f, 0.0f, 0.0f),  // Rotación
+			EU::Vector3(1.0f, 1.0f, 1.0f)   // Escala
+		);
+
+		// Agregar a la lista de actores
+		m_actors.push_back(m_nissanActor);
 	}
-
-	// Load Resources
-
+	else {
+		ERROR("Main", "InitDevice", "Failed to create Nissan Actor.");
+		return E_FAIL;
+	}
+	// -------------------------------------------
 
 	// Define the input layout
 	std::vector<D3D11_INPUT_ELEMENT_DESC> Layout;
@@ -100,7 +111,7 @@ BaseApp::init() {
 	position.SemanticIndex = 0;
 	position.Format = DXGI_FORMAT_R32G32B32_FLOAT;
 	position.InputSlot = 0;
-	position.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT /*0*/;
+	position.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
 	position.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	position.InstanceDataStepRate = 0;
 	Layout.push_back(position);
@@ -110,96 +121,27 @@ BaseApp::init() {
 	texcoord.SemanticIndex = 0;
 	texcoord.Format = DXGI_FORMAT_R32G32_FLOAT;
 	texcoord.InputSlot = 0;
-	texcoord.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT /*0*/;
+	texcoord.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
 	texcoord.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	texcoord.InstanceDataStepRate = 0;
 	Layout.push_back(texcoord);
 
 	// Create the Shader Program
 	hr = m_shaderProgram.init(m_device, "PandoraCoreEngine.fx", Layout);
-	if (FAILED(hr)) {
-		ERROR("Main", "InitDevice",
-			("Failed to initialize ShaderProgram. HRESULT: " + std::to_string(hr)).c_str());
-		return hr;
-	}
+	if (FAILED(hr)) return hr;
 
-	m_model = new Model3D("nissan.fbx", ModelType::FBX);
-	Models = m_model->GetMeshes();
-	if (Models.empty()) {
-        ERROR("Main", "InitDevice", "No meshes found in the model.");
-        return E_FAIL;
-    }
-
-	// Create vertex buffer
-	hr = m_vertexBuffer.init(m_device, Models[0], D3D11_BIND_VERTEX_BUFFER);
-
-	if (FAILED(hr)) {
-		ERROR("Main", "InitDevice",
-			("Failed to initialize VertexBuffer. HRESULT: " + std::to_string(hr)).c_str());
-		return hr;
-	}
-
-	// Create index buffer
-	hr = m_indexBuffer.init(m_device, Models[0], D3D11_BIND_INDEX_BUFFER);
-
-	if (FAILED(hr)) {
-		ERROR("Main", "InitDevice",
-			("Failed to initialize IndexBuffer. HRESULT: " + std::to_string(hr)).c_str());
-		return hr;
-	}
-
-	//auto& resourceMan = ResourceManager::getInstance();
-
-	//std::shared_ptr<Model3D> model = resourceMan.GetOrLoad<Model3D>("CubeModel", "CyberGun.fbx", ModelType::FBX);
-
-
-	// Create the constant buffers
+	// Create the constant buffers (Solo los de cámara, el del objeto lo maneja el Actor)
 	hr = m_cbNeverChanges.init(m_device, sizeof(CBNeverChanges));
-	if (FAILED(hr)) {
-		ERROR("Main", "InitDevice",
-			("Failed to initialize NeverChanges Buffer. HRESULT: " + std::to_string(hr)).c_str());
-		return hr;
-	}
+	if (FAILED(hr)) return hr;
 
 	hr = m_cbChangeOnResize.init(m_device, sizeof(CBChangeOnResize));
-	if (FAILED(hr)) {
-		ERROR("Main", "InitDevice",
-			("Failed to initialize ChangeOnResize Buffer. HRESULT: " + std::to_string(hr)).c_str());
-		return hr;
-	}
-
-	hr = m_cbChangesEveryFrame.init(m_device, sizeof(CBChangesEveryFrame));
-	if (FAILED(hr)) {
-		ERROR("Main", "InitDevice",
-			("Failed to initialize ChangesEveryFrame Buffer. HRESULT: " + std::to_string(hr)).c_str());
-		return hr;
-	}
-
-	hr = m_textureCube.init(m_device, "nissan_bake", ExtensionType::PNG);
-	// Load the Texture
-	if (FAILED(hr)) {
-		ERROR("Main", "InitDevice",
-			("Failed to initialize texture Cube. HRESULT: " + std::to_string(hr)).c_str());
-		return hr;
-	}
-
-	// Create the sample state
-	hr = m_samplerState.init(m_device);
-	if (FAILED(hr)) {
-		ERROR("Main", "InitDevice",
-			("Failed to initialize SamplerState. HRESULT: " + std::to_string(hr)).c_str());
-		return hr;
-	}
-
-	// Initialize the world matrices
-	m_World = XMMatrixIdentity();
+	if (FAILED(hr)) return hr;
 
 	// Initialize the view matrix
 	XMVECTOR Eye = XMVectorSet(0.0f, 3.0f, -6.0f, 0.0f);
 	XMVECTOR At = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	m_View = XMMatrixLookAtLH(Eye, At, Up);
-
 
 	// Initialize the projection matrix
 	cbNeverChanges.mView = XMMatrixTranspose(m_View);
@@ -211,81 +153,53 @@ BaseApp::init() {
 
 void BaseApp::update(float deltaTime)
 {
-	// Update our time
+	// Update our time logic...
 	static float t = 0.0f;
-	if (m_swapChain.m_driverType == D3D_DRIVER_TYPE_REFERENCE)
-	{
-		t += (float)XM_PI * 0.0125f;
-	}
-	else
-	{
-		static DWORD dwTimeStart = 0;
-		DWORD dwTimeCur = GetTickCount();
-		if (dwTimeStart == 0)
-			dwTimeStart = dwTimeCur;
-		t = (dwTimeCur - dwTimeStart) / 1000.0f;
-	}
-	// Actualizar la matriz de proyecci�n y vista
+	// (Mantener lógica de tiempo existente...)
+
+	// Actualizar cámara
 	cbNeverChanges.mView = XMMatrixTranspose(m_View);
 	m_cbNeverChanges.update(m_deviceContext, nullptr, 0, nullptr, &cbNeverChanges, 0, 0);
+	
 	m_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, m_window.m_width / (FLOAT)m_window.m_height, 0.01f, 100.0f);
 	cbChangesOnResize.mProjection = XMMatrixTranspose(m_Projection);
 	m_cbChangeOnResize.update(m_deviceContext, nullptr, 0, nullptr, &cbChangesOnResize, 0, 0);
 
-	// Modify the color
-	m_vMeshColor.x = 1.0f;
-	m_vMeshColor.y = 1.0f;
-	m_vMeshColor.z = 1.0f;
-	// Rotate cube around the origin
-	// Aplicar escala
-	XMMATRIX scaleMatrix = XMMatrixScaling(1.0f, 1.0f, 1.0f);
-	// Aplicar rotacion
-	XMMATRIX rotationMatrix = XMMatrixRotationRollPitchYaw(0.f, 10.0f, 0.0f);
-	// Aplicar traslacion
-	XMMATRIX translationMatrix = XMMatrixTranslation(0.0f, 1.0f, 0.0f);
+	// --- ACTUALIZAR ACTORES ---
+	// La rotación o lógica del Nissan ahora debe hacerse accediendo a su componente Transform
+	// Ejemplo de rotación simple:
+	if (!m_nissanActor.isNull()) {
+		// Rotar un poco cada frame
+		auto transform = m_nissanActor->getComponent<Transform>();
+		// Puedes acumular rotación aquí o modificar 't' si quieres animación
+		// transform->setRotation(EU::Vector3(0.0f, t, 0.0f)); 
+	}
 
-	// Componer la matriz final en el orden: scale -> rotation -> translation
-	m_World = scaleMatrix * rotationMatrix * translationMatrix;
-	cb.mWorld = XMMatrixTranspose(m_World);
-	cb.vMeshColor = m_vMeshColor;
-	m_cbChangesEveryFrame.update(m_deviceContext, nullptr, 0, nullptr, &cb, 0, 0);
+	for (auto& actor : m_actors) {
+		actor->update(deltaTime, m_deviceContext);
+	}
+	// --------------------------
 }
 
 void 
 BaseApp::render() {
-	// Set Render Target View
 	float ClearColor[4] = { 0.1f, 0.1f, 0.1f, 1.0f };
 	m_renderTargetView.render(m_deviceContext, m_depthStencilView, 1, ClearColor);
-
-	// Set Viewport
 	m_viewport.render(m_deviceContext);
-
-	// Set depth stencil view
 	m_depthStencilView.render(m_deviceContext);
-
-	// Set shader program
 	m_shaderProgram.render(m_deviceContext);
 
-	// Render the cube
-	 // Asignar buffers Vertex e Index
-	m_vertexBuffer.render(m_deviceContext, 0, 1);
-	m_indexBuffer.render(m_deviceContext, 0, 1, false, DXGI_FORMAT_R32_UINT);
-
-	// Asignar buffers constantes
+	// Asignar buffers constantes globales (Cámara)
 	m_cbNeverChanges.render(m_deviceContext, 0, 1);
 	m_cbChangeOnResize.render(m_deviceContext, 1, 1);
-	m_cbChangesEveryFrame.render(m_deviceContext, 2, 1);
-	m_cbChangesEveryFrame.render(m_deviceContext, 2, 1, true);
-
-	// Asignar textura y sampler
-	m_textureCube.render(m_deviceContext, 0, 1);
-	m_samplerState.render(m_deviceContext, 0, 1);
-	m_deviceContext.DrawIndexed(Models[0].m_numIndex, 0, 0);
 	
-	// Set primitive topology
-	m_deviceContext.IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	// --- RENDERIZAR ACTORES ---
+	// El bucle se encarga de todo (buffers, texturas, shaders locales)
+	for (auto& actor : m_actors) {
+		actor->render(m_deviceContext);
+	}
+	// --------------------------
 
-	// Present our back buffer to our front buffer
 	m_swapChain.present();
 }
 
@@ -293,14 +207,15 @@ void
 BaseApp::destroy() {
 	if (m_deviceContext.m_deviceContext) m_deviceContext.m_deviceContext->ClearState();
 
-	m_samplerState.destroy();
-	m_textureCube.destroy();
-
+	// Limpieza de buffers globales
 	m_cbNeverChanges.destroy();
 	m_cbChangeOnResize.destroy();
-	m_cbChangesEveryFrame.destroy();
-	m_vertexBuffer.destroy();
-	m_indexBuffer.destroy();
+	
+	// Los Actores y sus componentes se destruirán automáticamente o puedes limpiar el vector
+	m_actors.clear();
+	
+	if (m_model) delete m_model;
+
 	m_shaderProgram.destroy();
 	m_depthStencil.destroy();
 	m_depthStencilView.destroy();
@@ -313,8 +228,7 @@ BaseApp::destroy() {
 
 LRESULT 
 BaseApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-  //if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
-  //  return true;
+  // Mantener igual...
   switch (message)
   {
   case WM_CREATE:

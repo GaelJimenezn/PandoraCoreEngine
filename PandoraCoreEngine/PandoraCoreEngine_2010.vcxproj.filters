@@ -42,6 +42,15 @@
     <Filter Include="include\EngineUtilities\Vectors">
       <UniqueIdentifier>{87cb744b-5c86-4837-be94-1d2a8e5838a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\ECS">
+      <UniqueIdentifier>{f366d7f5-b652-4d41-89d1-6480bd9823a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\imgui">
+      <UniqueIdentifier>{c68f3f7e-c42c-4fce-982a-4c0984fe6d0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\imgui">
+      <UniqueIdentifier>{7f736b96-0f0d-40ed-bc68-139841992c41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\window.h">
@@ -161,6 +170,30 @@
     <ClInclude Include="include\Resource.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\ImGui\imconfig.h">
+      <Filter>include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ImGui\imgui.h">
+      <Filter>include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ImGui\imgui_impl_dx11.h">
+      <Filter>include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ImGui\imgui_impl_win32.h">
+      <Filter>include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ImGui\imgui_internal.h">
+      <Filter>include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ImGui\imstb_rectpack.h">
+      <Filter>include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ImGui\imstb_textedit.h">
+      <Filter>include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ImGui\imstb_truetype.h">
+      <Filter>include\imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Window.cpp">
@@ -207,6 +240,30 @@
     </ClCompile>
     <ClCompile Include="source\Model3D.cpp">
       <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ECS\Actor.cpp">
+      <Filter>source\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ImGui\imgui.cpp">
+      <Filter>source\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ImGui\imgui_demo.cpp">
+      <Filter>source\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ImGui\imgui_draw.cpp">
+      <Filter>source\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ImGui\imgui_impl_dx11.cpp">
+      <Filter>source\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ImGui\imgui_impl_win32.cpp">
+      <Filter>source\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ImGui\imgui_tables.cpp">
+      <Filter>source\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ImGui\imgui_widgets.cpp">
+      <Filter>source\imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

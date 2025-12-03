@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Prerequisites.h"
 #include "EngineUtilities/Vectors/Vector3.h"
 #include "Component.h"
@@ -6,14 +6,14 @@
 class 
 Transform : public Component {
 public:
-  // Constructor que inicializa posición, rotación y escala por defecto
+  // Constructor que inicializa posiciï¿½n, rotaciï¿½n y escala por defecto
   Transform() : position(), 
                 rotation(), 
                 scale(), 
                 matrix(), 
                 Component(ComponentType::TRANSFORM) {}
 
-  // Métodos para inicialización, actualización, renderizado y destrucción
+  // Mï¿½todos para inicializaciï¿½n, actualizaciï¿½n, renderizado y destrucciï¿½n
   // Inicializa el objeto Transform
   void 
   init() {
@@ -22,7 +22,7 @@ public:
   }
 
   // Actualiza el estado del objeto Transform basado en el tiempo transcurrido
-  // @param deltaTime: Tiempo transcurrido desde la última actualización
+  // @param deltaTime: Tiempo transcurrido desde la ï¿½ltima actualizaciï¿½n
   void 
   update(float deltaTime) override {
     // Aplicar escala
@@ -45,25 +45,25 @@ public:
   void 
   destroy() {}
 
-  // Métodos de acceso a los datos de posición
-  // Retorna la posición actual
+  // Mï¿½todos de acceso a los datos de posiciï¿½n
+  // Retorna la posiciï¿½n actual
   const EU::Vector3&
   getPosition() const { return position; }
 
-  // Establece una nueva posición
+  // Establece una nueva posiciï¿½n
   void 
   setPosition(const EU::Vector3& newPos) { position = newPos; }
 
-  // Métodos de acceso a los datos de rotación
-  // Retorna la rotación actual
+  // Mï¿½todos de acceso a los datos de rotaciï¿½n
+  // Retorna la rotaciï¿½n actual
   const EU::Vector3&
   getRotation() const { return rotation; }
 
-  // Establece una nueva rotación
+  // Establece una nueva rotaciï¿½n
   void 
   setRotation(const EU::Vector3& newRot) { rotation = newRot; }
 
-  // Métodos de acceso a los datos de escala
+  // Mï¿½todos de acceso a los datos de escala
   // Retorna la escala actual
   const EU::Vector3&
   getScale() const { return scale; }
@@ -81,16 +81,16 @@ public:
     scale = newSca;
   }
 
-  // Método para trasladar la posición del objeto
+  // Mï¿½todo para trasladar la posiciï¿½n del objeto
   // @param translation: Vector que representa la cantidad de traslado en cada eje
   void 
   translate(const EU::Vector3& translation);
 
 private:
-  EU::Vector3 position;  // Posición del objeto
-  EU::Vector3 rotation;  // Rotación del objeto
+  EU::Vector3 position;  // Posiciï¿½n del objeto
+  EU::Vector3 rotation;  // Rotaciï¿½n del objeto
   EU::Vector3 scale;     // Escala del objeto
 
 public:
-  XMMATRIX matrix;    // Matriz de transformación
+  XMMATRIX matrix;    // Matriz de transformaciï¿½n
 };

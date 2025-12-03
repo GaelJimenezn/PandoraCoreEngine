@@ -13,7 +13,8 @@
 #include "Buffer.h"
 #include "SamplerState.h"
 #include "Model3D.h"
-
+// Inclusión necesaria para usar Actores
+#include "ECS/Actor.h" 
 
 class 
 BaseApp {
@@ -42,34 +43,39 @@ private:
 
 private:
 	Window                              m_window;
-	Device															m_device;
-	DeviceContext												m_deviceContext;
+	Device								m_device;
+	DeviceContext						m_deviceContext;
 	SwapChain                           m_swapChain;
 	Texture                             m_backBuffer;
-	RenderTargetView									  m_renderTargetView;
+	RenderTargetView					m_renderTargetView;
 	Texture                             m_depthStencil;
-	DepthStencilView									  m_depthStencilView;
+	DepthStencilView					m_depthStencilView;
 	Viewport                            m_viewport;
-	ShaderProgram												m_shaderProgram;
-	//MeshComponent												m_mesh;
-	Buffer															m_vertexBuffer;
-	Buffer															m_indexBuffer;
-	Buffer															m_cbNeverChanges;
-	Buffer															m_cbChangeOnResize;
-	Buffer															m_cbChangesEveryFrame;
-	Texture 														m_textureCube;
-	SamplerState												m_samplerState;
+	ShaderProgram						m_shaderProgram;
 
-	XMMATRIX                            m_World;
+	// --- RECURSOS MOVIDOS A ACTORES ---
+	// Ya no necesitamos buffers individuales aquí porque cada Actor tiene los suyos
+	// Buffer							m_vertexBuffer;
+	// Buffer							m_indexBuffer;
+	// Texture 							m_textureCube;
+	// SamplerState						m_samplerState;
+	// ----------------------------------
+
+	Buffer								m_cbNeverChanges;
+	Buffer								m_cbChangeOnResize;
+	
+	// La matriz de proyección y vista se quedan (cámara), pero la de Mundo se va al Actor
+	// XMMATRIX                         m_World; 
 	XMMATRIX                            m_View;
 	XMMATRIX                            m_Projection;
-	XMFLOAT4                            m_vMeshColor;// (0.7f, 0.7f, 0.7f, 1.0f);
 
-	std::vector<MeshComponent>					Models;
-	Model3D*														m_model;
+	Model3D*							m_model;
 
+	// --- SISTEMA DE ACTORES ---
+	std::vector<EU::TSharedPointer<Actor>> m_actors;
+	EU::TSharedPointer<Actor>              m_nissanActor; // Tu actor principal
+	// --------------------------
 
-	CBChangeOnResize										cbChangesOnResize;
-	CBNeverChanges											cbNeverChanges;
-	CBChangesEveryFrame									cb;
+	CBChangeOnResize					cbChangesOnResize;
+	CBNeverChanges						cbNeverChanges;
 };
