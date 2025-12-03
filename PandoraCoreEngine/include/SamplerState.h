@@ -6,85 +6,72 @@ class DeviceContext;
 
 /**
  * @class SamplerState
- * @brief Encapsula un @c ID3D11SamplerState para la etapa de muestreo de texturas en Direct3D 11.
+ * @brief Encapsulates an ID3D11SamplerState for texture sampling operations.
  *
- * Un Sampler State define cómo se leen las texturas en los shaders:
- * - Filtrado (point, linear, anisotropic).
- * - Direccionamiento (wrap, mirror, clamp, border).
- * - Nivel de mipmapping.
- *
- * Esta clase administra la creación, aplicación y destrucción de un @c SamplerState.
+ * Defines how textures are read by shaders, including filtering methods
+ * (point, linear, anisotropic), addressing modes (wrap, clamp, mirror), and
+ * mipmap level of detail settings.
  */
-class 
+class
 SamplerState {
 public:
   /**
-   * @brief Constructor por defecto.
+   * @brief Default constructor.
    */
   SamplerState() = default;
 
   /**
-   * @brief Destructor por defecto.
-   * @details No libera automáticamente el recurso COM; llamar a destroy().
+   * @brief Default destructor.
+   * @details Does not automatically release COM resources; call destroy().
    */
   ~SamplerState() = default;
 
   /**
-   * @brief Inicializa el Sampler State con una configuración predeterminada.
+   * @brief Initializes the Sampler State with default settings.
    *
-   * Crea un @c ID3D11SamplerState configurado según la implementación (ejemplo:
-   * filtrado lineal, wrap en UV, LOD completo).
+   * Creates an ID3D11SamplerState. Typical defaults include linear filtering,
+   * UV wrapping, and full mipmap range.
    *
-   * @param device Dispositivo con el que se creará el recurso.
-   * @return @c S_OK si fue exitoso; código @c HRESULT en caso de error.
-   *
-   * @post Si retorna @c S_OK, @c m_sampler != nullptr.
-   * @sa render(), destroy()
+   * @param device The device used to create the state resource.
+   * @return S_OK if successful, otherwise an HRESULT error code.
    */
-  HRESULT 
+  HRESULT
   init(Device& device);
 
   /**
-   * @brief Actualiza parámetros internos del Sampler.
+   * @brief Placeholder for state updates.
    *
-   * Método de marcador para recrear o mutar dinámicamente la configuración
-   * (por ejemplo, cambiar de filtrado linear a anisotrópico).
-   *
-   * @note Actualmente no realiza ninguna operación.
+   * Intended for dynamic reconfiguration (e.g., switching filter modes).
    */
-  void 
+  void
   update();
 
   /**
-   * @brief Asigna el Sampler State a la etapa de Pixel Shader.
+   * @brief Binds the Sampler State to the Pixel Shader stage.
    *
-   * Llama a @c ID3D11DeviceContext::PSSetSamplers para establecer el sampler.
+   * Calls PSSetSamplers to make this sampler available to shaders.
    *
-   * @param deviceContext Contexto donde se aplicará el sampler.
-   * @param StartSlot     Slot inicial en el que se vinculará el sampler.
-   * @param NumSamplers   Número de samplers a enlazar (normalmente 1).
-   *
-   * @pre @c m_sampler debe haberse creado con init().
+   * @param deviceContext Context used for binding.
+   * @param StartSlot     The starting slot index for binding.
+   * @param NumSamplers   Number of samplers to bind (typically 1).
    */
-  void 
+  void
   render(DeviceContext& deviceContext,
          unsigned int StartSlot,
          unsigned int NumSamplers);
 
   /**
-   * @brief Libera el recurso @c ID3D11SamplerState.
+   * @brief Releases the ID3D11SamplerState resource.
    *
-   * Idempotente: puede llamarse múltiples veces de forma segura.
-   *
-   * @post @c m_sampler == nullptr.
+   * Safe to call multiple times.
    */
-  void 
+  void
   destroy();
 
 public:
   /**
-   * @brief Recurso COM de Direct3D 11 para el Sampler State.
-   * @details Válido tras init(); @c nullptr después de destroy().
+   * @brief Pointer to the D3D11 Sampler State interface.
+   * @details Valid after successful init(); nullptr after destroy().
    */
   ID3D11SamplerState* m_sampler = nullptr;
 };

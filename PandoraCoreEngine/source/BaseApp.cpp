@@ -7,7 +7,6 @@ BaseApp::run(HINSTANCE hInst, int nCmdShow) {
     return 0;
   }
 
-  // Guardar puntero 'this'
   SetWindowLongPtr(m_window.m_hWnd, GWLP_USERDATA, (LONG_PTR)this);
 
   if (FAILED(init())) {

@@ -1,6 +1,5 @@
 #include "EditorUI.h"
 
-// Definición externa necesaria para que Windows envíe los inputs a ImGui
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 namespace 
@@ -11,8 +10,7 @@ Editor {
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		
-		// Habilitar navegación por teclado (Importante para escribir en los inputs)
+	
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 		
 		setupStyle();
@@ -29,13 +27,11 @@ Editor {
 		style.PopupRounding = 4.0f;
 		style.WindowBorderSize = 0.0f;
 		
-		// Colores estilo Dark Theme
 		ImVec4* colors = style.Colors;
 		colors[ImGuiCol_WindowBg] = ImVec4(0.12f, 0.12f, 0.14f, 0.95f);
 		colors[ImGuiCol_TitleBg] = ImVec4(0.08f, 0.08f, 0.10f, 1.0f);
 		colors[ImGuiCol_TitleBgActive] = ImVec4(0.08f, 0.08f, 0.10f, 1.0f);
 		
-		// Acentos (Violeta)
 		ImVec4 accent = ImVec4(0.60f, 0.10f, 0.90f, 1.00f);
 		colors[ImGuiCol_Header] = ImVec4(accent.x, accent.y, accent.z, 0.4f);
 		colors[ImGuiCol_HeaderHovered] = ImVec4(accent.x, accent.y, accent.z, 0.7f);
@@ -55,14 +51,12 @@ Editor {
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 
-		// 1. Jerarquía
 		ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_FirstUseEver);
 		ImGui::SetNextWindowSize(ImVec2(250, 600), ImGuiCond_FirstUseEver);
 		ImGui::Begin("Jerarquia", nullptr);
 		drawHierarchy(actors, selectedIndex);
 		ImGui::End();
 
-		// 2. Inspector
 		ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x - 310, 10), ImGuiCond_FirstUseEver);
 		ImGui::SetNextWindowSize(ImVec2(300, 600), ImGuiCond_FirstUseEver);
 		
@@ -91,7 +85,7 @@ Editor {
 			std::string name = actors[i]->getName();
 			if (name.empty()) name = "Actor " + std::to_string(i);
 
-			// Icono y nombre
+
 			ImGui::AlignTextToFramePadding();
 			bool nodeOpen = ImGui::TreeNodeEx((void*)(intptr_t)i, flags, name.c_str());
 
@@ -100,7 +94,6 @@ Editor {
 			}
 		}
 
-		// Deseleccionar clickeando vacio
 		if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered() && !ImGui::IsAnyItemHovered()) {
 			*selectedIndex = -1;
 		}
@@ -115,7 +108,7 @@ Editor {
 			ImGui::Separator();
 			ImGui::Spacing();
 
-			// Nombre
+
 			char buffer[128];
 			strcpy_s(buffer, actor->getName().c_str());
 			if (ImGui::InputText("Nombre", buffer, sizeof(buffer))) {
@@ -138,7 +131,6 @@ Editor {
 				EU::Vector3 scale = t->getScale();
 				float s[3] = { scale.x, scale.y, scale.z };
 
-				// USAMOS InputFloat3 PARA PODER ESCRIBIR
 				ImGui::Text("Posicion");
 				if (ImGui::InputFloat3("##pos", p, "%.2f")) t->setPosition({ p[0], p[1], p[2] });
 

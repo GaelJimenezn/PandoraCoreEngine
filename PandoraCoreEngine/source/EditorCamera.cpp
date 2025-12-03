@@ -1,12 +1,11 @@
 #include "EditorCamera.h"
 #include "ImGui/imgui.h"
-#include <algorithm> // Para std::clamp
+#include <algorithm> 
 
 void 
 EditorCamera::init(EU::Vector3 startPos, EU::Vector3 targetPos) {
 	m_focalPoint = targetPos;
 
-	// Calcular vector inicial
 	float dx = startPos.x - targetPos.x;
 	float dy = startPos.y - targetPos.y;
 	float dz = startPos.z - targetPos.z;
@@ -30,7 +29,6 @@ void
 EditorCamera::handleInput(float deltaTime) {
 	ImGuiIO& io = ImGui::GetIO();
 
-	// 1. ZOOM CON RUEDA
 	if (io.MouseWheel != 0.0f) {
 		float speed = m_speedZoom;
 		if (io.KeyShift) speed *= 2.0f; 
@@ -39,25 +37,22 @@ EditorCamera::handleInput(float deltaTime) {
 		if (m_distance < 0.1f) m_distance = 0.1f;
 	}
 
-	// 2. ORBITAR (Click Derecho)
+
 	if (ImGui::IsMouseDown(ImGuiMouseButton_Right)) {
 		float dx = io.MouseDelta.x;
 		float dy = io.MouseDelta.y;
-
-		// ZOOM MANUAL (ALT + CLICK DERECHO)
 		if (io.KeyAlt) {
 			m_distance += dy * 0.1f;
 			if (m_distance < 0.1f) m_distance = 0.1f;
 		}
 		else {
-			// ROTACION NORMAL
+		
 			m_yaw += dx * m_speedOrbit;
 			m_pitch -= dy * m_speedOrbit;
-			m_pitch = std::clamp(m_pitch, -1.56f, 1.56f); // Evitar voltereta
+			m_pitch = std::clamp(m_pitch, -1.56f, 1.56f); 
 		}
 	}
 
-	// 3. PANEO (Click Central)
 	if (ImGui::IsMouseDown(ImGuiMouseButton_Middle)) {
 		float dx = io.MouseDelta.x * m_speedPan;
 		float dy = io.MouseDelta.y * m_speedPan;
@@ -78,7 +73,7 @@ EditorCamera::handleInput(float deltaTime) {
 
 void 
 EditorCamera::updateViewMatrix() {
-	// Polares a Cartesianas
+
 	float x = m_distance * std::cos(m_pitch) * std::sin(m_yaw);
 	float y = m_distance * std::sin(m_pitch);
 	float z = m_distance * std::cos(m_pitch) * std::cos(m_yaw);

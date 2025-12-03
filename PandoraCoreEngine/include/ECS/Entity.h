@@ -4,76 +4,93 @@
 
 class DeviceContext;
 
+/**
+ * @class Entity
+ * @brief Base class for generic objects within the ECS system.
+ *
+ * Acts as a container for Components, managing their lifecycle and allowing
+ * dynamic composition of behavior.
+ */
 class
-  Entity {
+Entity {
 public:
+  /**
+   * @brief Default constructor.
+   */
   Entity() = default;
 
   /**
-   * @brief Destructor virtual.
+   * @brief Virtual destructor.
    */
   virtual
-    ~Entity() = default;
+  ~Entity() = default;
 
   /**
-   * @brief Initialize the entity with a device context.
-   * @param deviceContext The device context to initialize with.
-   * @return True if initialization is successful, false otherwise.
+   * @brief Initializes the entity.
+   *
+   * Triggers initialization of internal states or attached components.
    */
   virtual void
-    init() = 0;
+  init() = 0;
 
   /**
-   * @brief M�todo virtual puro para actualizar el componente.
-   * @param deltaTime El tiempo transcurrido desde la �ltima actualizaci�n.
+   * @brief Updates the entity and its components.
+   *
+   * @param deltaTime     Time elapsed since last frame (seconds).
+   * @param deviceContext Context for graphical updates.
    */
   virtual void
-    update(float deltaTime, DeviceContext& deviceContext) = 0;
+  update(float deltaTime, DeviceContext& deviceContext) = 0;
 
   /**
-   * @brief M�todo virtual puro para renderizar el componente.
-   * @param deviceContext Contexto del dispositivo para operaciones gr�ficas.
+   * @brief Renders the entity.
+   * @param deviceContext Context used for rendering.
    */
   virtual void
-    render(DeviceContext& deviceContext) = 0;
+  render(DeviceContext& deviceContext) = 0;
 
   /**
-   * @brief M�todo virtual puro para destruir el componente.
-   * Libera los recursos asociados al componente.
+   * @brief Destroys the entity and releases resources.
+   *
+   * Iterates through components calling their destroy methods.
    */
   virtual void
-    destroy() = 0;
+  destroy() = 0;
 
   /**
-   * @brief Agrega un componente a la entidad.
-   * @tparam T Tipo del componente, debe derivar de Component.
-   * @param component Puntero compartido al componente que se va a agregar.
+   * @brief Attaches a component to the entity.
+   * @tparam T Component type (must derive from Component).
+   * @param component Shared pointer to the component instance.
    */
-  template <typename T> void
-    addComponent(EU::TSharedPointer<T> component) {
-    static_assert(std::is_base_of<Component, T>::value, "T must be derived from Component");
-    m_components.push_back(component.template dynamic_pointer_cast<Component>());
+  template <typename T>
+  void
+  addComponent(EU::TSharedPointer<T> component) {
+    static_assert(std::is_base_of<Component, T>::value,
+                  "T must be derived from Component");
+    m_components.push_back(
+      component.template dynamic_pointer_cast<Component>());
   }
 
   /**
-   * @brief Obtiene un componente de la entidad por su tipo.
-   * @tparam T Tipo del componente a obtener.
-   * @return Puntero compartido al componente si se encuentra, nullptr en caso contrario.
+   * @brief Retrieves an attached component by type.
+   * @tparam T Type of component to retrieve.
+   * @return Shared pointer to component if found, else nullptr.
    */
   template<typename T>
   EU::TSharedPointer<T>
-    getComponent() {
+  getComponent() {
     for (auto& component : m_components) {
-      EU::TSharedPointer<T> specificComponent = component.template dynamic_pointer_cast<T>();
+      auto specificComponent =
+        component.template dynamic_pointer_cast<T>();
       if (specificComponent) {
         return specificComponent;
       }
     }
     return EU::TSharedPointer<T>();
   }
-private:
+
 protected:
-  bool m_isActive;
-  int m_id;
-  std::vector<EU::TSharedPointer<Component>> m_components;
+  bool m_isActive; ///< Entity active state flag.
+  int m_id;        ///< Unique entity identifier.
+  std::vector<EU::TSharedPointer<Component>> m_components; ///< Component list.
 };

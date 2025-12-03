@@ -1,40 +1,68 @@
 #pragma once
 #include "Prerequisites.h"
-#include "ECS/Component.h" // Descomentado para incluir la clase base
+#include "ECS/Component.h"
+
 class DeviceContext;
 
 /**
  * @class MeshComponent
- * @brief Componente ECS que almacena la información de geometría (malla) de un actor.
+ * @brief ECS component holding geometric data for an entity.
+ *
+ * Stores raw vertex and index data required to render a mesh. It acts as the
+ * data source for creating hardware buffers (Vertex/Index Buffer).
  */
-class 
-MeshComponent : public Component { // Descomentado herencia
+class
+MeshComponent : public Component {
 public:
   /**
-   * @brief Constructor por defecto.
+   * @brief Default constructor.
+   *
+   * Initializes counters to zero and sets the component type to MESH.
    */
-  // Inicializa el componente y llama al constructor padre con ComponentType::MESH
-  MeshComponent() : m_numVertex(0), m_numIndex(0), Component(ComponentType::MESH) {}
+  MeshComponent()
+    : m_numVertex(0), m_numIndex(0), Component(ComponentType::MESH) {}
 
-  virtual 
+  /**
+   * @brief Default destructor.
+   */
+  virtual
   ~MeshComponent() = default;
 
-  void 
-  init() override {}; // Override activado
-
-  void 
-  update(float deltaTime) override {}; // Override activado
-
-  void 
-  render(DeviceContext& deviceContext) override {}; // Override activado
-
+  /**
+   * @brief Initialization override.
+   *
+   * Currently empty; geometry is typically loaded externally or via
+   * setters.
+   */
   void
-  destroy() override {}; // Override activado
+  init() override {};
+
+  /**
+   * @brief Update override.
+   * @param deltaTime Time elapsed (unused for static meshes).
+   */
+  void
+  update(float deltaTime) override {};
+
+  /**
+   * @brief Render override.
+   * @param deviceContext Device context (unused directly by component).
+   */
+  void
+  render(DeviceContext& deviceContext) override {};
+
+  /**
+   * @brief Destruction override.
+   *
+   * Clears local vectors.
+   */
+  void
+  destroy() override {};
 
 public:
-  std::string m_name;
-  std::vector<SimpleVertex> m_vertex;
-  std::vector<unsigned int> m_index;
-  int m_numVertex;
-  int m_numIndex;
+  std::string m_name;                 ///< Name of the mesh asset.
+  std::vector<SimpleVertex> m_vertex; ///< CPU-side vertex data.
+  std::vector<unsigned int> m_index;  ///< CPU-side index data.
+  int m_numVertex;                    ///< Vertex count.
+  int m_numIndex;                     ///< Index count.
 };
