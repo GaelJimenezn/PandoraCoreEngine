@@ -2,11 +2,9 @@
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-namespace 
-Editor {
+namespace Editor {
 
-	void 
-	EditorUI::init(HWND hWnd, ID3D11Device* device, ID3D11DeviceContext* context) {
+	void EditorUI::init(HWND hWnd, ID3D11Device* device, ID3D11DeviceContext* context) {
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -19,8 +17,7 @@ Editor {
 		ImGui_ImplDX11_Init(device, context);
 	}
 
-	void 
-	EditorUI::setupStyle() {
+	void EditorUI::setupStyle() {
 		ImGuiStyle& style = ImGui::GetStyle();
 		style.WindowRounding = 8.0f;
 		style.FrameRounding = 4.0f;
@@ -45,8 +42,7 @@ Editor {
 		colors[ImGuiCol_CheckMark] = accent;
 	}
 
-	void 
-	EditorUI::render(std::vector<EU::TSharedPointer<Actor>>& actors, int* selectedIndex) {
+	void EditorUI::render(std::vector<EU::TSharedPointer<Actor>>& actors, int* selectedIndex) {
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
@@ -70,8 +66,7 @@ Editor {
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	}
 
-	void 
-	EditorUI::drawHierarchy(std::vector<EU::TSharedPointer<Actor>>& actors, int* selectedIndex) {
+	void EditorUI::drawHierarchy(std::vector<EU::TSharedPointer<Actor>>& actors, int* selectedIndex) {
 		ImGui::TextDisabled("ESCENA");
 		ImGui::Separator();
 		ImGui::Spacing();
@@ -84,7 +79,6 @@ Editor {
 
 			std::string name = actors[i]->getName();
 			if (name.empty()) name = "Actor " + std::to_string(i);
-
 
 			ImGui::AlignTextToFramePadding();
 			bool nodeOpen = ImGui::TreeNodeEx((void*)(intptr_t)i, flags, name.c_str());
@@ -99,15 +93,13 @@ Editor {
 		}
 	}
 
-	void 
-	EditorUI::drawInspector(EU::TSharedPointer<Actor> actor) {
+	void EditorUI::drawInspector(EU::TSharedPointer<Actor> actor) {
 		ImGui::Begin("Inspector", nullptr);
 		
 		if (!actor.isNull()) {
 			ImGui::TextColored(ImVec4(0.6f, 0.1f, 0.9f, 1.0f), "PROPIEDADES");
 			ImGui::Separator();
 			ImGui::Spacing();
-
 
 			char buffer[128];
 			strcpy_s(buffer, actor->getName().c_str());
@@ -132,13 +124,35 @@ Editor {
 				float s[3] = { scale.x, scale.y, scale.z };
 
 				ImGui::Text("Posicion");
-				if (ImGui::InputFloat3("##pos", p, "%.2f")) t->setPosition({ p[0], p[1], p[2] });
+				if (ImGui::DragFloat3("##pos", p, 0.1f, 0.0f, 0.0f, "%.2f")) {
+					t->setPosition({ p[0], p[1], p[2] });
+				}
 
 				ImGui::Text("Rotacion");
-				if (ImGui::InputFloat3("##rot", r, "%.2f")) t->setRotation({ r[0], r[1], r[2] });
+				if (ImGui::DragFloat3("##rot", r, 0.1f, 0.0f, 0.0f, "%.2f")) {
+					t->setRotation({ r[0], r[1], r[2] });
+				}
 
 				ImGui::Text("Escala");
-				if (ImGui::InputFloat3("##scl", s, "%.2f")) t->setScale({ s[0], s[1], s[2] });
+				if (ImGui::DragFloat3("##scl", s, 0.05f, 0.0f, 0.0f, "%.2f")) {
+					t->setScale({ s[0], s[1], s[2] });
+				}
+
+				// --- NUEVO BOTON: RESET TRANSFORM ---
+				ImGui::Spacing();
+				ImGui::Spacing();
+				
+				// Centrar el botón (Opcional, pero se ve mejor)
+				float windowWidth = ImGui::GetWindowSize().x;
+				float buttonWidth = 150.0f;
+				ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
+
+				if (ImGui::Button("RESET TRANSFORM", ImVec2(buttonWidth, 0))) {
+					// Reiniciar valores a los defaults lógicos
+					t->setPosition({ 0.0f, 0.0f, 0.0f });
+					t->setRotation({ 0.0f, 0.0f, 0.0f });
+					t->setScale({ 1.0f, 1.0f, 1.0f });
+				}
 			}
 		}
 		else {
@@ -148,15 +162,13 @@ Editor {
 		ImGui::End();
 	}
 
-	void 
-	EditorUI::destroy() {
+	void EditorUI::destroy() {
 		ImGui_ImplDX11_Shutdown();
 		ImGui_ImplWin32_Shutdown();
 		ImGui::DestroyContext();
 	}
 
-	LRESULT 
-	EditorUI::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+	LRESULT EditorUI::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		return ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
 	}
 }
