@@ -1,15 +1,32 @@
 ﻿#include "BaseApp.h"
 #include "ResourceManager.h"
 
+HRESULT
+BaseApp::awake() {
+  HRESULT hr = S_OK;
+
+  //inicializacion de dlls y elementos externos del motor 
+
+  //log success message
+  MESSAGE("Main", "Awake", "Application Awake successfuly");
+  return hr;
+}
+
 int
 BaseApp::run(HINSTANCE hInst, int nCmdShow) {
+  //1) initialize window
   if (FAILED(m_window.init(hInst, nCmdShow, WndProc))) {
+    ERROR("Main", "Run", "Failed to initialize window");
     return 0;
   }
-
-  SetWindowLongPtr(m_window.m_hWnd, GWLP_USERDATA, (LONG_PTR)this);
-
+  //2) Awake application
+  if(FAILED(awake())) {
+    ERROR("Main", "Run", "Failed to Awake application");
+    return 0;
+  }
+  //3) initialize device and device context
   if (FAILED(init())) {
+    ERROR("Main", "Run", "Failed to initialize device and device context");
     return 0;
   }
 

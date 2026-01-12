@@ -33,6 +33,9 @@ public:
   virtual void
   init() = 0;
 
+  virtual void
+    awake() = 0;
+
   /**
    * @brief Updates the entity and its components.
    *

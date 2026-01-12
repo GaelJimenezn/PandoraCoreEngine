@@ -43,6 +43,9 @@ public:
    */
   ~BaseApp() { destroy(); }
 
+  HRESULT
+  awake();
+
   /**
    * @brief Executes the main application loop.
    *

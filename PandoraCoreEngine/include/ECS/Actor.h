@@ -40,6 +40,9 @@ public:
   virtual
   ~Actor() = default;
 
+  void
+  awake() override {}
+
   /**
    * @brief Initializes the actor.
    *
