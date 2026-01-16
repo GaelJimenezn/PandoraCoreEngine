@@ -54,6 +54,7 @@ BaseApp::run(HINSTANCE hInst, int nCmdShow) {
   }
 
   return (int)msg.wParam;
+  destroy();
 }
 
 HRESULT
