@@ -12,51 +12,75 @@
       <UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
       <Extensions>fx;fxh;hlsl</Extensions>
     </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{6d519afa-504c-4982-a900-0d197e48809c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui\include">
+      <UniqueIdentifier>{6184b28d-758d-4d81-bd71-7c1bebd96287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui\source">
+      <UniqueIdentifier>{01a8afdd-06fc-4d6e-a1a2-39d2cac6ef00}</UniqueIdentifier>
+    </Filter>
     <Filter Include="include">
-      <UniqueIdentifier>{e6339ede-5e9c-4980-895c-56168345a11d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source">
-      <UniqueIdentifier>{8f81217d-7110-44db-b12a-c26ecb507597}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\Pattems">
-      <UniqueIdentifier>{cb4531d8-d469-44b8-b284-9e7f6ebbab04}</UniqueIdentifier>
+      <UniqueIdentifier>{5f4688fd-d046-4df1-9f6b-1ab57fec78c7}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\ECS">
-      <UniqueIdentifier>{c76a1056-183b-4d2b-affb-972a14d9a38e}</UniqueIdentifier>
+      <UniqueIdentifier>{4826d5a5-6bdd-4b51-95ab-4694d4966f72}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\EngineUtilities">
-      <UniqueIdentifier>{b4d8b712-6511-439b-9d05-4c4bed0f1eb4}</UniqueIdentifier>
+    <Filter Include="include\Patterns">
+      <UniqueIdentifier>{36b0a884-9a1c-4a88-8485-3489d7e4dd6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\EngineUtilities\Matrix">
-      <UniqueIdentifier>{17f4ce3a-9563-4f9e-b8aa-c73b616563c7}</UniqueIdentifier>
+    <Filter Include="include\Utilities">
+      <UniqueIdentifier>{ca355224-f61f-44b6-bb14-4370852a5f6b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\EngineUtilities\Memory">
-      <UniqueIdentifier>{8779633c-e43d-4488-8ac1-ff2563867765}</UniqueIdentifier>
+    <Filter Include="include\Utilities\Memory">
+      <UniqueIdentifier>{5850e391-77ee-4592-9308-28ccac6e052d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\EngineUtilities\Structures">
-      <UniqueIdentifier>{753c8bfa-a87e-410c-888e-ae3aac0efaad}</UniqueIdentifier>
+    <Filter Include="include\Utilities\Vector">
+      <UniqueIdentifier>{05ca63b9-538c-4541-a0b0-d03d3df3d3d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\EngineUtilities\Utilities">
-      <UniqueIdentifier>{596dd9b5-2f8d-4797-8fe5-0b3d1279575f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\EngineUtilities\Vectors">
-      <UniqueIdentifier>{87cb744b-5c86-4837-be94-1d2a8e5838a0}</UniqueIdentifier>
+    <Filter Include="source">
+      <UniqueIdentifier>{ed2a5c87-88fb-40ef-832e-e7a8bc0da316}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\ECS">
-      <UniqueIdentifier>{f366d7f5-b652-4d41-89d1-6480bd9823a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\imgui">
-      <UniqueIdentifier>{c68f3f7e-c42c-4fce-982a-4c0984fe6d0f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\imgui">
-      <UniqueIdentifier>{7f736b96-0f0d-40ed-bc68-139841992c41}</UniqueIdentifier>
+      <UniqueIdentifier>{acb036dd-c676-48b1-a889-b932dbc82eeb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\window.h">
+    <ClInclude Include="ImGui\imgui\imconfig.h">
+      <Filter>imgui\include</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui\imgui.h">
+      <Filter>imgui\include</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui\imgui_internal.h">
+      <Filter>imgui\include</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui\imstb_rectpack.h">
+      <Filter>imgui\include</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui\imstb_textedit.h">
+      <Filter>imgui\include</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui\imstb_truetype.h">
+      <Filter>imgui\include</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\ImGuizmo\ImGuizmo.h">
+      <Filter>imgui\include</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui\backends\imgui_impl_dx11.h">
+      <Filter>imgui\source</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui\backends\imgui_impl_win32.h">
+      <Filter>imgui\source</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BaseApp.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Prerequisites.h">
+    <ClInclude Include="include\Buffer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DepthStencilView.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Device.h">
@@ -65,46 +89,31 @@
     <ClInclude Include="include\DeviceContext.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\InputLayout.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderTargetView.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Resource.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SamplerState.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ShaderProgram.h">
+      <Filter>include</Filter>
+    </ClInclude>
     <ClInclude Include="include\SwapChain.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Texture.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderTargetView.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DepthStencilView.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="include\Viewport.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\InputLayout.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ShaderProgram.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Buffer.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\MeshComponent.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SamplerState.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\BaseApp.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Model3D.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IResource.h">
-      <Filter>include\Pattems</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ResourceManager.h">
+    <ClInclude Include="include\Window.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\ECS\Actor.h">
@@ -119,162 +128,117 @@
     <ClInclude Include="include\ECS\Transform.h">
       <Filter>include\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilities\Matrix\Matrix2x2.h">
-      <Filter>include\EngineUtilities\Matrix</Filter>
+    <ClInclude Include="include\IResource.h">
+      <Filter>include\Patterns</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilities\Matrix\Matrix3x3.h">
-      <Filter>include\EngineUtilities\Matrix</Filter>
+    <ClInclude Include="include\Model3D.h">
+      <Filter>include\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilities\Matrix\Matrix4x4.h">
-      <Filter>include\EngineUtilities\Matrix</Filter>
+    <ClInclude Include="include\MeshComponent.h">
+      <Filter>include\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilities\Memory\TSharedPointer.h">
-      <Filter>include\EngineUtilities\Memory</Filter>
+    <ClInclude Include="include\Prerequisites.h">
+      <Filter>include\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilities\Memory\TStaticPtr.h">
-      <Filter>include\EngineUtilities\Memory</Filter>
+    <ClInclude Include="include\ResourceManager.h">
+      <Filter>include\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilities\Memory\TUniquePtr.h">
-      <Filter>include\EngineUtilities\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="include\EngineUtilities\Memory\TWeakPointer.h">
-      <Filter>include\EngineUtilities\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="include\EngineUtilities\Vectors\Quaternion.h">
-      <Filter>include\EngineUtilities\Vectors</Filter>
-    </ClInclude>
-    <ClInclude Include="include\EngineUtilities\Vectors\Vector2.h">
-      <Filter>include\EngineUtilities\Vectors</Filter>
-    </ClInclude>
-    <ClInclude Include="include\EngineUtilities\Vectors\Vector3.h">
-      <Filter>include\EngineUtilities\Vectors</Filter>
-    </ClInclude>
-    <ClInclude Include="include\EngineUtilities\Vectors\Vector4.h">
-      <Filter>include\EngineUtilities\Vectors</Filter>
+    <ClInclude Include="include\stb_image.h">
+      <Filter>include\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="include\EngineUtilities\Utilities\EngineMath.h">
-      <Filter>include\EngineUtilities\Utilities</Filter>
+      <Filter>include\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilities\Structures\TArray.h">
-      <Filter>include\EngineUtilities\Structures</Filter>
+    <ClInclude Include="include\EngineUtilities\Memory\TSharedPointer.h">
+      <Filter>include\Utilities\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilities\Structures\TMap.h">
-      <Filter>include\EngineUtilities\Structures</Filter>
+    <ClInclude Include="include\EngineUtilities\Memory\TStaticPtr.h">
+      <Filter>include\Utilities\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilities\Structures\TPair.h">
-      <Filter>include\EngineUtilities\Structures</Filter>
+    <ClInclude Include="include\EngineUtilities\Memory\TUniquePtr.h">
+      <Filter>include\Utilities\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilities\Structures\TSet.h">
-      <Filter>include\EngineUtilities\Structures</Filter>
+    <ClInclude Include="include\EngineUtilities\Memory\TWeakPointer.h">
+      <Filter>include\Utilities\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="include\Resource.h">
-      <Filter>include</Filter>
+    <ClInclude Include="include\EngineUtilities\Vectors\Vector2.h">
+      <Filter>include\Utilities\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="include\ImGui\imconfig.h">
-      <Filter>include\imgui</Filter>
+    <ClInclude Include="include\EngineUtilities\Vectors\Vector3.h">
+      <Filter>include\Utilities\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="include\ImGui\imgui.h">
-      <Filter>include\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ImGui\imgui_impl_dx11.h">
-      <Filter>include\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ImGui\imgui_impl_win32.h">
-      <Filter>include\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ImGui\imgui_internal.h">
-      <Filter>include\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ImGui\imstb_rectpack.h">
-      <Filter>include\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ImGui\imstb_textedit.h">
-      <Filter>include\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ImGui\imstb_truetype.h">
-      <Filter>include\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\EditorUI.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\EditorCamera.h">
-      <Filter>include</Filter>
+    <ClInclude Include="include\EngineUtilities\Vectors\Vector4.h">
+      <Filter>include\Utilities\Vector</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\Window.cpp">
-      <Filter>source</Filter>
+    <ClCompile Include="ImGui\ImGuizmo\ImGuizmo.cpp">
+      <Filter>imgui\source</Filter>
     </ClCompile>
-    <ClCompile Include="source\Device.cpp">
-      <Filter>source</Filter>
+    <ClCompile Include="ImGui\imgui\imgui.cpp">
+      <Filter>imgui\source</Filter>
     </ClCompile>
-    <ClCompile Include="PandoraCoreEngine.cpp">
-      <Filter>source</Filter>
+    <ClCompile Include="ImGui\imgui\imgui_demo.cpp">
+      <Filter>imgui\source</Filter>
     </ClCompile>
-    <ClCompile Include="source\DeviceContext.cpp">
-      <Filter>source</Filter>
+    <ClCompile Include="ImGui\imgui\imgui_draw.cpp">
+      <Filter>imgui\source</Filter>
     </ClCompile>
-    <ClCompile Include="source\Texture.cpp">
-      <Filter>source</Filter>
+    <ClCompile Include="ImGui\imgui\imgui_tables.cpp">
+      <Filter>imgui\source</Filter>
     </ClCompile>
-    <ClCompile Include="source\SwapChain.cpp">
-      <Filter>source</Filter>
+    <ClCompile Include="ImGui\imgui\imgui_widgets.cpp">
+      <Filter>imgui\source</Filter>
     </ClCompile>
-    <ClCompile Include="source\RenderTargetView.cpp">
-      <Filter>source</Filter>
+    <ClCompile Include="ImGui\imgui\backends\imgui_impl_dx11.cpp">
+      <Filter>imgui\source</Filter>
     </ClCompile>
-    <ClCompile Include="source\DepthStencilView.cpp">
-      <Filter>source</Filter>
+    <ClCompile Include="ImGui\imgui\backends\imgui_impl_win32.cpp">
+      <Filter>imgui\source</Filter>
     </ClCompile>
-    <ClCompile Include="source\Viewport.cpp">
-      <Filter>source</Filter>
+    <ClCompile Include="source\ECS\Actor.cpp">
+      <Filter>source\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="source\InputLayout.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ShaderProgram.cpp">
+    <ClCompile Include="source\BaseApp.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\Buffer.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="source\SamplerState.cpp">
+    <ClCompile Include="source\DepthStencilView.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="source\BaseApp.cpp">
+    <ClCompile Include="source\Device.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DeviceContext.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\InputLayout.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\Model3D.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="source\ECS\Actor.cpp">
-      <Filter>source\ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ImGui\imgui.cpp">
-      <Filter>source\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ImGui\imgui_demo.cpp">
-      <Filter>source\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ImGui\imgui_draw.cpp">
-      <Filter>source\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ImGui\imgui_impl_dx11.cpp">
-      <Filter>source\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ImGui\imgui_impl_win32.cpp">
-      <Filter>source\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ImGui\imgui_tables.cpp">
-      <Filter>source\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ImGui\imgui_widgets.cpp">
-      <Filter>source\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="source\EditorUI.cpp">
+    <ClCompile Include="source\RenderTargetView.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="source\EditorCamera.cpp">
+    <ClCompile Include="source\SamplerState.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ShaderProgram.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SwapChain.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Texture.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Viewport.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Window.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

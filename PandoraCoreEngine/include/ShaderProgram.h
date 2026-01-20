@@ -7,129 +7,168 @@ class DeviceContext;
 
 /**
  * @class ShaderProgram
- * @brief Manages the lifecycle of Vertex and Pixel shaders.
+ * @brief Encapsula la creación, compilación y uso de Vertex Shader y Pixel Shader en Direct3D 11.
  *
- * Handles the compilation, creation, and binding of shader programs. It also
- * manages the Input Layout associated with the Vertex Shader to ensure correct
- * data mapping from vertex buffers.
+ * Esta clase administra el ciclo de vida de un conjunto de shaders (VS y PS),
+ * incluyendo su compilación desde archivo, creación en el dispositivo y vinculación
+ * al pipeline. Además, maneja el Input Layout asociado al Vertex Shader.
  */
-class
+class 
 ShaderProgram {
 public:
   /**
-   * @brief Default constructor.
+   * @brief Constructor por defecto.
    */
   ShaderProgram() = default;
 
   /**
-   * @brief Default destructor.
-   * @details Does not automatically release resources; call destroy().
+   * @brief Destructor por defecto.
+   * @details No libera automáticamente los recursos COM; llamar a destroy().
    */
   ~ShaderProgram() = default;
 
   /**
-   * @brief Initializes shaders from an HLSL file.
+   * @brief Inicializa el programa de shaders desde un archivo HLSL.
    *
-   * Compiles and creates both Vertex and Pixel shaders from the specified
-   * file. Also generates the Input Layout based on the provided description.
+   * Compila y crea los shaders (VS y PS) definidos en el archivo indicado,
+   * además de crear el Input Layout con la descripción proporcionada.
    *
-   * @param device   Device used for resource creation.
-   * @param fileName Path to the HLSL source file.
-   * @param Layout   Vector describing the vertex input elements.
-   * @return S_OK if successful.
+   * @param device   Dispositivo con el que se crearán los recursos.
+   * @param fileName Nombre del archivo HLSL que contiene los shaders.
+   * @param Layout   Vector con la descripción de los elementos de entrada (para VS).
+   * @return @c S_OK si fue exitoso; código @c HRESULT en caso de error.
+   *
+   * @post Si retorna @c S_OK, los punteros a shaders y el input layout serán válidos.
    */
-  HRESULT
+  HRESULT 
   init(Device& device,
        const std::string& fileName,
        std::vector<D3D11_INPUT_ELEMENT_DESC> Layout);
 
   /**
-   * @brief Placeholder for shader updates (e.g., hot-reloading).
+   * @brief Actualiza parámetros internos de los shaders.
+   *
+   * Método de marcador para futuras extensiones (por ejemplo,
+   * recompilar shaders en caliente).
+   *
+   * @note Actualmente no realiza ninguna operación.
    */
   void
   update();
 
   /**
-   * @brief Binds the Vertex Shader, Pixel Shader, and Input Layout.
+   * @brief Aplica el Vertex Shader, Pixel Shader e Input Layout al pipeline.
    *
-   * Sets the active pipeline state for rendering.
+   * Llama a @c VSSetShader, @c PSSetShader y asigna el input layout
+   * al contexto.
    *
-   * @param deviceContext Context used for binding.
+   * @param deviceContext Contexto donde se aplicará el programa de shaders.
+   *
+   * @pre Los shaders deben haberse creado con init() o CreateShader().
    */
-  void
+  void 
   render(DeviceContext& deviceContext);
 
   /**
-   * @brief Binds a specific shader stage only.
+   * @brief Aplica únicamente un shader específico al pipeline.
    *
-   * @param deviceContext Context used for binding.
-   * @param type          The shader stage to bind (VS or PS).
+   * Permite vincular solo el Vertex Shader o solo el Pixel Shader,
+   * según el parámetro @p type.
+   *
+   * @param deviceContext Contexto donde se aplicará el shader.
+   * @param type          Tipo de shader a establecer (VS o PS).
    */
-  void
+  void 
   render(DeviceContext& deviceContext, ShaderType type);
 
   /**
-   * @brief Releases all shader resources and blobs.
+   * @brief Libera todos los recursos asociados (shaders, blobs e input layout).
+   *
+   * @post @c m_VertexShader == nullptr, @c m_PixelShader == nullptr,
+   *       @c m_vertexShaderData == nullptr, @c m_pixelShaderData == nullptr.
    */
-  void
+  void 
   destroy();
 
   /**
-   * @brief Creates the Input Layout for the Vertex Shader.
+   * @brief Crea un Input Layout asociado al Vertex Shader.
    *
-   * @param device Device used for creation.
-   * @param Layout Vertex element description vector.
-   * @return S_OK if successful.
+   * @param device Dispositivo con el que se creará el recurso.
+   * @param Layout Descripción de los elementos de entrada.
+   * @return @c S_OK si fue exitoso; código @c HRESULT en caso de error.
    */
-  HRESULT
+  HRESULT 
   CreateInputLayout(Device& device,
                     std::vector<D3D11_INPUT_ELEMENT_DESC> Layout);
 
   /**
-   * @brief Creates a shader using the internal filename.
+   * @brief Crea un shader (Vertex o Pixel) a partir del archivo establecido en @c m_shaderFileName.
    *
-   * @param device Device used for creation.
-   * @param type   Shader type (VS or PS).
-   * @return S_OK if successful.
+   * @param device Dispositivo con el que se creará el recurso.
+   * @param type   Tipo de shader a crear.
+   * @return @c S_OK si fue exitoso; código @c HRESULT en caso de error.
    */
-  HRESULT
+  HRESULT 
   CreateShader(Device& device, ShaderType type);
 
   /**
-   * @brief Creates a shader from a specified file.
+   * @brief Crea un shader (Vertex o Pixel) a partir de un archivo HLSL.
    *
-   * @param device   Device used for creation.
-   * @param type     Shader type (VS or PS).
-   * @param fileName Path to the HLSL file.
-   * @return S_OK if successful.
+   * @param device   Dispositivo con el que se creará el recurso.
+   * @param type     Tipo de shader a crear.
+   * @param fileName Nombre del archivo HLSL.
+   * @return @c S_OK si fue exitoso; código @c HRESULT en caso de error.
    */
-  HRESULT
+  HRESULT 
   CreateShader(Device& device, ShaderType type, const std::string& fileName);
 
   /**
-   * @brief Compiles HLSL code from a file.
+   * @brief Compila un shader desde archivo.
    *
-   * Uses D3DCompileFromFile to generate shader bytecode.
+   * Llama internamente a @c D3DCompileFromFile para obtener el bytecode
+   * de un shader en función de su punto de entrada y modelo.
    *
-   * @param szFileName    File path.
-   * @param szEntryPoint  Main function name (e.g., "VSMain").
-   * @param szShaderModel Shader profile (e.g., "vs_5_0").
-   * @param ppBlobOut     Output pointer for the compiled blob.
-   * @return S_OK if successful.
+   * @param szFileName   Ruta del archivo HLSL.
+   * @param szEntryPoint Punto de entrada de la función shader (ej. "VSMain").
+   * @param szShaderModel Modelo de shader (ej. "vs_5_0", "ps_5_0").
+   * @param ppBlobOut    Salida con el bytecode compilado.
+   * @return @c S_OK si fue exitoso; código @c HRESULT en caso de error.
    */
-  HRESULT
+  HRESULT 
   CompileShaderFromFile(char* szFileName,
                         LPCSTR szEntryPoint,
                         LPCSTR szShaderModel,
                         ID3DBlob** ppBlobOut);
 
 public:
-  ID3D11VertexShader* m_VertexShader = nullptr; ///< Vertex Shader resource.
-  ID3D11PixelShader* m_PixelShader = nullptr;   ///< Pixel Shader resource.
-  InputLayout m_inputLayout;                    ///< Associated Input Layout.
+  /**
+   * @brief Vertex Shader compilado y creado en GPU.
+   */
+  ID3D11VertexShader* m_VertexShader = nullptr;
+
+  /**
+   * @brief Pixel Shader compilado y creado en GPU.
+   */
+  ID3D11PixelShader* m_PixelShader = nullptr;
+
+  /**
+   * @brief Input Layout asociado al Vertex Shader.
+   */
+  InputLayout m_inputLayout;
 
 private:
-  std::string m_shaderFileName;           ///< Path to the HLSL file.
-  ID3DBlob* m_vertexShaderData = nullptr; ///< Compiled VS bytecode.
-  ID3DBlob* m_pixelShaderData = nullptr;  ///< Compiled PS bytecode.
+  /**
+   * @brief Nombre del archivo HLSL asociado a este programa de shaders.
+   */
+  std::string m_shaderFileName;
+
+  /**
+   * @brief Bytecode compilado del Vertex Shader.
+   */
+  ID3DBlob* m_vertexShaderData = nullptr;
+
+  /**
+   * @brief Bytecode compilado del Pixel Shader.
+   */
+  ID3DBlob* m_pixelShaderData = nullptr;
 };

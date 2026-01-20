@@ -8,78 +8,132 @@ class Texture;
 
 /**
  * @class SwapChain
- * @brief Manages the presentation buffers (IDXGISwapChain) in Direct3D 11.
+ * @brief Encapsula un @c IDXGISwapChain en Direct3D 11 para administrar buffers de presentación.
  *
- * Handles the creation and management of front and back buffers. It supports
- * buffer swapping (presentation) and Multisample Anti-Aliasing (MSAA)
- * configuration.
+ * Un Swap Chain es responsable de la gestión de los buffers de renderizado que se presentan
+ * en pantalla (front y back buffer).
+ * Esta clase maneja su creación, actualización, renderizado y presentación final.
+ *
+ * También soporta configuración de **MSAA (Multisample Anti-Aliasing)** para suavizado de bordes.
  */
-class
+class 
 SwapChain {
 public:
   /**
-   * @brief Default constructor.
+   * @brief Constructor por defecto.
    */
   SwapChain() = default;
 
   /**
-   * @brief Default destructor.
+   * @brief Destructor por defecto.
+   * @details No libera automáticamente los recursos COM; llamar a destroy().
    */
   ~SwapChain() = default;
 
   /**
-   * @brief Initializes the Swap Chain and retrieves the back buffer.
+   * @brief Inicializa el Swap Chain y obtiene el back buffer.
    *
-   * Creates the IDXGISwapChain for the specified window and extracts the
-   * back buffer texture for rendering.
+   * Crea el objeto @c IDXGISwapChain asociado a una ventana específica,
+   * obteniendo además la textura del back buffer para el renderizado.
    *
-   * @param device        Device used for creation.
-   * @param deviceContext Device context.
-   * @param backBuffer    Texture object to store the back buffer reference.
-   * @param window        Target window for presentation.
-   * @return S_OK if successful.
+   * @param device       Dispositivo con el que se crea el recurso.
+   * @param deviceContext Contexto de dispositivo asociado.
+   * @param backBuffer   Textura que representará el back buffer.
+   * @param window       Ventana de la aplicación donde se presentará la imagen.
+   * @return @c S_OK si fue exitoso; código @c HRESULT en caso contrario.
+   *
+   * @post Si retorna @c S_OK, @c m_swapChain != nullptr.
    */
-  HRESULT
+  HRESULT 
   init(Device& device,
        DeviceContext& deviceContext,
        Texture& backBuffer,
        Window window);
 
   /**
-   * @brief Placeholder for swap chain updates (e.g., resize).
+   * @brief Actualiza parámetros internos del Swap Chain.
+   *
+   * Método de marcador para soportar cambios dinámicos, como resize de ventana,
+   * reconfiguración de MSAA u otros ajustes.
+   *
+   * @note Actualmente no realiza ninguna operación.
    */
-  void
+  void 
   update();
 
   /**
-   * @brief Placeholder for internal render operations.
+   * @brief Ejecuta operaciones de renderizado relacionadas con el Swap Chain.
+   *
+   * Usualmente se utilizaría para depuración o para sincronizar buffers
+   * antes de la presentación.
+   *
+   * @note Actualmente no realiza ninguna operación.
    */
-  void
+  void 
   render();
 
   /**
-   * @brief Releases the Swap Chain and DXGI interfaces.
+   * @brief Libera todos los recursos asociados al Swap Chain.
+   *
+   * También libera las interfaces relacionadas de DXGI (device, adapter, factory).
+   *
+   * @post @c m_swapChain == nullptr.
    */
-  void
+  void 
   destroy();
 
   /**
-   * @brief Presents the rendered image to the screen.
+   * @brief Presenta el back buffer en pantalla.
    *
-   * Calls IDXGISwapChain::Present to swap the front and back buffers.
+   * Llama a @c IDXGISwapChain::Present para mostrar el contenido renderizado
+   * en la ventana asociada.
+   *
+   * @note Si se utiliza V-Sync, puede configurarse en la implementación de este método.
    */
-  void
+  void 
   present();
 
 public:
-  IDXGISwapChain* m_swapChain = nullptr; ///< The DXGI Swap Chain interface.
-  D3D_DRIVER_TYPE m_driverType = D3D_DRIVER_TYPE_NULL; ///< Driver type.
+  /**
+   * @brief Objeto principal del Swap Chain en Direct3D 11.
+   */
+  IDXGISwapChain* m_swapChain = nullptr;
+
+  /**
+   * @brief Tipo de driver utilizado (hardware, referencia, software, etc.).
+   */
+  D3D_DRIVER_TYPE m_driverType = D3D_DRIVER_TYPE_NULL;
 
 private:
-  D3D_FEATURE_LEVEL m_featureLevel = D3D_FEATURE_LEVEL_11_0; ///< Feature set.
-  unsigned int m_sampleCount;      ///< MSAA sample count.
-  unsigned int m_qualityLevels;    ///< MSAA quality levels.
-  IDXGIDevice* m_dxgiDevice = nullptr;   ///< DXGI Device interface.
-  IDXGIAdapter* m_dxgiAdapter = nullptr; ///< DXGI Adapter interface.
-  IDXGIFactory* m_dxgiFactory = nullptr; ///< DXGI Factory interface.
+  /**
+   * @brief Nivel de características de Direct3D soportado por el dispositivo.
+   */
+  D3D_FEATURE_LEVEL m_featureLevel = D3D_FEATURE_LEVEL_11_0;
+
+  /**
+   * @brief Número de muestras para MSAA.
+   *
+   * Ejemplo: 4 = 4x MSAA (4 muestras por píxel).
+   */
+  unsigned int m_sampleCount;
+
+  /**
+   * @brief Niveles de calidad soportados para la configuración de MSAA.
+   */
+  unsigned int m_qualityLevels;
+
+  /**
+   * @brief Interfaz DXGI para el dispositivo.
+   */
+  IDXGIDevice* m_dxgiDevice = nullptr;
+
+  /**
+   * @brief Interfaz DXGI para el adaptador (GPU).
+   */
+  IDXGIAdapter* m_dxgiAdapter = nullptr;
+
+  /**
+   * @brief Interfaz DXGI para la fábrica (creación de swap chains).
+   */
+  IDXGIFactory* m_dxgiFactory = nullptr;
 };

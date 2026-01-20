@@ -2,9 +2,9 @@
 #include "Device.h"
 #include "BaseApp.h"
 
-HRESULT
+HRESULT 
 Window::init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc) {
-  // Store instance of the class
+  // Store  instance of the class
   m_hInst = hInstance;
 
   // Register class
@@ -25,15 +25,22 @@ Window::init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc) {
     return E_FAIL;
 
   // Create window
-  RECT rc = {0, 0, 1920, 1080};
+  RECT rc = { 0, 0, 1200, 950};
   m_rect = rc;
 
   AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 
-  m_hWnd = CreateWindow("TutorialWindowClass", m_windowName.c_str(),
-                        WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
-                        rc.right - rc.left, rc.bottom - rc.top, NULL, NULL,
-                        hInstance, NULL);
+  m_hWnd = CreateWindow("TutorialWindowClass", 
+                        m_windowName.c_str(),
+                         WS_OVERLAPPEDWINDOW,
+                         CW_USEDEFAULT, 
+                         CW_USEDEFAULT, 
+                         rc.right - rc.left, 
+                         rc.bottom - rc.top, 
+                         NULL, 
+                         NULL, 
+                         hInstance,
+                         NULL);
 
   if (!m_hWnd) {
     MessageBox(nullptr, "CreateWindow failed!", "Error", MB_OK);
@@ -42,6 +49,7 @@ Window::init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc) {
   }
 
   ShowWindow(m_hWnd, nCmdShow);
+
   UpdateWindow(m_hWnd);
 
   // Setup Viewport Dimensions
@@ -52,7 +60,7 @@ Window::init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc) {
   return S_OK;
 }
 
-void
+void 
 Window::update() {
 }
 
@@ -60,6 +68,7 @@ void
 Window::render() {
 }
 
-void
+void 
 Window::destroy() {
 }
+

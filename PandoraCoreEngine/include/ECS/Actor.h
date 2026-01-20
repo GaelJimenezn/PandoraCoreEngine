@@ -1,11 +1,14 @@
-ï»¿#pragma once
+#pragma once
 #include "Prerequisites.h"
 #include "Entity.h"
 #include "Buffer.h"
 #include "Texture.h"
 #include "Transform.h"
 #include "SamplerState.h"
+//#include "Rasterizer.h"
+//#include "BlendState.h"
 #include "ShaderProgram.h"
+//#include "DepthStencilState.h"
 
 class Device;
 class DeviceContext;
@@ -13,148 +16,150 @@ class MeshComponent;
 
 /**
  * @class Actor
- * @brief Represents a graphical entity managing meshes, textures, and states.
+ * @brief Representa una entidad gráfica con mallas, texturas y estados de renderizado.
  *
- * The Actor class encapsulates resources required to render an object in the
- * scene. It manages vertex/index buffers, rasterization states, blending
- * modes, and shader programs. It also handles specific rendering passes such
- * as shadow mapping.
+ * Un Actor es una entidad del motor que contiene mallas, texturas y recursos de renderizado
+ * necesarios para dibujar un objeto en la escena.
+ * Administra buffers de vértices e índices, estados de rasterización, blending y shaders,
+ * además de soportar renderizado de sombras.
  */
-class
+class 
 Actor : public Entity {
 public:
   /**
-   * @brief Default constructor.
+   * @brief Constructor por defecto.
    */
   Actor() = default;
 
   /**
-   * @brief Constructs an Actor initialized with a graphics device.
-   * @param device Reference to the Device for resource initialization.
+   * @brief Constructor que inicializa el actor con un dispositivo.
+   * @param device Dispositivo usado para inicializar recursos del actor.
    */
   Actor(Device& device);
 
   /**
-   * @brief Virtual destructor.
+   * @brief Destructor virtual por defecto.
    */
-  virtual
+  virtual 
   ~Actor() = default;
 
   void
   awake() override {}
 
   /**
-   * @brief Initializes the actor.
+   * @brief Inicializa el actor.
    *
-   * Inherited from Entity. Can be overridden for custom allocation.
+   * Método heredado de @c Entity.
+   * Puede usarse para inicializar recursos adicionales en clases derivadas.
    */
-  void
+  void 
   init() override {}
 
   /**
-   * @brief Updates the actor's logic for the current frame.
+   * @brief Actualiza el actor en cada frame.
    *
-   * Handles time-dependent logic, animations, or transformations.
+   * @param deltaTime     Tiempo transcurrido desde la última actualización.
+   * @param deviceContext Contexto del dispositivo para operaciones gráficas.
    *
-   * @param deltaTime     Time elapsed since the last frame (seconds).
-   * @param deviceContext Context for graphics operations during update.
+   * @note Este método puede actualizar animaciones, transformaciones u otros recursos dependientes del tiempo.
    */
-  void
+  void 
   update(float deltaTime, DeviceContext& deviceContext) override;
 
   /**
-   * @brief Renders the actor to the scene.
+   * @brief Renderiza el actor en la escena.
    *
-   * Configures pipeline stages (states, buffers, shaders) and issues draw
-   * calls for the associated meshes.
+   * Configura estados de render, buffers y shaders antes de dibujar las mallas asociadas al actor.
    *
-   * @param deviceContext Context used for rendering operations.
+   * @param deviceContext Contexto del dispositivo para operaciones gráficas.
    */
-  void
+  void 
   render(DeviceContext& deviceContext) override;
 
   /**
-   * @brief Releases all resources associated with the actor.
+   * @brief Libera todos los recursos asociados al actor.
    *
-   * Frees vertex/index buffers, shaders, states, and texture references.
+   * Incluye buffers, estados, shaders y texturas.
    */
-  void
+  void 
   destroy();
 
   /**
-   * @brief Assigns mesh components and initializes hardware buffers.
+   * @brief Establece las mallas del actor.
    *
-   * @param device The device used to create vertex/index buffers.
-   * @param meshes Vector of MeshComponents for this actor.
+   * Inicializa buffers de vértices e índices asociados a las mallas.
+   *
+   * @param device Dispositivo con el cual se inicializan las mallas.
+   * @param meshes Vector de componentes de malla que se asignarán al actor.
    */
-  void
+  void 
   setMesh(Device& device, std::vector<MeshComponent> meshes);
 
   /**
-   * @brief Retrieves the actor's name.
-   * @return The string identifier of the actor.
+   * @brief Obtiene el nombre del actor.
+   * @return Nombre actual del actor.
    */
-  std::string
+  std::string 
   getName() { return m_name; }
 
   /**
-   * @brief Sets the actor's name.
-   * @param name The new name identifier.
+   * @brief Establece el nombre del actor.
+   * @param name Nuevo nombre para el actor.
    */
-  void
+  void 
   setName(const std::string& name) { m_name = name; }
 
   /**
-   * @brief Assigns textures to the actor.
-   * @param textures Vector of Texture objects to apply.
+   * @brief Establece las texturas del actor.
+   * @param textures Vector de texturas a asignar al actor.
    */
-  void
+  void 
   setTextures(std::vector<Texture> textures) { m_textures = textures; }
 
   /**
-   * @brief Enables or disables shadow casting.
-   * @param v True to enable shadows, false to disable.
+   * @brief Define si el actor proyecta sombras.
+   * @param v Valor booleano que habilita o deshabilita las sombras.
    */
-  void
+  void 
   setCastShadow(bool v) { castShadow = v; }
 
   /**
-   * @brief Checks if the actor casts shadows.
-   * @return True if shadow casting is enabled.
+   * @brief Indica si el actor puede proyectar sombras.
+   * @return @c true si el actor proyecta sombras; @c false en caso contrario.
    */
-  bool
+  bool 
   canCastShadow() const { return castShadow; }
 
   /**
-   * @brief Performs the shadow render pass.
+   * @brief Renderiza la sombra del actor.
    *
-   * Uses specific shadow shaders to render geometry into the shadow map.
+   * Usa shaders y estados específicos de shadow mapping para dibujar la proyección del actor en el mapa de sombras.
    *
-   * @param deviceContext Context used for shadow rendering.
+   * @param deviceContext Contexto del dispositivo para operaciones gráficas.
    */
-  void
+  void 
   renderShadow(DeviceContext& deviceContext);
 
 private:
-  std::vector<MeshComponent> m_meshes;   ///< Actor's mesh components.
-  std::vector<Texture> m_textures;       ///< Textures applied to meshes.
-  std::vector<Buffer> m_vertexBuffers;   ///< Hardware vertex buffers.
-  std::vector<Buffer> m_indexBuffers;    ///< Hardware index buffers.
+  std::vector<MeshComponent> m_meshes;   ///< Conjunto de componentes de malla del actor.
+  std::vector<Texture> m_textures;       ///< Texturas aplicadas al actor.
+  std::vector<Buffer> m_vertexBuffers;   ///< Buffers de vértices asociados a las mallas.
+  std::vector<Buffer> m_indexBuffers;    ///< Buffers de índices asociados a las mallas.
 
-  //BlendState m_blendstate;               ///< Blending state (disabled).
-  //Rasterizer m_rasterizer;               ///< Rasterizer state (disabled).
-  SamplerState m_sampler;                ///< Texture sampler state.
-  CBChangesEveryFrame m_model;           ///< Per-frame constant buffer data.
-  Buffer m_modelBuffer;                  ///< GPU constant buffer resource.
+  //BlendState m_blendstate;               ///< Estado de blending usado por el actor.
+  //Rasterizer m_rasterizer;               ///< Estado de rasterización usado por el actor.
+  SamplerState m_sampler;                ///< Estado de muestreo de texturas.
+  CBChangesEveryFrame m_model;           ///< Constante de buffer para transformaciones por frame.
+  Buffer m_modelBuffer;                  ///< Constant buffer que contiene @c m_model.
 
-  // Shadow Mapping Resources
-  ShaderProgram m_shaderShadow;          ///< Shader for shadow depth pass.
-  Buffer m_shaderBuffer;                 ///< Auxiliary buffer for shadows.
-  //BlendState m_shadowBlendState;         ///< Shadow blend state (disabled).
-  //DepthStencilState m_sDSState;          ///< Shadow Depth/Stencil state.
-  CBChangesEveryFrame m_cbShadow;        ///< Shadow constant buffer structure.
+  // Recursos para sombras
+  ShaderProgram m_shaderShadow;          ///< Shader program usado para renderizar sombras.
+  Buffer m_shaderBuffer;                 ///< Buffer auxiliar para datos de sombras.
+  //BlendState m_shadowBlendState;         ///< Estado de blending específico para sombras.
+  //DepthStencilState m_shadowDepthStencilState; ///< Estado de profundidad/esténcil para sombras.
+  CBChangesEveryFrame m_cbShadow;        ///< Constant buffer específico de sombras.
 
-  XMFLOAT4 m_LightPos;                   ///< Light position for shadows.
-  std::string m_name = "Actor";          ///< Unique actor identifier.
-  bool castShadow = true;                ///< Flag for shadow casting.
+  XMFLOAT4 m_LightPos;                   ///< Posición de la luz usada para proyectar sombras.
+  std::string m_name = "Actor";          ///< Nombre identificador del actor.
+  bool castShadow = true;                ///< Indica si el actor proyecta sombras.
 };

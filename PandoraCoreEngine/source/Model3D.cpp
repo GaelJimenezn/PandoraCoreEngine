@@ -1,4 +1,4 @@
-ï»¿#include "Model3D.h"
+#include "Model3D.h"
 
 bool 
 Model3D::load(const std::string& path) {
@@ -7,7 +7,7 @@ Model3D::load(const std::string& path) {
 
 	init();
 
-	bool success = true; // Cambia esto segï¿½n el resultado real.
+	bool success = true; // Cambia esto según el resultado real.
 
 	SetState(success ? ResourceState::Loaded : ResourceState::Failed);
 	return success;
@@ -144,10 +144,7 @@ Model3D::ProcessFBXMesh(FbxNode* node) {
   FbxMesh* mesh = node->GetMesh();
   if (!mesh) return;
 
-  if (mesh->GetPolygonCount() == 0) {
-    return;
-  }
-
+  // --- Asegura normales/tangentes en el FBX ---
   if (mesh->GetElementNormalCount() == 0)
     mesh->GenerateNormals(true, true);
 
@@ -191,7 +188,7 @@ Model3D::ProcessFBXMesh(FbxNode* node) {
     return elem->GetDirectArray().GetAt(idx);
     };
 
-  // --- Construcciï¿½n por esquina (corner) ---
+  // --- Construcción por esquina (corner) ---
   for (int p = 0; p < mesh->GetPolygonCount(); ++p)
   {
     const int polySize = mesh->GetPolygonSize(p);
@@ -204,7 +201,7 @@ Model3D::ProcessFBXMesh(FbxNode* node) {
 
       SimpleVertex out{};
 
-      // Posiciï¿½n (espacio local)
+      // Posición (espacio local)
       FbxVector4 P = mesh->GetControlPointAt(cpIndex);
       out.Pos = { (float)P[0], (float)P[1], (float)P[2] };
 
@@ -242,7 +239,7 @@ Model3D::ProcessFBXMesh(FbxNode* node) {
       vertices.push_back(out);
     }
 
-    // Triangula en ï¿½fanï¿½ (CW por defecto)
+    // Triangula en “fan” (CW por defecto)
     for (int k = 1; k + 1 < polySize; ++k) {
       indices.push_back(cornerIdx[0]);
       indices.push_back(cornerIdx[k + 1]);
@@ -292,7 +289,7 @@ Model3D::ProcessFBXMesh(FbxNode* node) {
 
   bool mirrored = true;
   if (autoDetectMirror) {
-    // world = global * geometric (aunque no lo horneamos a vï¿½rtices, lo usamos para detectar espejo)
+    // world = global * geometric (aunque no lo horneamos a vértices, lo usamos para detectar espejo)
     FbxAMatrix geo;
     geo.SetT(node->GetGeometricTranslation(FbxNode::eSourcePivot));
     geo.SetR(node->GetGeometricRotation(FbxNode::eSourcePivot));
@@ -318,7 +315,7 @@ Model3D::ProcessFBXMesh(FbxNode* node) {
     //}
   }
 
-  // --- Ortonormaliza TBN por vï¿½rtice ---
+  // --- Ortonormaliza TBN por vértice ---
   //auto dot3 = [](const EU::Vector3& a, const EU::Vector3& b) { return a.x * b.x + a.y * b.y + a.z * b.z; };
   //auto norm3 = [](EU::Vector3& v) { float l = std::sqrt(EU::EMax(1e-20f, v.x * v.x + v.y * v.y + v.z * v.z)); v.x /= l; v.y /= l; v.z /= l; };
   //auto sub3 = [](const EU::Vector3& a, const EU::Vector3& b) { return EU::Vector3(a.x - b.x, a.y - b.y, a.z - b.z); };
@@ -340,15 +337,13 @@ Model3D::ProcessFBXMesh(FbxNode* node) {
   //}
 
   // --- Empaqueta ---
-if (!vertices.empty()) {
-      MeshComponent mc;
-      mc.m_name = node->GetName();
-      mc.m_vertex = std::move(vertices);
-      mc.m_index = std::move(indices);
-      mc.m_numVertex = (int)mc.m_vertex.size();
-      mc.m_numIndex = (int)mc.m_index.size();
-      m_meshes.push_back(std::move(mc));
-  }
+  MeshComponent mc;
+  mc.m_name = node->GetName();
+  mc.m_vertex = std::move(vertices);
+  mc.m_index = std::move(indices);
+  mc.m_numVertex = (int)mc.m_vertex.size();
+  mc.m_numIndex = (int)mc.m_index.size();
+  m_meshes.push_back(std::move(mc));
 }
 
 void Model3D::ProcessFBXMaterials(FbxSurfaceMaterial* material)

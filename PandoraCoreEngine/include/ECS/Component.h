@@ -1,71 +1,60 @@
-ï»¿#pragma once
+#pragma once
 #include "Prerequisites.h"
 class DeviceContext;
 
 /**
  * @class Component
- * @brief Abstract base class for all ECS functional components.
+ * @brief Clase base abstracta para todos los componentes del juego.
  *
- * Defines the interface for lifecycle management (init, update, render,
- * destroy) that all components must implement.
+ * La clase Component define la interfaz básica que todos los componentes deben implementar,
+ * permitiendo actualizar y renderizar el componente, así como obtener su tipo.
  */
-class
+class 
 Component {
 public:
   /**
-   * @brief Default constructor.
+   * @brief Constructor por defecto.
    */
   Component() = default;
 
   /**
-   * @brief Constructs a component with a specific type.
-   * @param type The enumerated type identifier.
+   * @brief Constructor con tipo de componente.
+   * @param type Tipo del componente.
    */
   Component(const ComponentType type) : m_type(type) {}
 
   /**
-   * @brief Virtual destructor.
+   * @brief Destructor virtual.
    */
   virtual
   ~Component() = default;
 
-  /**
-   * @brief Initializes the component.
-   *
-   * Pure virtual. Implementations handle allocation and setup here.
-   */
   virtual void
   init() = 0;
 
   /**
-   * @brief Updates component logic.
-   * @param deltaTime Time elapsed since the last frame (seconds).
+   * @brief Método virtual puro para actualizar el componente.
+   * @param deltaTime El tiempo transcurrido desde la última actualización.
    */
-  virtual void
+  virtual void 
   update(float deltaTime) = 0;
 
   /**
-   * @brief Renders the component.
-   * @param deviceContext Context for graphics commands.
+   * @brief Método virtual puro para renderizar el componente.
+   * @param deviceContext Contexto del dispositivo para operaciones gráficas.
    */
-  virtual void
+  virtual void 
   render(DeviceContext& deviceContext) = 0;
 
-  /**
-   * @brief Destroys the component.
-   *
-   * Pure virtual. Implementations must release resources here.
-   */
   virtual void
   destroy() = 0;
 
   /**
-   * @brief Retrieves the component type.
-   * @return The ComponentType enum value.
+   * @brief Obtiene el tipo del componente.
+   * @return El tipo del componente.
    */
-  ComponentType
+  ComponentType 
   getType() const { return m_type; }
-
 protected:
-  ComponentType m_type; ///< Identifier for the component type.
+  ComponentType m_type; ///< Tipo del componente.
 };
