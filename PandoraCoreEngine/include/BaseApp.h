@@ -28,6 +28,7 @@ public:
 	HRESULT
 	awake();
 
+<<<<<<< HEAD
 	int 
 	run(HINSTANCE hInst, int nCmdShow);
 	
@@ -36,6 +37,19 @@ public:
 
 	void 
 	update(float deltaTime);
+=======
+  /**
+   * @brief Executes the main application loop.
+   *
+   * Initializes the window and enters the message pump.
+   *
+   * @param hInst    Handle to the current application instance.
+   * @param nCmdShow Control flags for how the window is to be shown.
+   * @return The exit code from the WM_QUIT message.
+   */
+  int
+  run(HINSTANCE hInst, int nCmdShow);
+>>>>>>> parent of 13870cb (Add awake lifecycle method to core engine classes)
 
 	void 
 	render();

@@ -1,6 +1,7 @@
 #include "BaseApp.h"
 #include "ResourceManager.h"
 
+<<<<<<< HEAD
 HRESULT 
 BaseApp::awake() {
 	HRESULT hr = S_OK;
@@ -31,6 +32,19 @@ BaseApp::run(HINSTANCE hInst, int nCmdShow) {
 	}
 	// 4) Initialize GUI
 	m_gui.init(m_window, m_device, m_deviceContext);
+=======
+int
+BaseApp::run(HINSTANCE hInst, int nCmdShow) {
+  if (FAILED(m_window.init(hInst, nCmdShow, WndProc))) {
+    return 0;
+  }
+
+  SetWindowLongPtr(m_window.m_hWnd, GWLP_USERDATA, (LONG_PTR)this);
+
+  if (FAILED(init())) {
+    return 0;
+  }
+>>>>>>> parent of 13870cb (Add awake lifecycle method to core engine classes)
 
   // Main message loop
   MSG msg = {};

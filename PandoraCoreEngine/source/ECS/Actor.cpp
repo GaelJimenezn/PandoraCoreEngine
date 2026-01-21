@@ -17,6 +17,7 @@ Actor::Actor(Device& device) {
 		ERROR("Actor", classNameType.c_str(), "Failed to create new CBChangesEveryFrame");
 	}
 
+<<<<<<< HEAD
 	// Awake
 	awake();
 
@@ -65,6 +66,12 @@ Actor::Actor(Device& device) {
 	//}
 	//
 	//m_LightPos = XMFLOAT4(2.0f, 4.0f, -2.0f, 1.0f);
+=======
+  hr = m_sampler.init(device);
+  if (FAILED(hr)) {
+    ERROR("Actor", classNameType.c_str(), "Failed to create new SamplerState");
+  }
+>>>>>>> parent of 13870cb (Add awake lifecycle method to core engine classes)
 }
 
 void 
