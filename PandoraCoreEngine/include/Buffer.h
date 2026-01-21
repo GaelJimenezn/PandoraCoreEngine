@@ -19,13 +19,13 @@ class DeviceContext;
  * @note La instancia gestiona un solo @c ID3D11Buffer a la vez; el tipo efectivo se deduce de @c m_bindFlag.
  * @warning No copia el recurso; si se añade semántica de copia, manejar correctamente referencias COM.
  */
-class 
-Buffer {
+class
+  Buffer {
 public:
   /**
    * @brief Constructor por defecto (no crea recursos).
    */
-  Buffer()  = default;
+  Buffer() = default;
 
   /**
    * @brief Destructor por defecto.
@@ -47,8 +47,8 @@ public:
    * @post Si retorna @c S_OK, @c m_buffer != nullptr y @c m_bindFlag == bindFlag.
    * @sa createBuffer(), render()
    */
-  HRESULT 
-  init(Device& device, const MeshComponent& mesh, unsigned int bindFlag);
+  HRESULT
+    init(Device& device, const MeshComponent& mesh, unsigned int bindFlag);
 
   /**
    * @brief Inicializa el buffer como Constant Buffer.
@@ -62,8 +62,8 @@ public:
    * @post Si retorna @c S_OK, @c m_buffer != nullptr y @c m_bindFlag == D3D11_BIND_CONSTANT_BUFFER.
    * @sa update(), render()
    */
-  HRESULT 
-  init(Device& device, unsigned int ByteWidth);
+  HRESULT
+    init(Device& device, unsigned int ByteWidth);
 
   /**
    * @brief Actualiza el contenido del buffer (típicamente mediante @c UpdateSubresource).
@@ -81,14 +81,14 @@ public:
    * @pre @c pDstResource debe ser un buffer válido creado en este dispositivo.
    * @note Para constantes dinámicas alternativamente podría usarse @c Map/@c Unmap con @c D3D11_USAGE_DYNAMIC.
    */
-  void 
-  update(DeviceContext& deviceContext,
-         ID3D11Resource* pDstResource,
-         unsigned int    DstSubresource,
-         const D3D11_BOX* pDstBox,
-         const void*     pSrcData,
-         unsigned int    SrcRowPitch,
-         unsigned int    SrcDepthPitch);
+  void
+    update(DeviceContext& deviceContext,
+      ID3D11Resource* pDstResource,
+      unsigned int    DstSubresource,
+      const D3D11_BOX* pDstBox,
+      const void* pSrcData,
+      unsigned int    SrcRowPitch,
+      unsigned int    SrcDepthPitch);
 
   /**
    * @brief Enlaza el buffer a la etapa correspondiente del pipeline para el frame de render.
@@ -107,12 +107,12 @@ public:
    * @pre @c m_buffer debe estar creado y @c m_bindFlag configurado correctamente.
    * @sa init()
    */
-  void 
-  render(DeviceContext& deviceContext,
-         unsigned int   StartSlot,
-         unsigned int   NumBuffers,
-         bool           setPixelShader = false,
-         DXGI_FORMAT    format = DXGI_FORMAT_UNKNOWN);
+  void
+    render(DeviceContext& deviceContext,
+      unsigned int   StartSlot,
+      unsigned int   NumBuffers,
+      bool           setPixelShader = false,
+      DXGI_FORMAT    format = DXGI_FORMAT_UNKNOWN);
 
   /**
    * @brief Libera el @c ID3D11Buffer y resetea los metadatos internos.
@@ -121,8 +121,8 @@ public:
    *
    * @post @c m_buffer == nullptr, @c m_stride == 0, @c m_offset == 0 y @c m_bindFlag == 0.
    */
-  void 
-  destroy();
+  void
+    destroy();
 
   /**
    * @brief Crea un buffer genérico con una @c D3D11_BUFFER_DESC y datos iniciales opcionales.
@@ -134,10 +134,10 @@ public:
    * @param initData Datos iniciales (puede ser @c nullptr para buffer sin inicializar).
    * @return @c S_OK si la creación fue exitosa; código @c HRESULT en caso contrario.
    */
-  HRESULT 
-  createBuffer(Device& device,
-               D3D11_BUFFER_DESC& desc,
-               D3D11_SUBRESOURCE_DATA* initData);
+  HRESULT
+    createBuffer(Device& device,
+      D3D11_BUFFER_DESC& desc,
+      D3D11_SUBRESOURCE_DATA* initData);
 
 private:
   /**

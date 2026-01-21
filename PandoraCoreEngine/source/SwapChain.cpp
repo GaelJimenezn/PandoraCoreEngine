@@ -4,20 +4,20 @@
 #include "Texture.h"
 #include "Window.h"
 
-HRESULT 
-SwapChain::init(Device& device, 
-								DeviceContext& deviceContext, 
-								Texture& backBuffer, 
-								Window window) {
-	// Check if Window is valid
-	if (!window.m_hWnd) {
-		ERROR("SwapChain", "init", "Invalid window handle. (m_hWnd is nullptr)");
-		return E_POINTER;
-	}
+HRESULT
+SwapChain::init(Device& device,
+  DeviceContext& deviceContext,
+  Texture& backBuffer,
+  Window window) {
+  // Check if Window is valid
+  if (!window.m_hWnd) {
+    ERROR("SwapChain", "init", "Invalid window handle. (m_hWnd is nullptr)");
+    return E_POINTER;
+  }
 
-	HRESULT hr = S_OK;
+  HRESULT hr = S_OK;
 
-	// Create the swap chain device and context
+  // Create the swap chain device and context
   unsigned int createDeviceFlags = 0;
 #ifdef _DEBUG
   createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
@@ -41,15 +41,15 @@ SwapChain::init(Device& device,
   for (unsigned int driverTypeIndex = 0; driverTypeIndex < numDriverTypes; driverTypeIndex++) {
     D3D_DRIVER_TYPE driverType = driverTypes[driverTypeIndex];
     hr = D3D11CreateDevice(nullptr,
-                           driverType,
-                           nullptr,
-                           createDeviceFlags,
-                           featureLevels,
-                           numFeatureLevels,
-                           D3D11_SDK_VERSION,
-                           &device.m_device,
-                           &m_featureLevel,
-                           &deviceContext.m_deviceContext);
+      driverType,
+      nullptr,
+      createDeviceFlags,
+      featureLevels,
+      numFeatureLevels,
+      D3D11_SDK_VERSION,
+      &device.m_device,
+      &m_featureLevel,
+      &deviceContext.m_deviceContext);
 
     if (SUCCEEDED(hr)) {
       MESSAGE("SwapChain", "init", "Device created successfully.");
@@ -66,8 +66,8 @@ SwapChain::init(Device& device,
   // Config the MSAA settings
   m_sampleCount = 4;
   hr = device.m_device->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM,
-                                                      m_sampleCount,
-                                                      &m_qualityLevels);
+    m_sampleCount,
+    &m_qualityLevels);
   if (FAILED(hr) || m_qualityLevels == 0) {
     ERROR("SwapChain", "init",
       ("MSAA not supported or invalid quality level. HRESULT: " + std::to_string(hr)).c_str());
@@ -91,27 +91,27 @@ SwapChain::init(Device& device,
   sd.SampleDesc.Quality = m_qualityLevels - 1;
 
   // Get the DXGI factory
-	hr = device.m_device->QueryInterface(__uuidof(IDXGIDevice), (void**)&m_dxgiDevice);
+  hr = device.m_device->QueryInterface(__uuidof(IDXGIDevice), (void**)&m_dxgiDevice);
   if (FAILED(hr)) {
-    ERROR("SwapChain", "init", 
+    ERROR("SwapChain", "init",
       ("Failed to query IDXGIDevice. HRESULT: " + std::to_string(hr)).c_str());
     return hr;
-	}
+  }
 
-	hr = m_dxgiDevice->GetAdapter(&m_dxgiAdapter);
+  hr = m_dxgiDevice->GetAdapter(&m_dxgiAdapter);
   if (FAILED(hr)) {
-    ERROR("SwapChain", "init", 
+    ERROR("SwapChain", "init",
       ("Failed to get IDXGIAdapter. HRESULT: " + std::to_string(hr)).c_str());
     return hr;
-	}
+  }
 
-  hr = m_dxgiAdapter->GetParent(__uuidof(IDXGIFactory), 
-                                reinterpret_cast<void**>(&m_dxgiFactory));
+  hr = m_dxgiAdapter->GetParent(__uuidof(IDXGIFactory),
+    reinterpret_cast<void**>(&m_dxgiFactory));
   if (FAILED(hr)) {
-    ERROR("SwapChain", "init", 
+    ERROR("SwapChain", "init",
       ("Failed to get IDXGIFactory. HRESULT: " + std::to_string(hr)).c_str());
     return hr;
-	}
+  }
 
   // Create the swap chain
   hr = m_dxgiFactory->CreateSwapChain(device.m_device, &sd, &m_swapChain);
@@ -134,31 +134,32 @@ SwapChain::init(Device& device,
   return S_OK;
 }
 
-void 
+void
 SwapChain::destroy() {
   if (m_swapChain) {
-		SAFE_RELEASE(m_swapChain);
+    SAFE_RELEASE(m_swapChain);
   }
   if (m_dxgiDevice) {
     SAFE_RELEASE(m_dxgiDevice);
   }
   if (m_dxgiAdapter) {
     SAFE_RELEASE(m_dxgiAdapter);
-	}
+  }
   if (m_dxgiFactory) {
     SAFE_RELEASE(m_dxgiFactory);
   }
 }
 
-void 
+void
 SwapChain::present() {
   if (m_swapChain) {
     HRESULT hr = m_swapChain->Present(0, 0);
     if (FAILED(hr)) {
-      ERROR("SwapChain", "present", 
+      ERROR("SwapChain", "present",
         ("Failed to present swap chain. HRESULT: " + std::to_string(hr)).c_str());
     }
-  } else {
+  }
+  else {
     ERROR("SwapChain", "present", "Swap chain is not initialized.");
-	}
+  }
 }

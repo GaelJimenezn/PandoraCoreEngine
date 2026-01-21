@@ -3,6 +3,11 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# Librerías pesadas de FBX
+PandoraCoreEngine/lib/fbxlibs/alembic-mt.lib
+PandoraCoreEngine/lib/fbxlibs/libfbxsdk-md.lib
+PandoraCoreEngine/lib/fbxlibs/libfbxsdk-mt.lib
+
 # User-specific files
 *.rsuser
 *.suo

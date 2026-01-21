@@ -95,14 +95,14 @@ int main()
 {
 		{
 				// Crear un TSharedPointer que gestiona un objeto MyClass
-				EU::TSharedPointer<MyClass> sp1 = EU::MakeShared<MyClass>(10);
+				EngineUtilities::TSharedPointer<MyClass> sp1 = EngineUtilities::MakeShared<MyClass>(10);
 				sp1->display();
 
 				// Crear un TWeakPointer a partir del TSharedPointer
-				EU::TWeakPointer<MyClass> wp1(sp1);
+				EngineUtilities::TWeakPointer<MyClass> wp1(sp1);
 
 				// Intentar obtener un TSharedPointer a partir del TWeakPointer
-				EU::TSharedPointer<MyClass> sp2 = wp1.lock();
+				EngineUtilities::TSharedPointer<MyClass> sp2 = wp1.lock();
 				if (!sp2.isNull())
 				{
 						sp2->display(); // Debería mostrar el valor 10
@@ -113,11 +113,11 @@ int main()
 				}
 
 				// Crear un nuevo TSharedPointer y mover el puntero compartido
-				EU::TSharedPointer<MyClass> sp3 = EU::MakeShared<MyClass>(20);
+				EngineUtilities::TSharedPointer<MyClass> sp3 = EngineUtilities::MakeShared<MyClass>(20);
 				sp3 = std::move(sp1); // Mueve la propiedad de sp1 a sp3
 
 				// El puntero compartido original (sp1) ahora está vacío
-				EU::TSharedPointer<MyClass> sp4 = wp1.lock();
+				EngineUtilities::TSharedPointer<MyClass> sp4 = wp1.lock();
 				if (sp4.isNull())
 				{
 						std::cout << "sp1 has been moved and is now null." << std::endl;

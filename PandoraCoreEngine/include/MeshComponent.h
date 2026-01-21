@@ -14,8 +14,8 @@ class DeviceContext;
  * - Lista de índices que definen las primitivas (triángulos, líneas).
  * - Contadores de vértices e índices.
  */
-class 
-MeshComponent : public Component {
+class
+  MeshComponent : public Component {
 public:
   /**
    * @brief Constructor por defecto.
@@ -28,8 +28,8 @@ public:
   /**
    * @brief Destructor virtual por defecto.
    */
-  virtual 
-  ~MeshComponent() = default;
+  virtual
+    ~MeshComponent() = default;
 
   /**
    * @brief Inicializa el componente de malla.
@@ -37,8 +37,8 @@ public:
    * Método heredado de @c Component.
    * Puede usarse para reservar memoria o cargar datos en mallas derivadas.
    */
-  void 
-  init() override {};
+  void
+    init() override {};
 
   /**
    * @brief Actualiza la malla.
@@ -48,8 +48,8 @@ public:
    *
    * @param deltaTime Tiempo transcurrido desde la última actualización.
    */
-  void 
-  update(float deltaTime) override {};
+  void
+    update(float deltaTime) override {};
 
   /**
    * @brief Renderiza la malla.
@@ -60,8 +60,8 @@ public:
    *
    * @param deviceContext Contexto del dispositivo para operaciones gráficas.
    */
-  void 
-  render(DeviceContext& deviceContext) override {};
+  void
+    render(DeviceContext& deviceContext) override {};
 
   /**
    * @brief Libera los recursos asociados al componente de malla.
@@ -70,7 +70,7 @@ public:
    * En implementaciones más complejas, puede liberar buffers de GPU.
    */
   void
-  destroy() override {};
+    destroy() override {};
 
 public:
   /**

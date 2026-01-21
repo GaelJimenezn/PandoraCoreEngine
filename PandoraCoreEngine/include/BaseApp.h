@@ -14,52 +14,38 @@
 #include "SamplerState.h"
 #include "Model3D.h"
 #include "ECS/Actor.h"
-#include "EngineUtilities\GUI/GUI.h"
+#include "GUI/GUI.h"
 
 extern IMGUI_IMPL_API
 LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-class 
-BaseApp {
+class
+	BaseApp {
 public:
 	BaseApp() = default;
 	~BaseApp() { destroy(); }
 
 	HRESULT
-	awake();
+		awake();
 
-<<<<<<< HEAD
-	int 
-	run(HINSTANCE hInst, int nCmdShow);
-	
+	int
+		run(HINSTANCE hInst, int nCmdShow);
+
 	HRESULT
-	init();
+		init();
 
-	void 
-	update(float deltaTime);
-=======
-  /**
-   * @brief Executes the main application loop.
-   *
-   * Initializes the window and enters the message pump.
-   *
-   * @param hInst    Handle to the current application instance.
-   * @param nCmdShow Control flags for how the window is to be shown.
-   * @return The exit code from the WM_QUIT message.
-   */
-  int
-  run(HINSTANCE hInst, int nCmdShow);
->>>>>>> parent of 13870cb (Add awake lifecycle method to core engine classes)
+	void
+		update(float deltaTime);
 
-	void 
-	render();
+	void
+		render();
 
-	void 
-	destroy();
+	void
+		destroy();
 
 private:
-	static LRESULT CALLBACK 
-	WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK
+		WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
 	Window                              m_window;
@@ -72,24 +58,28 @@ private:
 	DepthStencilView									  m_depthStencilView;
 	Viewport                            m_viewport;
 	ShaderProgram												m_shaderProgram;
-
+	//MeshComponent												m_mesh;
+	//Buffer															m_vertexBuffer;
+	//Buffer															m_indexBuffer;
 	Buffer															m_cbNeverChanges;
 	Buffer															m_cbChangeOnResize;
-	
-	Texture 														m_NissanGTR;
+	//Buffer															m_cbChangesEveryFrame;
+	Texture 														m_PrintStreamAlbedo;
+	//SamplerState												m_samplerState;
 
+	//XMMATRIX                            m_World;
 	XMMATRIX                            m_View;
 	XMMATRIX                            m_Projection;
-	
-	std::vector<EU::TSharedPointer<Actor>> m_actors;
-	EU::TSharedPointer<Actor> m_cyberGun;
+	//XMFLOAT4                            m_vMeshColor;// (0.7f, 0.7f, 0.7f, 1.0f);
 
-	Model3D*														m_model;
+	std::vector<EU::TSharedPointer<Actor>> m_actors;
+	EU::TSharedPointer<Actor> m_PrintStream;
+
+
+	Model3D* m_model;
 
 	CBChangeOnResize										cbChangesOnResize;
 	CBNeverChanges											cbNeverChanges;
-
+	//CBChangesEveryFrame									cb;
 	GUI																m_gui;
-
-	EU::TSharedPointer<Actor> m_Nissan;
 };

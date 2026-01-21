@@ -3,94 +3,86 @@
 #include "EngineUtilities/Vectors/Vector3.h"
 #include "Component.h"
 
-class 
-Transform : public Component {
+class
+    Transform : public Component {
 public:
-  // Constructor que inicializa posición, rotación y escala por defecto
-  Transform() : position(), 
-                rotation(), 
-                scale(), 
-                matrix(), 
-                Component(ComponentType::TRANSFORM) {}
+    Transform() : position(),
+        rotation(),
+        scale(),
+        matrix(),
+        Component(ComponentType::TRANSFORM) {
+    }
 
-  // Métodos para inicialización, actualización, renderizado y destrucción
-  // Inicializa el objeto Transform
-  void 
-  init() {
-    scale.one();
-    matrix = XMMatrixIdentity();
-  }
+    void
+        init() {
+        scale.one();
+        matrix = XMMatrixIdentity();
+    }
 
-  // Actualiza el estado del objeto Transform basado en el tiempo transcurrido
-  // @param deltaTime: Tiempo transcurrido desde la última actualización
-  void 
-  update(float deltaTime) override {
-    // Aplicar escala
-    XMMATRIX scaleMatrix = XMMatrixScaling(scale.x, scale.y, scale.z);
-    // Aplicar rotacion
-    XMMATRIX rotationMatrix = XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z);
-    // Aplicar traslacion
-    XMMATRIX translationMatrix = XMMatrixTranslation(position.x, position.y, position.z);
+    // -------------------------------------------------------------
+    // CORRECCIÓN DE ORDEN DE ROTACIÓN
+    // -------------------------------------------------------------
+    void
+        update(float deltaTime) override {
+        // 1. Escala
+        XMMATRIX scaleMatrix = XMMatrixScaling(scale.x, scale.y, scale.z);
 
-    // Componer la matriz final en el orden: scale -> rotation -> translation
-    matrix = scaleMatrix * rotationMatrix * translationMatrix;
-  }
+        // 2. Rotación (Manual por ejes para compatibilidad con ImGuizmo)
+        // Usamos X * Y * Z (o el orden que prefieras, pero separado) para evitar
+        // el comportamiento predeterminado de RollPitchYaw que puede causar gimbal lock visual.
+        XMMATRIX rotX = XMMatrixRotationX(rotation.x);
+        XMMATRIX rotY = XMMatrixRotationY(rotation.y);
+        XMMATRIX rotZ = XMMatrixRotationZ(rotation.z);
+        XMMATRIX rotationMatrix = rotX * rotY * rotZ;
 
-  // Renderiza el objeto Transform
-  // @param deviceContext: Contexto del dispositivo de renderizado
-  void 
-  render(DeviceContext& deviceContext) override {}
+        // 3. Traslación
+        XMMATRIX translationMatrix = XMMatrixTranslation(position.x, position.y, position.z);
 
-  // Destruye el objeto Transform y libera recursos
-  void 
-  destroy() {}
+        // Componer: Scale -> Rotation -> Translation
+        matrix = scaleMatrix * rotationMatrix * translationMatrix;
+    }
 
-  // Métodos de acceso a los datos de posición
-  // Retorna la posición actual
-  const EU::Vector3&
-  getPosition() const { return position; }
+    void
+        render(DeviceContext& deviceContext) override {}
 
-  // Establece una nueva posición
-  void 
-  setPosition(const EU::Vector3& newPos) { position = newPos; }
+    void
+        destroy() {}
 
-  // Métodos de acceso a los datos de rotación
-  // Retorna la rotación actual
-  const EU::Vector3&
-  getRotation() const { return rotation; }
+    const EU::Vector3&
+        getPosition() const { return position; }
 
-  // Establece una nueva rotación
-  void 
-  setRotation(const EU::Vector3& newRot) { rotation = newRot; }
+    void
+        setPosition(const EU::Vector3& newPos) { position = newPos; }
 
-  // Métodos de acceso a los datos de escala
-  // Retorna la escala actual
-  const EU::Vector3&
-  getScale() const { return scale; }
+    const EU::Vector3&
+        getRotation() const { return rotation; }
 
-  // Establece una nueva escala
-  void 
-  setScale(const EU::Vector3& newScale) { scale = newScale; }
+    void
+        setRotation(const EU::Vector3& newRot) { rotation = newRot; }
 
-  void
-  setTransform(const EU::Vector3& newPos, 
-               const EU::Vector3& newRot,
-               const EU::Vector3& newSca) {
-    position = newPos;
-    rotation = newRot;
-    scale = newSca;
-  }
+    const EU::Vector3&
+        getScale() const { return scale; }
 
-  // Método para trasladar la posición del objeto
-  // @param translation: Vector que representa la cantidad de traslado en cada eje
-  void 
-  translate(const EU::Vector3& translation);
+    void
+        setScale(const EU::Vector3& newScale) { scale = newScale; }
+
+    void
+        setTransform(const EU::Vector3& newPos,
+            const EU::Vector3& newRot,
+            const EU::Vector3& newSca) {
+        position = newPos;
+        rotation = newRot;
+        scale = newSca;
+    }
+
+    void
+        translate(const EU::Vector3& translation);
 
 private:
-  EU::Vector3 position;  // Posición del objeto
-  EU::Vector3 rotation;  // Rotación del objeto
-  EU::Vector3 scale;     // Escala del objeto
+    EU::Vector3 position;
+    EU::Vector3 rotation; // Radianes
+    EU::Vector3 scale;
 
 public:
-  XMMATRIX matrix;    // Matriz de transformación
+    XMMATRIX matrix;
 };

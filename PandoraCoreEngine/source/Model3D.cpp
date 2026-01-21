@@ -1,145 +1,145 @@
 #include "Model3D.h"
 
-bool 
+bool
 Model3D::load(const std::string& path) {
-	SetPath(path);
-	SetState(ResourceState::Loading);
+  SetPath(path);
+  SetState(ResourceState::Loading);
 
-	init();
+  init();
 
-	bool success = true; // Cambia esto según el resultado real.
+  bool success = true; // Cambia esto según el resultado real.
 
-	SetState(success ? ResourceState::Loaded : ResourceState::Failed);
-	return success;
+  SetState(success ? ResourceState::Loaded : ResourceState::Failed);
+  return success;
 }
 
 bool Model3D::init()
 {
-	// Inicializar recursos GPU, buffers, etc.
-	LoadFBXModel(m_filePath);
-	return false;
+  // Inicializar recursos GPU, buffers, etc.
+  LoadFBXModel(m_filePath);
+  return false;
 }
 
 void Model3D::unload()
 {
-	// Liberar buffers, memoria en CPU/GPU, etc.
-	SetState(ResourceState::Unloaded);
+  // Liberar buffers, memoria en CPU/GPU, etc.
+  SetState(ResourceState::Unloaded);
 }
 
 size_t Model3D::getSizeInBytes() const
 {
-	return 0;
+  return 0;
 }
 
 bool
 Model3D::InitializeFBXManager() {
-	// Initialize the FBX SDK manager
-	lSdkManager = FbxManager::Create();
-	if (!lSdkManager) {
-		ERROR("ModelLoader", "FbxManager::Create()", "Unable to create FBX Manager!");
-		return false;
-	}
-	else {
-		MESSAGE("ModelLoader", "ModelLoader", "Autodesk FBX SDK version " << lSdkManager->GetVersion())
-	}
+  // Initialize the FBX SDK manager
+  lSdkManager = FbxManager::Create();
+  if (!lSdkManager) {
+    ERROR("ModelLoader", "FbxManager::Create()", "Unable to create FBX Manager!");
+    return false;
+  }
+  else {
+    MESSAGE("ModelLoader", "ModelLoader", "Autodesk FBX SDK version " << lSdkManager->GetVersion())
+  }
 
-	// Create an IOSettings object
-	FbxIOSettings* ios = FbxIOSettings::Create(lSdkManager, IOSROOT);
-	lSdkManager->SetIOSettings(ios);
+  // Create an IOSettings object
+  FbxIOSettings* ios = FbxIOSettings::Create(lSdkManager, IOSROOT);
+  lSdkManager->SetIOSettings(ios);
 
-	// Create an FBX Scene
-	lScene = FbxScene::Create(lSdkManager, "MyScene");
-	if (!lScene) {
-		ERROR("ModelLoader", "FbxScene::Create()", "Unable to create FBX Scene!");
-		return false;
-	}
-	else {
-		MESSAGE("ModelLoader", "ModelLoader", "FBX Scene created successfully.")
-	}
-	return true;
+  // Create an FBX Scene
+  lScene = FbxScene::Create(lSdkManager, "MyScene");
+  if (!lScene) {
+    ERROR("ModelLoader", "FbxScene::Create()", "Unable to create FBX Scene!");
+    return false;
+  }
+  else {
+    MESSAGE("ModelLoader", "ModelLoader", "FBX Scene created successfully.")
+  }
+  return true;
 }
 
-std::vector<MeshComponent> 
+std::vector<MeshComponent>
 Model3D::LoadFBXModel(const std::string& filePath) {
-	// 01. Initialize the SDK from FBX Manager
-	if (InitializeFBXManager()) {
-		// 02. Create an importer using the SDK manager
-		FbxImporter* lImporter = FbxImporter::Create(lSdkManager, "");
-		if (!lImporter) {
-			ERROR("ModelLoader", "FbxImporter::Create()", "Unable to create FBX Importer!");
-			return std::vector<MeshComponent>();
-		}
-		else {
-			MESSAGE("ModelLoader", "ModelLoader", "FBX Importer created successfully.");
-		}
+  // 01. Initialize the SDK from FBX Manager
+  if (InitializeFBXManager()) {
+    // 02. Create an importer using the SDK manager
+    FbxImporter* lImporter = FbxImporter::Create(lSdkManager, "");
+    if (!lImporter) {
+      ERROR("ModelLoader", "FbxImporter::Create()", "Unable to create FBX Importer!");
+      return std::vector<MeshComponent>();
+    }
+    else {
+      MESSAGE("ModelLoader", "ModelLoader", "FBX Importer created successfully.");
+    }
 
-		// 03. Use the first argument as the filename for the importer
-		if (!lImporter->Initialize(filePath.c_str(), -1, lSdkManager->GetIOSettings())) {
-			ERROR("ModelLoader", "FbxImporter::Initialize()",
-				"Unable to initialize FBX Importer! Error: " << lImporter->GetStatus().GetErrorString());
-			lImporter->Destroy();
-			return std::vector<MeshComponent>();
-		}
-		else {
-			MESSAGE("ModelLoader", "ModelLoader", "FBX Importer initialized successfully.");
-		}
+    // 03. Use the first argument as the filename for the importer
+    if (!lImporter->Initialize(filePath.c_str(), -1, lSdkManager->GetIOSettings())) {
+      ERROR("ModelLoader", "FbxImporter::Initialize()",
+        "Unable to initialize FBX Importer! Error: " << lImporter->GetStatus().GetErrorString());
+      lImporter->Destroy();
+      return std::vector<MeshComponent>();
+    }
+    else {
+      MESSAGE("ModelLoader", "ModelLoader", "FBX Importer initialized successfully.");
+    }
 
-		// 04. Import the scene from the file into the scene
-		if (!lImporter->Import(lScene)) {
-			ERROR("ModelLoader", "FbxImporter::Import()",
-				"Unable to import FBX Scene! Error: " << lImporter->GetStatus().GetErrorString());
-			lImporter->Destroy();
-			return std::vector<MeshComponent>();
-		}
-		else {
-			MESSAGE("ModelLoader", "ModelLoader", "FBX Scene imported successfully.");
-			m_name = lImporter->GetFileName();
-		}
+    // 04. Import the scene from the file into the scene
+    if (!lImporter->Import(lScene)) {
+      ERROR("ModelLoader", "FbxImporter::Import()",
+        "Unable to import FBX Scene! Error: " << lImporter->GetStatus().GetErrorString());
+      lImporter->Destroy();
+      return std::vector<MeshComponent>();
+    }
+    else {
+      MESSAGE("ModelLoader", "ModelLoader", "FBX Scene imported successfully.");
+      m_name = lImporter->GetFileName();
+    }
 
-		FbxAxisSystem::DirectX.ConvertScene(lScene);
-		FbxSystemUnit::m.ConvertScene(lScene);
-		FbxGeometryConverter gc(lSdkManager);
-		gc.Triangulate(lScene, /*replace*/ true);
+    FbxAxisSystem::DirectX.ConvertScene(lScene);
+    FbxSystemUnit::m.ConvertScene(lScene);
+    FbxGeometryConverter gc(lSdkManager);
+    gc.Triangulate(lScene, /*replace*/ true);
 
-		// 05. Destroy the importer
-		lImporter->Destroy();
-		MESSAGE("ModelLoader", "ModelLoader", "FBX Importer destroyed successfully.");
+    // 05. Destroy the importer
+    lImporter->Destroy();
+    MESSAGE("ModelLoader", "ModelLoader", "FBX Importer destroyed successfully.");
 
-		// 06. Process the model from the scene
-		FbxNode* lRootNode = lScene->GetRootNode();
+    // 06. Process the model from the scene
+    FbxNode* lRootNode = lScene->GetRootNode();
 
-		if (lRootNode) {
-			MESSAGE("ModelLoader", "ModelLoader", "Processing model from the scene root node.");
-			for (int i = 0; i < lRootNode->GetChildCount(); i++) {
-				ProcessFBXNode(lRootNode->GetChild(i));
-			}
-			return m_meshes;
-		}
-		else {
-			ERROR("ModelLoader", "FbxScene::GetRootNode()",
-				"Unable to get root node from FBX Scene!");
-			return std::vector<MeshComponent>();
-		}
-	}
-	return m_meshes;
+    if (lRootNode) {
+      MESSAGE("ModelLoader", "ModelLoader", "Processing model from the scene root node.");
+      for (int i = 0; i < lRootNode->GetChildCount(); i++) {
+        ProcessFBXNode(lRootNode->GetChild(i));
+      }
+      return m_meshes;
+    }
+    else {
+      ERROR("ModelLoader", "FbxScene::GetRootNode()",
+        "Unable to get root node from FBX Scene!");
+      return std::vector<MeshComponent>();
+    }
+  }
+  return m_meshes;
 }
 
-void 
+void
 Model3D::ProcessFBXNode(FbxNode* node) {
-	// 01. Process all the node's meshes
-	if (node->GetNodeAttribute()) {
-		if (node->GetNodeAttribute()->GetAttributeType() == FbxNodeAttribute::eMesh) {
-			ProcessFBXMesh(node);
-		}
-	}
+  // 01. Process all the node's meshes
+  if (node->GetNodeAttribute()) {
+    if (node->GetNodeAttribute()->GetAttributeType() == FbxNodeAttribute::eMesh) {
+      ProcessFBXMesh(node);
+    }
+  }
 
-	// 02. Recursively process each child node
-	for (int i = 0; i < node->GetChildCount(); i++) {
-		ProcessFBXNode(node->GetChild(i));
-	}
+  // 02. Recursively process each child node
+  for (int i = 0; i < node->GetChildCount(); i++) {
+    ProcessFBXNode(node->GetChild(i));
+  }
 }
 
-void 
+void
 Model3D::ProcessFBXMesh(FbxNode* node) {
   FbxMesh* mesh = node->GetMesh();
   if (!mesh) return;
@@ -348,16 +348,16 @@ Model3D::ProcessFBXMesh(FbxNode* node) {
 
 void Model3D::ProcessFBXMaterials(FbxSurfaceMaterial* material)
 {
-	if (material) {
-		FbxProperty prop = material->FindProperty(FbxSurfaceMaterial::sDiffuse);
-		if (prop.IsValid()) {
-			int textureCount = prop.GetSrcObjectCount<FbxTexture>();
-			for (int i = 0; i < textureCount; ++i) {
-				FbxTexture* texture = FbxCast<FbxTexture>(prop.GetSrcObject<FbxTexture>(i));
-				if (texture) {
-					textureFileNames.push_back(texture->GetName());
-				}
-			}
-		}
-	}
+  if (material) {
+    FbxProperty prop = material->FindProperty(FbxSurfaceMaterial::sDiffuse);
+    if (prop.IsValid()) {
+      int textureCount = prop.GetSrcObjectCount<FbxTexture>();
+      for (int i = 0; i < textureCount; ++i) {
+        FbxTexture* texture = FbxCast<FbxTexture>(prop.GetSrcObject<FbxTexture>(i));
+        if (texture) {
+          textureFileNames.push_back(texture->GetName());
+        }
+      }
+    }
+  }
 }

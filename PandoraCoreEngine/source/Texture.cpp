@@ -4,44 +4,44 @@
 #include "Device.h"
 #include "DeviceContext.h"
 
-HRESULT 
-Texture::init(Device& device, 
-              const std::string& textureName, 
-              ExtensionType extensionType) {
-	if (!device.m_device) {
-		ERROR("Texture", "init", "Device is null.");
-		return E_POINTER;
-	}
-	if (textureName.empty()) {
-		ERROR("Texture", "init", "Texture name cannot be empty.");
-		return E_INVALIDARG;
-	}
+HRESULT
+Texture::init(Device& device,
+  const std::string& textureName,
+  ExtensionType extensionType) {
+  if (!device.m_device) {
+    ERROR("Texture", "init", "Device is null.");
+    return E_POINTER;
+  }
+  if (textureName.empty()) {
+    ERROR("Texture", "init", "Texture name cannot be empty.");
+    return E_INVALIDARG;
+  }
 
-	HRESULT hr = S_OK;
+  HRESULT hr = S_OK;
 
-	switch (extensionType) {
-	case DDS: {
-		m_textureName = textureName + ".dds";
+  switch (extensionType) {
+  case DDS: {
+    m_textureName = textureName + ".dds";
 
-		// Cargar textura DDS
-		hr = D3DX11CreateShaderResourceViewFromFile(
-			device.m_device,
-			m_textureName.c_str(),
-			nullptr,
-			nullptr,
-			&m_textureFromImg,
-			nullptr
-		);
+    // Cargar textura DDS
+    hr = D3DX11CreateShaderResourceViewFromFile(
+      device.m_device,
+      m_textureName.c_str(),
+      nullptr,
+      nullptr,
+      &m_textureFromImg,
+      nullptr
+    );
 
-		if (FAILED(hr)) {
-			ERROR("Texture", "init",
-				("Failed to load DDS texture. Verify filepath: " + m_textureName).c_str());
-			return hr;
-		}
-		break;
-	}
+    if (FAILED(hr)) {
+      ERROR("Texture", "init",
+        ("Failed to load DDS texture. Verify filepath: " + m_textureName).c_str());
+      return hr;
+    }
+    break;
+  }
 
-	case PNG: {
+  case PNG: {
     m_textureName = textureName + ".png";
     int width, height, channels;
     unsigned char* data = stbi_load(m_textureName.c_str(), &width, &height, &channels, 4); // 4 bytes por pixel (RGBA)
@@ -69,7 +69,7 @@ Texture::init(Device& device,
 
     hr = device.CreateTexture2D(&textureDesc, &initData, &m_texture);
     stbi_image_free(data); // Liberar los datos de imagen inmediatamente
-		
+
     if (FAILED(hr)) {
       ERROR("Texture", "init", "Failed to create texture from PNG data");
       return hr;
@@ -88,9 +88,9 @@ Texture::init(Device& device,
       ERROR("Texture", "init", "Failed to create shader resource view for PNG texture");
       return hr;
     }
-		break;
-	}
-	case JPG: {
+    break;
+  }
+  case JPG: {
     m_textureName = textureName + ".jpg";
     int width, height, channels;
     unsigned char* data = stbi_load(m_textureName.c_str(), &width, &height, &channels, 4); // 4 bytes por pixel (RGBA)
@@ -137,24 +137,24 @@ Texture::init(Device& device,
       ERROR("Texture", "init", "Failed to create shader resource view for JPG texture");
       return hr;
     }
-		break;
-	}
-	default:
-		ERROR("Texture", "init", "Unsupported extension type");
-		return E_INVALIDARG;
-	}
+    break;
+  }
+  default:
+    ERROR("Texture", "init", "Unsupported extension type");
+    return E_INVALIDARG;
+  }
 
-	return hr;
+  return hr;
 }
 
-HRESULT 
-Texture::init(Device& device, 
-              unsigned int width, 
-              unsigned int height, 
-              DXGI_FORMAT Format, 
-              unsigned int BindFlags, 
-              unsigned int sampleCount, 
-              unsigned int qualityLevels) {
+HRESULT
+Texture::init(Device& device,
+  unsigned int width,
+  unsigned int height,
+  DXGI_FORMAT Format,
+  unsigned int BindFlags,
+  unsigned int sampleCount,
+  unsigned int qualityLevels) {
   if (!device.m_device) {
     ERROR("Texture", "init", "Device is null.");
     return E_POINTER;
@@ -190,7 +190,7 @@ Texture::init(Device& device,
   return S_OK;
 }
 
-HRESULT 
+HRESULT
 Texture::init(Device& device, Texture& textureRef, DXGI_FORMAT format) {
   if (!device.m_device) {
     ERROR("Texture", "init", "Device is null.");
@@ -208,8 +208,8 @@ Texture::init(Device& device, Texture& textureRef, DXGI_FORMAT format) {
   srvDesc.Texture2D.MostDetailedMip = 0;
 
   HRESULT hr = device.m_device->CreateShaderResourceView(textureRef.m_texture,
-                                                         &srvDesc,
-                                                         &m_textureFromImg);
+    &srvDesc,
+    &m_textureFromImg);
 
   if (FAILED(hr)) {
     ERROR("Texture", "init",
@@ -220,15 +220,15 @@ Texture::init(Device& device, Texture& textureRef, DXGI_FORMAT format) {
   return S_OK;
 }
 
-void 
+void
 Texture::update() {
 
 }
 
-void 
-Texture::render(DeviceContext& deviceContext, 
-                unsigned int StartSlot, 
-                unsigned int NumViews) {
+void
+Texture::render(DeviceContext& deviceContext,
+  unsigned int StartSlot,
+  unsigned int NumViews) {
   if (!deviceContext.m_deviceContext) {
     ERROR("Texture", "render", "Device Context is null.");
     return;
@@ -239,7 +239,7 @@ Texture::render(DeviceContext& deviceContext,
   }
 }
 
-void 
+void
 Texture::destroy() {
   if (m_texture != nullptr) {
     SAFE_RELEASE(m_texture);
