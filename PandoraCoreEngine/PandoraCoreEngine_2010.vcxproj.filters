@@ -36,9 +36,6 @@
     <Filter Include="Source\ECS">
       <UniqueIdentifier>{36a1a061-3d1a-4309-8ef5-713ec38b33d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\ImGui">
-      <UniqueIdentifier>{be7d002e-98ad-4893-986e-ae0cc0963afb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Include\GUI">
       <UniqueIdentifier>{08f0adbb-45e0-404b-be96-407b0d3227e1}</UniqueIdentifier>
     </Filter>
@@ -53,6 +50,12 @@
     </Filter>
     <Filter Include="ImGui\source">
       <UniqueIdentifier>{6a11a6cb-4ecc-4e95-995a-7791c52c0fb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ScenenGraph">
+      <UniqueIdentifier>{5c2f3829-10e7-428a-9d30-04ca799cbc3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\SceneGraph">
+      <UniqueIdentifier>{692d8505-56b5-4d75-8498-2b73475573b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="Source\GUI\GUI.cpp">
       <Filter>Source\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneGraph\SceneGraph.cpp">
+      <Filter>Source\SceneGraph</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +267,12 @@
     </ClInclude>
     <ClInclude Include="Imgui\imgui-docking-znly-docking\backends\imgui_impl_win32.h">
       <Filter>ImGui\source</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\SceneGraph\HierarchyComponent.h">
+      <Filter>Include\ScenenGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\SceneGraph\SceneGraph.h">
+      <Filter>Include\ScenenGraph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

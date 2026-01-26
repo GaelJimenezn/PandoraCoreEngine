@@ -67,7 +67,11 @@ namespace
 			}
 			return TSharedPointer<T>();
 		}
-
+		void 
+			reset() {
+			ptr = nullptr;
+			refCount = nullptr;
+		}
 		// Hacer que TSharedPointer sea un amigo para acceder a los miembros privados.
 		template<typename U>
 		friend class TSharedPointer;
