@@ -64,6 +64,7 @@ private:
 	Buffer															m_cbChangeOnResize;
 
 	Texture 														m_PrintStreamAlbedo;
+  Texture         						        m_skyboxTex;
 
 	XMMATRIX                            m_View;
 	XMMATRIX                            m_Projection;

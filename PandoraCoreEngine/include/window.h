@@ -103,5 +103,5 @@ private:
    * @details Se utiliza en el título de la barra superior al crear la ventana.
    *          Puede cambiarse para identificar diferentes ventanas del motor.
    */
-  std::string m_windowName = "Miner Engine";
+  std::string m_windowName = "Pandora Core Engine";
 };
