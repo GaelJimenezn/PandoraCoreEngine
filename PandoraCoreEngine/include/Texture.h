@@ -1,49 +1,69 @@
-#pragma once
+﻿#pragma once
 #include "Prerequisites.h"
 
-class 
-Device;
-class 
-DeviceContext;
+class Device;
+class DeviceContext;
 
 /**
  * @class Texture
- * @brief Manages a 2D texture resource and its shader resource view.
- * @details This class can handle textures loaded from files or created
- * procedurally in memory for use as render targets or depth buffers.
+ * @brief Encapsula una textura 2D en Direct3D 11, incluyendo su recurso y vista como Shader Resource.
+ *
+ * Esta clase administra texturas que pueden provenir de:
+ * - Archivos de imagen (png, jpg, etc.).
+ * - Texturas creadas en memoria (RTV, DSV, UAV).
+ * - Copias a partir de otra textura.
+ *
+ * Proporciona m�todos para inicializaci�n, actualizaci�n, uso en shaders y destrucci�n.
  */
-class
+class 
 Texture {
 public:
-  Texture() = default;
+  /**
+   * @brief Constructor por defecto.
+   */
+  Texture()  = default;
+
+  /**
+   * @brief Destructor por defecto.
+   * @details No libera autom�ticamente los recursos COM; llamar a destroy().
+   */
   ~Texture() = default;
 
   /**
-   * @brief Initializes a texture by loading it from an image file.
-   * @param device The device for resource creation.
-   * @param textureName The file path of the texture to load.
-   * @param extensionType The file format (DDS, PNG, JPG).
-   * @return HRESULT indicating success or failure.
+   * @brief Inicializa una textura cargada desde archivo.
+   *
+   * Crea un recurso de textura a partir de un archivo de imagen y genera su
+   * @c ShaderResourceView correspondiente para ser usado en shaders.
+   *
+   * @param device        Dispositivo con el que se crear� la textura.
+   * @param textureName   Nombre o ruta del archivo de textura.
+   * @param extensionType Tipo de extensi�n de archivo (ej. PNG, JPG, DDS).
+   * @return @c S_OK si fue exitoso; c�digo @c HRESULT en caso contrario.
+   *
+   * @post Si retorna @c S_OK, @c m_texture y @c m_textureFromImg != nullptr.
    */
-  HRESULT
-  init(Device& device,
-       const std::string& textureName,
+  HRESULT 
+  init(Device & device,
+       const std::string & textureName,
        ExtensionType extensionType);
 
   /**
-   * @brief Initializes an empty texture resource from memory.
-   * @details Useful for creating render targets or depth stencil buffers.
-   * @param device The device for resource creation.
-   * @param width The width of the texture.
-   * @param height The height of the texture.
-   * @param Format The texture format.
-   * @param BindFlags Flags indicating how the texture will be used.
-   * @param sampleCount The MSAA sample count.
-   * @param qualityLevels The MSAA quality level.
-   * @return HRESULT indicating success or failure.
+   * @brief Inicializa una textura creada desde memoria.
+   *
+   * Crea un recurso de textura 2D vac�o con un tama�o y formato especificados.
+   * �til para render targets, depth buffers o texturas din�micas.
+   *
+   * @param device        Dispositivo con el que se crear� la textura.
+   * @param width         Ancho de la textura en p�xeles.
+   * @param height        Alto de la textura en p�xeles.
+   * @param Format        Formato DXGI de la textura (ej. DXGI_FORMAT_R8G8B8A8_UNORM).
+   * @param BindFlags     Banderas de enlace (ej. @c D3D11_BIND_SHADER_RESOURCE, @c D3D11_BIND_RENDER_TARGET).
+   * @param sampleCount   N�mero de muestras para MSAA (por defecto 1 = sin MSAA).
+   * @param qualityLevels Niveles de calidad soportados para MSAA.
+   * @return @c S_OK si fue exitoso; c�digo @c HRESULT en caso contrario.
    */
-  HRESULT
-  init(Device& device,
+  HRESULT 
+  init(Device & device,
        unsigned int width,
        unsigned int height,
        DXGI_FORMAT Format,
@@ -52,53 +72,100 @@ public:
        unsigned int qualityLevels = 0);
 
   /**
-   * @brief Initializes a shader resource view from an existing texture.
-   * @param device The device for resource creation.
-   * @param textureRef A reference to an existing texture resource.
-   * @param format The format of the shader resource view.
-   * @return HRESULT indicating success or failure.
+   * @brief Inicializa una textura a partir de otra existente.
+   *
+   * Crea una nueva textura basada en la descripci�n de @p textureRef,
+   * con un formato diferente.
+   *
+   * @param device     Dispositivo con el que se crear� la textura.
+   * @param textureRef Referencia a otra textura existente.
+   * @param format     Nuevo formato DXGI de la textura.
+   * @return @c S_OK si fue exitoso; c�digo @c HRESULT en caso contrario.
    */
-  HRESULT
+  HRESULT 
   init(Device& device, Texture& textureRef, DXGI_FORMAT format);
 
   /**
-   * @brief Placeholder for dynamic texture data updates.
+   * @brief Actualiza el contenido de la textura.
+   *
+   * M�todo de marcador, �til para soportar carga din�mica de datos o streaming
+   * de texturas desde CPU hacia GPU.
+   *
+   * @note Actualmente no realiza ninguna operaci�n.
    */
-  void
+  void 
   update();
 
   /**
-   * @brief Binds the texture's SRV to the pixel shader stage.
-   * @param deviceContext The device context for rendering commands.
-   * @param StartSlot The starting shader slot to bind the resource to.
-   * @param NumViews The number of views to bind.
+   * @brief Asigna la textura al pipeline de render.
+   *
+   * Llama a @c PSSetShaderResources para establecer la textura como
+   * recurso de shader en la etapa de Pixel Shader.
+   *
+   * @param deviceContext Contexto donde se aplicar� la textura.
+   * @param StartSlot     Slot inicial en el que se vincular� la textura.
+   * @param NumViews      N�mero de vistas de recurso a asignar (normalmente 1).
+   *
+   * @pre @c m_textureFromImg debe haberse creado con init().
    */
-  void
-  render(DeviceContext& deviceContext,
-         unsigned int StartSlot,
-         unsigned int NumViews);
+  void 
+  render(DeviceContext & deviceContext, unsigned int StartSlot, unsigned int NumViews);
 
   /**
-   * @brief Releases the texture resource and shader resource view.
+   * @brief Libera los recursos de la textura.
+   *
+   * Libera tanto el recurso de textura (@c ID3D11Texture2D) como su
+   * @c ShaderResourceView asociado.
+   *
+   * @post @c m_texture == nullptr y @c m_textureFromImg == nullptr.
    */
-  void
+  void 
   destroy();
+
+  HRESULT 
+  CreateCubemap(Device& device,
+                DeviceContext& deviceContext,
+                const std::array<std::string, 6>& facePaths,
+                bool generateMips /*= false*/);
+
+  ID3D11ShaderResourceView* CreateCubemapFaceSRV(
+    ID3D11Device* device,
+    ID3D11Texture2D* cubemapTex,
+    DXGI_FORMAT format,
+    UINT faceIndex,
+    UINT mipLevels = 1
+  )
+  {
+    D3D11_SHADER_RESOURCE_VIEW_DESC d{};
+    d.Format = format;
+    d.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DARRAY;
+    d.Texture2DArray.MostDetailedMip = 0;
+    d.Texture2DArray.MipLevels = mipLevels;       // usa 1 para vista simple
+    d.Texture2DArray.FirstArraySlice = faceIndex; // cara
+    d.Texture2DArray.ArraySize = 1;               // solo esa cara
+
+    ID3D11ShaderResourceView* srv = nullptr;
+    if (FAILED(device->CreateShaderResourceView(cubemapTex, &d, &srv)))
+      return nullptr;
+
+    return srv;
+  }
 
 public:
   /**
-   * @brief The underlying GPU texture resource.
-   * @details This is the actual texture data stored in video memory.
+   * @brief Recurso base de la textura en GPU.
    */
   ID3D11Texture2D* m_texture = nullptr;
 
   /**
-   * @brief The shader resource view (SRV) for this texture.
-   * @details This view allows shaders to read from the texture resource.
+   * @brief Vista de la textura como recurso de shader.
+   *
+   * Permite acceder a la textura desde Pixel Shader u otros shaders.
    */
   ID3D11ShaderResourceView* m_textureFromImg = nullptr;
 
   /**
-   * @brief The original file name or identifier for the texture.
+   * @brief Nombre o ruta de la textura (si proviene de archivo).
    */
   std::string m_textureName;
 };

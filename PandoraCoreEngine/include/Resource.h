@@ -1,6 +1,6 @@
-//{{NO_DEPENDENCIES}}
+﻿//{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by WildvineEngine.rc
+// Used by PandoraCoreEngine.rc
 //
 
 #define IDS_APP_TITLE           103
@@ -27,3 +27,4 @@
 #define _APS_NEXT_SYMED_VALUE       110
 #endif
 #endif
+

@@ -1,11 +1,11 @@
-ï»¿#include "InputLayout.h"
+#include "InputLayout.h"
 #include "Device.h"
 #include "DeviceContext.h"
 
-HRESULT 
-InputLayout::init(Device& device, 
-									std::vector<D3D11_INPUT_ELEMENT_DESC>& Layout, 
-									ID3DBlob* VertexShaderData) {
+HRESULT
+InputLayout::init(Device& device,
+	std::vector<D3D11_INPUT_ELEMENT_DESC>& Layout,
+	ID3DBlob* VertexShaderData) {
 	if (Layout.empty()) {
 		ERROR("InputLayout", "init", "Layout vector is empty.");
 		return E_INVALIDARG;
@@ -15,11 +15,11 @@ InputLayout::init(Device& device,
 		return E_POINTER;
 	}
 
-	HRESULT hr = device.createInputLayout(Layout.data(),
-																				static_cast<unsigned int>(Layout.size()),
-																				VertexShaderData->GetBufferPointer(),
-																				VertexShaderData->GetBufferSize(),
-																				&m_inputLayout);
+	HRESULT hr = device.CreateInputLayout(Layout.data(),
+		                                    static_cast<unsigned int>(Layout.size()),
+		                                    VertexShaderData->GetBufferPointer(),
+		                                    VertexShaderData->GetBufferSize(),
+		                                    &m_inputLayout);
 
 	if (FAILED(hr)) {
 		ERROR("InputLayout", "init",
@@ -32,6 +32,7 @@ InputLayout::init(Device& device,
 
 void
 InputLayout::update() {
+	// Método vacío, se puede utilizar en caso de necesitar cambios dinámicos en el layout
 }
 
 void
