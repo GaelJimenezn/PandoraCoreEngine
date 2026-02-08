@@ -266,13 +266,13 @@ void BaseApp::update(float deltaTime)
 		ImGui::Image((ImTextureID)faceSRV[i], ImVec2(thumb, thumb));
 		if ((i % 3) != 2) ImGui::SameLine();
 	}
-	ImGui::Begin("Cubemap");
+	/*ImGui::Begin("Cubemap");
 	ImGui::Text("Skybox Cubemap");
 	ImGui::Image((void*)m_skyboxTex.m_textureFromImg,
 		ImVec2(256, 256),
 		ImVec2(0, 0),
 		ImVec2(1, 1));
-	ImGui::End();
+	ImGui::End();*/
 
 
 	// Actualizar la matriz de proyecci�n y vista
@@ -337,6 +337,7 @@ BaseApp::destroy() {
 	m_renderTargetView.destroy();
 	m_swapChain.destroy();
 	m_backBuffer.destroy();
+	m_skyboxTex.destroy();
 	m_gui.destroy();
 	m_deviceContext.destroy();
 	m_device.destroy();
