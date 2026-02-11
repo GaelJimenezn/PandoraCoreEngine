@@ -38,7 +38,8 @@ public:
    * @pre Debe llamarse una sola vez durante la inicialización del programa.
    * @post Si la creación es exitosa, `m_hWnd` contendrá un handle válido a la ventana.
    */
-  HRESULT init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc);
+  HRESULT
+  init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc);
 
   /**
    * @brief Actualiza el estado de la ventana y procesa los mensajes del sistema.
@@ -46,7 +47,8 @@ public:
    *  Este método debe llamarse en cada iteración del bucle principal para que la ventana
    *  responda a eventos del sistema (entrada, redimensionamiento, cierre, etc.).
    */
-  void update();
+  void 
+  update();
 
   /**
    * @brief Punto de entrada para operaciones de renderizado asociadas a la ventana.
@@ -54,7 +56,8 @@ public:
    *  No realiza dibujo directamente, pero puede servir como lugar para llamadas de
    *  preparación del frame o sincronización con el swap chain.
    */
-  void render();
+  void 
+  render();
 
   /**
    * @brief Libera los recursos asociados a la ventana y la destruye.
@@ -62,7 +65,8 @@ public:
    *  Cierra la ventana y limpia las estructuras internas. Este método es seguro de llamar múltiples veces.
    * @post `m_hWnd` se establecerá en `nullptr` tras la destrucción.
    */
-  void destroy();
+  void 
+  destroy();
 
 public:
   /**
