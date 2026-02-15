@@ -1,82 +1,120 @@
 #pragma once
 #include "Prerequisites.h"
 #include "Component.h"
+#include <vector>
 
 class DeviceContext;
 
-class
-    Entity {
+/**
+ * @class Entity
+ * @brief Clase base abstracta que representa un objeto en el mundo del juego.
+ *
+ * Funciona como contenedor de componentes. Gestiona el ciclo de vida (awake,
+ * init, update, render, destroy) y la propiedad de sus componentes.
+ */
+class Entity {
 public:
+    /**
+     * @brief Constructor por defecto.
+     */
     Entity() = default;
 
     /**
-   * @brief Destructor virtual.
-   */
-    virtual
-        ~Entity() = default;
-
-    virtual void
-        awake() = 0;
-
-    /**
-     * @brief Initialize the entity with a device context.
-     * @param deviceContext The device context to initialize with.
-     * @return True if initialization is successful, false otherwise.
-       */
-    virtual void
-        init() = 0;
-
-    /**
-     * @brief Método virtual puro para actualizar el componente.
-     * @param deltaTime El tiempo transcurrido desde la última actualización.
+     * @brief Destructor virtual.
      */
-    virtual void
-        update(float deltaTime, DeviceContext& deviceContext) = 0;
+    virtual ~Entity() = default;
 
     /**
-     * @brief Método virtual puro para renderizar el componente.
-     * @param deviceContext Contexto del dispositivo para operaciones gráficas.
+     * @brief Fase de "Despertar" de la entidad.
+     *
+     * Se ejecuta antes de init(). Ideal para inicializar variables internas
+     * o estados que no dependen de referencias externas.
      */
-    virtual void
-        render(DeviceContext& deviceContext) = 0;
+    virtual void 
+    awake() = 0;
 
     /**
-     * @brief Método virtual puro para destruir el componente.
-     * Libera los recursos asociados al componente.
-       */
-    virtual void
-        destroy() = 0;
-
-    /**
-     * @brief Agrega un componente a la entidad.
-     * @tparam T Tipo del componente, debe derivar de Component.
-     * @param component Puntero compartido al componente que se va a agregar.
+     * @brief Inicializa la entidad con un contexto de dispositivo.
+     *
+     * Se debe llamar después de awake(). Aquí se cargan recursos o se
+     * establecen referencias dependientes del contexto.
+     * @param deviceContext Contexto para inicialización gráfica/lógica.
      */
-    template <typename T> void
-        addComponent(EU::TSharedPointer<T> component) {
-        static_assert(std::is_base_of<Component, T>::value, "T must be derived from Component");
-        m_components.push_back(component.template dynamic_pointer_cast<Component>());
+    virtual void 
+    init() = 0;
+
+    /**
+     * @brief Actualiza la lógica de la entidad y sus componentes.
+     *
+     * Se llama una vez por frame.
+     * @param deltaTime Tiempo transcurrido (segundos) desde el último frame.
+     * @param deviceContext Referencia al contexto del dispositivo actual.
+     */
+    virtual void 
+    update(float deltaTime, DeviceContext& deviceContext) = 0;
+
+    /**
+     * @brief Renderiza la entidad y sus componentes visuales.
+     *
+     * Se llama en la fase de dibujado del loop principal.
+     * @param deviceContext Contexto para operaciones gráficas.
+     */
+    virtual void 
+    render(DeviceContext& deviceContext) = 0;
+
+    /**
+     * @brief Destruye la entidad y libera recursos.
+     *
+     * Limpia memoria, libera punteros y desconecta la entidad.
+     */
+    virtual void 
+    destroy() = 0;
+
+    /**
+     * @brief Agrega un nuevo componente a la entidad.
+     *
+     * @tparam T Tipo del componente (derivado de Component).
+     * @param component Puntero compartido al componente a agregar.
+     */
+    template <typename T> void 
+    addComponent(EU::TSharedPointer<T> component) {
+        static_assert(std::is_base_of<Component, T>::value, 
+                      "T must be derived from Component");
+        m_components.push_back(
+            component.template dynamic_pointer_cast<Component>());
     }
 
     /**
-     * @brief Obtiene un componente de la entidad por su tipo.
+     * @brief Busca un componente específico en la entidad.
+     *
+     * @warning Operación O(N). Evitar en bucles críticos.
      * @tparam T Tipo del componente a obtener.
-     * @return Puntero compartido al componente si se encuentra, nullptr en caso contrario.
-       */
+     * @return Puntero al componente si existe, o puntero vacío.
+     */
     template<typename T>
-    EU::TSharedPointer<T>
-        getComponent() {
+    EU::TSharedPointer<T> 
+    getComponent() {
         for (auto& component : m_components) {
-            EU::TSharedPointer<T> specificComponent = component.template dynamic_pointer_cast<T>();
-            if (specificComponent) {
-                return specificComponent;
+            auto specific = component.template dynamic_pointer_cast<T>();
+            if (specific) {
+                return specific;
             }
         }
         return EU::TSharedPointer<T>();
     }
-private:
+
 protected:
+    /** * @brief Indica si la entidad está activa en la escena.
+     * Si es false, no se actualiza ni renderiza.
+     */
     bool m_isActive;
+
+    /** * @brief Identificador único de la entidad. 
+     */
     int m_id;
+
+    /** * @brief Lista de componentes adjuntos.
+     * Gestión automática de memoria mediante punteros compartidos.
+     */
     std::vector<EU::TSharedPointer<Component>> m_components;
 };

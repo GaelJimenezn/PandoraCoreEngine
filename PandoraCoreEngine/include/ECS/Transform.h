@@ -3,9 +3,19 @@
 #include "EngineUtilities/Vectors/Vector3.h"
 #include "Component.h"
 
-class
-    Transform : public Component {
+class DeviceContext;
+
+/**
+ * @class Transform
+ * @brief Define posición, rotación y escala en el espacio 3D.
+ *
+ * Calcula la World Matrix. Es fundamental para objetos renderizables.
+ */
+class Transform : public Component {
 public:
+    /**
+     * @brief Constructor por defecto.
+     */
     Transform() : position(),
         rotation(),
         scale(),
@@ -13,76 +23,94 @@ public:
         Component(ComponentType::TRANSFORM) {
     }
 
-    void
-        init() {
+    virtual ~Transform() = default;
+
+    /**
+     * @brief Inicializa valores por defecto (Escala 1, Matriz Identidad).
+     */
+    void 
+    init() override {
         scale.one();
         matrix = XMMatrixIdentity();
     }
 
-    // -------------------------------------------------------------
-    // CORRECCIÓN DE ORDEN DE ROTACIÓN
-    // -------------------------------------------------------------
-    void
-        update(float deltaTime) override {
+    /**
+     * @brief Calcula la matriz de transformación final.
+     *
+     * Orden: Escala -> Rotación (X*Y*Z) -> Traslación.
+     * @param deltaTime Tiempo transcurrido.
+     */
+    void 
+    update(float deltaTime) override {
         // 1. Escala
-        XMMATRIX scaleMatrix = XMMatrixScaling(scale.x, scale.y, scale.z);
+        XMMATRIX scaM = XMMatrixScaling(scale.x, scale.y, scale.z);
 
-        // 2. Rotación (Manual por ejes para compatibilidad con ImGuizmo)
-        // Usamos X * Y * Z (o el orden que prefieras, pero separado) para evitar
-        // el comportamiento predeterminado de RollPitchYaw que puede causar gimbal lock visual.
+        // 2. Rotación (Por ejes para evitar Gimbal Lock visual en editores)
         XMMATRIX rotX = XMMatrixRotationX(rotation.x);
         XMMATRIX rotY = XMMatrixRotationY(rotation.y);
         XMMATRIX rotZ = XMMatrixRotationZ(rotation.z);
-        XMMATRIX rotationMatrix = rotX * rotY * rotZ;
+        XMMATRIX rotM = rotX * rotY * rotZ;
 
         // 3. Traslación
-        XMMATRIX translationMatrix = XMMatrixTranslation(position.x, position.y, position.z);
+        XMMATRIX traM = XMMatrixTranslation(position.x, 
+                                            position.y, 
+                                            position.z);
 
         // Componer: Scale -> Rotation -> Translation
-        matrix = scaleMatrix * rotationMatrix * translationMatrix;
+        matrix = scaM * rotM * traM;
     }
 
-    void
-        render(DeviceContext& deviceContext) override {}
+    void 
+    render(DeviceContext& deviceContext) override {}
 
-    void
-        destroy() {}
+    void 
+    destroy() override {}
 
-    const EU::Vector3&
-        getPosition() const { return position; }
+    // --- Getters y Setters ---
 
-    void
-        setPosition(const EU::Vector3& newPos) { position = newPos; }
+    const EU::Vector3& 
+    getPosition() const { return position; }
 
-    const EU::Vector3&
-        getRotation() const { return rotation; }
+    void 
+    setPosition(const EU::Vector3& newPos) { position = newPos; }
 
-    void
-        setRotation(const EU::Vector3& newRot) { rotation = newRot; }
+    const EU::Vector3& 
+    getRotation() const { return rotation; }
 
-    const EU::Vector3&
-        getScale() const { return scale; }
+    void 
+    setRotation(const EU::Vector3& newRot) { rotation = newRot; }
 
-    void
-        setScale(const EU::Vector3& newScale) { scale = newScale; }
+    const EU::Vector3& 
+    getScale() const { return scale; }
 
-    void
-        setTransform(const EU::Vector3& newPos,
-            const EU::Vector3& newRot,
-            const EU::Vector3& newSca) {
-        position = newPos;
-        rotation = newRot;
-        scale = newSca;
+    void 
+    setScale(const EU::Vector3& newScale) { scale = newScale; }
+
+    /**
+     * @brief Configura todo el transform de una vez.
+     */
+    void 
+    setTransform(const EU::Vector3& pos,
+                 const EU::Vector3& rot,
+                 const EU::Vector3& sca) {
+        position = pos;
+        rotation = rot;
+        scale = sca;
     }
 
-    void
-        translate(const EU::Vector3& translation);
-
-private:
-    EU::Vector3 position;
-    EU::Vector3 rotation; // Radianes
-    EU::Vector3 scale;
+    /**
+     * @brief Desplaza la entidad.
+     * @param d Vector de desplazamiento.
+     */
+    void 
+    translate(const EU::Vector3& d);
 
 public:
+    /** @brief Matriz de transformación final (World Matrix). */
     XMMATRIX matrix;
+
+private:
+    EU::Vector3 position; ///< Posición local.
+    EU::Vector3 rotation; ///< Rotación Euler (Radianes).
+    EU::Vector3 scale;    ///< Escala local.
 };
