@@ -1,9 +1,10 @@
 /**
  * @file BaseApp.h
- * @brief Core application framework for the Pandora Core Engine.
+ * @brief Framework central de aplicación para el motor Pandora Core.
  *
- * Defines the BaseApp class responsible for the application lifecycle,
- * window management, and DirectX 11 rendering loop initialization.
+ * Este archivo define la clase BaseApp, la cual orquesta el ciclo de vida
+ * completo de la aplicación, desde la creación de la ventana hasta la
+ * gestión del bucle de renderizado y la integración con DirectX 11.
  *
  * @author Gael Jimenez
  * @copyright Obsidian Node Studio
@@ -31,169 +32,171 @@
 #include "EngineUtilities\Utilities\Camera.h"
 
 /**
- * @brief External handler for ImGui Win32 messages.
+ * @brief Manejador externo para los mensajes de Win32 de ImGui.
  *
- * Forwards Windows messages (mouse, keyboard, etc.) to the ImGui context
- * for UI interaction handling.
+ * Reenvía los eventos del sistema operativo (mouse, teclado) al contexto
+ * de ImGui para permitir la interacción con la interfaz de usuario.
  *
- * @param hWnd Handle to the window.
- * @param msg The message ID.
- * @param wParam Additional message info.
- * @param lParam Additional message info.
- * @return LRESULT Message processing result.
+ * @param hWnd Handle de la ventana que recibe el mensaje.
+ * @param msg Identificador del mensaje de Windows.
+ * @param wParam Información adicional del mensaje.
+ * @param lParam Información adicional del mensaje.
+ * @return LRESULT Resultado del procesamiento del mensaje.
  */
 extern IMGUI_IMPL_API
-LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, 
+                                       WPARAM wParam, LPARAM lParam);
 
 /**
  * @class BaseApp
- * @brief Abstract base class for D3D11 applications.
+ * @brief Clase base abstracta para aplicaciones basadas en D3D11.
  *
- * Manages the main infinite loop, OS message pumping, and initialization
- * of core graphics resources (Device, Context, SwapChain).
+ * Proporciona la infraestructura necesaria para gestionar el bucle infinito,
+ * el bombeo de mensajes de Windows y la inicialización de los recursos 
+ * críticos de hardware como el Device, DeviceContext y el SwapChain.
  */
 class
-	BaseApp {
+BaseApp {
 public:
 	/**
-	 * @brief Default constructor.
+	 * @brief Constructor por defecto de la clase BaseApp.
 	 */
 	BaseApp() = default;
 
 	/**
-	 * @brief Virtual destructor. Calls destroy() to cleanup resources.
+	 * @brief Destructor virtual.
+	 * Se encarga de invocar el método destroy() para garantizar que todos
+	 * los recursos de GPU y memoria dinámica se liberen correctamente.
 	 */
-	~BaseApp() { destroy(); }
+	virtual ~BaseApp() { destroy(); }
 
 	/**
-	 * @brief Pre-initialization logic.
+	 * @brief Lógica de pre-inicialización del motor.
 	 *
-	 * Called before window or graphics initialization. Useful for
-	 * configuration or logging setup.
+	 * Se ejecuta antes de la creación de la ventana o del contexto gráfico.
+	 * Es el lugar ideal para cargar configuraciones o inicializar logs.
 	 *
-	 * @return HRESULT S_OK on success.
+	 * @return HRESULT S_OK si la operación fue exitosa.
 	 */
 	HRESULT
-		awake();
+	awake();
 
 	/**
-	 * @brief Starts the application main loop.
+	 * @brief Inicia el punto de entrada y el bucle principal.
 	 *
-	 * Initializes the window and systems, then enters the message loop
-	 * calling update() and render() every frame.
+	 * Crea la ventana y los sistemas base, entrando luego en un ciclo que
+	 * llama a update() y render() en cada fotograma hasta el cierre.
 	 *
-	 * @param hInst Application instance handle.
-	 * @param nCmdShow Window show command (minimized, maximized, etc.).
-	 * @return int Application exit code.
+	 * @param hInst Identificador de la instancia de la aplicación.
+	 * @param nCmdShow Estado de visualización inicial de la ventana.
+	 * @return int Código de salida de la aplicación para el SO.
 	 */
 	int
-		run(HINSTANCE hInst, int nCmdShow);
+	run(HINSTANCE hInst, int nCmdShow);
 
 	/**
-	 * @brief Initializes core DirectX 11 subsystems.
+	 * @brief Inicializa los subsistemas centrales de DirectX 11.
 	 *
-	 * Creates Device, SwapChain, RenderTargetView, DepthStencilView,
-	 * and Shaders/Buffers required for the base pipeline.
+	 * Crea el Device, SwapChain, RenderTargetView y DepthStencilView, 
+	 * además de preparar los Shaders y Buffers del pipeline inicial.
 	 *
-	 * @return HRESULT S_OK on success, error code on failure.
+	 * @return HRESULT S_OK en éxito, código de error en fallo.
 	 */
 	HRESULT
-		init();
+	init();
 
 	/**
-	 * @brief Per-frame logic update.
+	 * @brief Actualización de la lógica del motor por frame.
 	 *
-	 * @param deltaTime Time elapsed since the last frame (seconds).
+	 * @param deltaTime Tiempo transcurrido (en segundos) desde el frame
+	 * anterior, utilizado para cálculos de física y animaciones.
 	 */
 	void
-		update(float deltaTime);
+	update(float deltaTime);
 
 	/**
-	 * @brief Per-frame rendering routine.
+	 * @brief Rutina de renderizado por frame.
 	 *
-	 * Clears buffers, draws the scene, and presents the back buffer.
+	 * Limpia los buffers, procesa la geometría a través del pipeline 
+	 * gráfico y presenta el back buffer en pantalla.
 	 */
 	void
-		render();
+	render();
 
 	/**
-	 * @brief Renders the graphical user interface (ImGui).
+	 * @brief Renderiza la capa de interfaz de usuario gráfica.
 	 */
 	void 
-		renderGUI();
+	renderGUI();
 
 	/**
-	 * @brief Releases all allocated DirectX resources.
+	 * @brief Libera de forma segura todos los recursos asignados.
 	 */
 	void
-		destroy();
+	destroy();
 
 private:
 	/**
-	 * @brief Main Window Procedure.
+	 * @brief Procedimiento de Ventana (WndProc) estático.
 	 *
-	 * Handles Win32 events (resize, close, input) and forwards
-	 * relevant messages to ImGui.
+	 * Procesa eventos del sistema (redimensión, cierre, inputs) y los
+	 * distribuye tanto al motor como al manejador de ImGui.
 	 */
 	static LRESULT CALLBACK
 		WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
-	/** @brief Main application window wrapper. */
-	Window                              m_window;
-	/** @brief Direct3D 11 Device interface. */
-	Device								m_device;
-	/** @brief Direct3D 11 Immediate Context. */
-	DeviceContext						m_deviceContext;
-	/** @brief DXGI SwapChain for buffer presentation. */
-	SwapChain                           m_swapChain;
-	/** @brief Texture resource for the back buffer. */
-	Texture                             m_backBuffer;
-	/** @brief Render Target View for the back buffer. */
-	RenderTargetView                    m_renderTargetView;
-	/** @brief Texture resource for depth testing. */
-	Texture                             m_depthStencil;
-	/** @brief Depth Stencil View for the depth texture. */
-	DepthStencilView                    m_depthStencilView;
-	/** @brief Rasterizer viewport configuration. */
-	Viewport                            m_viewport;
-	/** @brief Core Shader Program (Vertex & Pixel). */
-	ShaderProgram						m_shaderProgram;
+	/** @name Miembros de Ventana y Gráficos */
+	///@{
+	Window           m_window;           /**< Envoltorio de la ventana. */
+	Device           m_device;           /**< Interfaz del dispositivo. */
+	DeviceContext    m_deviceContext;    /**< Contexto de comandos. */
+	SwapChain        m_swapChain;        /**< Cadena de intercambio. */
+	///@}
 
-	/** @brief Constant Buffer for static data. */
-	Buffer								m_cbNeverChanges;
-	/** @brief Constant Buffer for resize-dependent data. */
-	Buffer								m_cbChangeOnResize;
+	/** @name Buffers y Vistas de Renderizado */
+	///@{
+	Texture          m_backBuffer;       /**< Textura del buffer trasero. */
+	RenderTargetView m_renderTargetView; /**< Vista de destino de render. */
+	Texture          m_depthStencil;     /**< Textura para depth test. */
+	DepthStencilView m_depthStencilView; /**< Vista de profundidad. */
+	Viewport         m_viewport;         /**< Configuración de Viewport. */
+	///@}
 
-	/** @brief Albedo texture for the demo object. */
-	Texture 							m_PrintStreamAlbedo;
-	/** @brief Cubemap texture for the skybox. */
-	Texture                             m_skyboxTex;
+	/** @name Shaders y Recursos de Memoria */
+	///@{
+	ShaderProgram    m_shaderProgram;    /**< Programa de shaders. */
+	Buffer           m_cbNeverChanges;   /**< CB para datos estáticos. */
+	Buffer           m_cbChangeOnResize; /**< CB para datos dinámicos. */
+	Texture          m_modelAlbedo;      /**< Albedo del modelo demo. */
+	Texture          m_skyboxTex;        /**< Cubemap para el cielo. */
+	///@}
 
-	/** @brief Main camera for the scene. */
-	Camera								m_camera;
+	/** @name Cámaras y Transformaciones */
+	///@{
+	Camera           m_camera;           /**< Cámara de la escena. */
+	XMMATRIX         m_View;             /**< Matriz de Vista. */
+	XMMATRIX         m_Projection;       /**< Matriz de Proyección. */
+	///@}
 
-	/** @brief Cached View Matrix. */
-	XMMATRIX                            m_View;
-	/** @brief Cached Projection Matrix. */
-	XMMATRIX                            m_Projection;
-
-	/** @brief Scene Graph for managing hierarchy. */
-	SceneGraph                          m_sceneGraph;
-	
-	/** @brief List of actors in the scene. */
+	/** @name Escena y ECS */
+	///@{
+	SceneGraph       m_sceneGraph;       /**< Jerarquía de la escena. */
+	/** @brief Lista de actores instanciados. */
 	std::vector<EU::TSharedPointer<Actor>> m_actors;
-	/** @brief Pointer to the main demo actor. */
-	EU::TSharedPointer<Actor> m_PrintStream;
+	/** @brief Actor principal para la demostración. */
+	EU::TSharedPointer<Actor> m_modelActor;
+	/** @brief Recurso de geometría cargado. */
+	Model3D* m_modelResource = nullptr;
+	///@}
 
-	/** @brief Pointer to the loaded 3D model. */
-	Model3D* m_model;
+	/** @name Estructuras de Datos y GUI */
+	///@{
+	CBChangeOnResize cbChangesOnResize; /**< Estructura CPU para Resize. */
+	CBNeverChanges   cbNeverChanges;    /**< Estructura CPU Constante. */
+	GUI              m_gui;             /**< Gestor de ImGui. */
+	///@}
 
-	/** @brief CPU structure for resize constant buffer. */
-	CBChangeOnResize					cbChangesOnResize;
-	/** @brief CPU structure for static constant buffer. */
-	CBNeverChanges						cbNeverChanges;
-
-	/** @brief ImGui manager. */
-	GUI									m_gui;
+	/** @brief Vistas para depurar las caras del Cubemap en ImGui. */
+	ID3D11ShaderResourceView* m_faceDebugSRV[6] = { nullptr };
 };
