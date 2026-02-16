@@ -27,7 +27,8 @@ DepthStencilView::init(Device& device, Texture& depthStencil, DXGI_FORMAT format
 
 	if (FAILED(hr)) {
 		ERROR("DepthStencilView", "init",
-			("Failed to create depth stencil view. HRESULT: " + std::to_string(hr)).c_str());
+			("Failed to create depth stencil view. HRESULT: " 
+				+ std::to_string(hr)).c_str());
 		return hr;
 	}
 

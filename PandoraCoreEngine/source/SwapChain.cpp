@@ -38,7 +38,8 @@ SwapChain::init(Device& device,
   unsigned int numFeatureLevels = ARRAYSIZE(featureLevels);
 
   // Create the device
-  for (unsigned int driverTypeIndex = 0; driverTypeIndex < numDriverTypes; driverTypeIndex++) {
+  for (unsigned int driverTypeIndex = 0; driverTypeIndex 
+    < numDriverTypes; driverTypeIndex++) {
     D3D_DRIVER_TYPE driverType = driverTypes[driverTypeIndex];
     hr = D3D11CreateDevice(nullptr,
       driverType,
@@ -70,7 +71,8 @@ SwapChain::init(Device& device,
     &m_qualityLevels);
   if (FAILED(hr) || m_qualityLevels == 0) {
     ERROR("SwapChain", "init",
-      ("MSAA not supported or invalid quality level. HRESULT: " + std::to_string(hr)).c_str());
+      ("MSAA not supported or invalid quality level. HRESULT: " 
+        + std::to_string(hr)).c_str());
     return hr;
   }
 
@@ -91,7 +93,8 @@ SwapChain::init(Device& device,
   sd.SampleDesc.Quality = m_qualityLevels - 1;
 
   // Get the DXGI factory
-  hr = device.m_device->QueryInterface(__uuidof(IDXGIDevice), (void**)&m_dxgiDevice);
+  hr = device.m_device->QueryInterface(__uuidof(IDXGIDevice), 
+    (void**)&m_dxgiDevice);
   if (FAILED(hr)) {
     ERROR("SwapChain", "init",
       ("Failed to query IDXGIDevice. HRESULT: " + std::to_string(hr)).c_str());

@@ -44,10 +44,12 @@ Texture::init(Device& device,
 	case PNG: {
     m_textureName = textureName + ".png";
     int width, height, channels;
-    unsigned char* data = stbi_load(m_textureName.c_str(), &width, &height, &channels, 4); // 4 bytes por pixel (RGBA)
+    unsigned char* data = stbi_load(m_textureName.c_str(), 
+      &width, &height, &channels, 4); // 4 bytes por pixel (RGBA)
     if (!data) {
       ERROR("Texture", "init",
-        ("Failed to load PNG texture: " + std::string(stbi_failure_reason())).c_str());
+        ("Failed to load PNG texture: " +
+          std::string(stbi_failure_reason())).c_str());
       return E_FAIL;
     }
 
@@ -81,11 +83,13 @@ Texture::init(Device& device,
     srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
     srvDesc.Texture2D.MipLevels = 1;
 
-    hr = device.m_device->CreateShaderResourceView(m_texture, &srvDesc, &m_textureFromImg);
+    hr = device.m_device->CreateShaderResourceView(m_texture, &srvDesc,
+      &m_textureFromImg);
     SAFE_RELEASE(m_texture); // Liberar textura intermedia
 
     if (FAILED(hr)) {
-      ERROR("Texture", "init", "Failed to create shader resource view for PNG texture");
+      ERROR("Texture", 
+        "init", "Failed to create shader resource view for PNG texture");
       return hr;
     }
 		break;
@@ -93,10 +97,12 @@ Texture::init(Device& device,
 	case JPG: {
     m_textureName = textureName + ".jpg";
     int width, height, channels;
-    unsigned char* data = stbi_load(m_textureName.c_str(), &width, &height, &channels, 4); // 4 bytes por pixel (RGBA)
+    unsigned char* data = stbi_load(m_textureName.c_str(),
+      &width, &height, &channels, 4); // 4 bytes por pixel (RGBA)
     if (!data) {
       ERROR("Texture", "init",
-        ("Failed to load JPG texture: " + std::string(stbi_failure_reason())).c_str());
+        ("Failed to load JPG texture: " + 
+          std::string(stbi_failure_reason())).c_str());
       return E_FAIL;
     }
 
@@ -130,11 +136,13 @@ Texture::init(Device& device,
     srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
     srvDesc.Texture2D.MipLevels = 1;
 
-    hr = device.m_device->CreateShaderResourceView(m_texture, &srvDesc, &m_textureFromImg);
+    hr = device.m_device->CreateShaderResourceView(m_texture, 
+      &srvDesc, &m_textureFromImg);
     SAFE_RELEASE(m_texture); // Liberar textura intermedia
 
     if (FAILED(hr)) {
-      ERROR("Texture", "init", "Failed to create shader resource view for JPG texture");
+      ERROR("Texture", 
+        "init", "Failed to create shader resource view for JPG texture");
       return hr;
     }
 		break;
@@ -183,7 +191,8 @@ Texture::init(Device& device,
 
   if (FAILED(hr)) {
     ERROR("Texture", "init",
-      ("Failed to create texture with specified params. HRESULT: " + std::to_string(hr)).c_str());
+      ("Failed to create texture with specified params. HRESULT: " + 
+        std::to_string(hr)).c_str());
     return hr;
   }
 
@@ -213,7 +222,8 @@ Texture::init(Device& device, Texture& textureRef, DXGI_FORMAT format) {
 
   if (FAILED(hr)) {
     ERROR("Texture", "init",
-      ("Failed to create shader resource view for PNG textures. HRESULT: " + std::to_string(hr)).c_str());
+      ("Failed to create shader resource view for PNG textures. HRESULT: " 
+        + std::to_string(hr)).c_str());
     return hr;
   }
 
@@ -283,7 +293,8 @@ Texture::CreateCubemap(Device& device,
     }
     else {
       if (w != width || h != height) {
-        ERROR("Texture", "CreateCubemap", "All cubemap faces must have the same dimensions.");
+        ERROR("Texture", 
+          "CreateCubemap", "All cubemap faces must have the same dimensions.");
         // liberar lo ya cargado
         for (int k = 0; k <= i; ++k) {
           if (facePixels[k]) {
@@ -305,9 +316,11 @@ Texture::CreateCubemap(Device& device,
   texDesc.SampleDesc.Count = 1;
   texDesc.SampleDesc.Quality = 0;
   texDesc.Usage = D3D11_USAGE_DEFAULT;
-  texDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | (generateMips ? D3D11_BIND_RENDER_TARGET : 0);
+  texDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | 
+    (generateMips ? D3D11_BIND_RENDER_TARGET : 0);
   texDesc.CPUAccessFlags = 0;
-  texDesc.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE | (generateMips ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0);
+  texDesc.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE |
+    (generateMips ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0);
 
   HRESULT hr = S_OK;
 
@@ -361,7 +374,8 @@ Texture::CreateCubemap(Device& device,
   srvDesc.TextureCube.MostDetailedMip = 0;
   srvDesc.TextureCube.MipLevels = generateMips ? (unsigned int)-1 : 1;
   
-  hr = device.m_device->CreateShaderResourceView(m_texture, &srvDesc, &m_textureFromImg);
+  hr = device.m_device->CreateShaderResourceView
+  (m_texture, &srvDesc, &m_textureFromImg);
 
   if (FAILED(hr)) {
     for (auto* p : facePixels) {

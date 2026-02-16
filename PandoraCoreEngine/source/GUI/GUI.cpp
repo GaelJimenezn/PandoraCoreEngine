@@ -78,7 +78,8 @@ GUI::destroy() {
 }
 
 void 
-GUI::vec3Control(const std::string& label, float* values, float resetValue, float columnWidth) {
+GUI::vec3Control(const std::string& label, float* values, 
+	float resetValue, float columnWidth) {
 	ImGuiIO& io = ImGui::GetIO();
 	auto boldFont = io.Fonts->Fonts[0];
 
@@ -346,7 +347,8 @@ GUI::inspectorGeneral(EU::TSharedPointer<Actor> actor) {
 	ImGui::SameLine();
 
 	// Dropdown para Layer
-	const char* layers[] = { "Default", "TransparentFX", "Ignore Raycast", "Water", "UI" };
+	const char* layers[] = { "Default",
+		"TransparentFX", "Ignore Raycast", "Water", "UI" };
 	static int currentLayer = 0;
 	ImGui::SetNextItemWidth(ImGui::GetContentRegionAvailWidth() * 0.5f);
 	ImGui::Combo("Layer", &currentLayer, layers, IM_ARRAYSIZE(layers));
@@ -362,9 +364,12 @@ void
 GUI::inspectorContainer(EU::TSharedPointer<Actor> actor) {
 	//ImGui::Begin("Transform");
 	// Draw the structure
-	vec3Control("Position", const_cast<float*>(actor->getComponent<Transform>()->getPosition().data()));
-	vec3Control("Rotation", const_cast<float*>(actor->getComponent<Transform>()->getRotation().data()));
-	vec3Control("Scale", const_cast<float*>(actor->getComponent<Transform>()->getScale().data()));
+	vec3Control("Position", const_cast<float*>(actor->
+		getComponent<Transform>()->getPosition().data()));
+	vec3Control("Rotation", const_cast<float*>(actor->
+		getComponent<Transform>()->getRotation().data()));
+	vec3Control("Scale", const_cast<float*>(actor->
+		getComponent<Transform>()->getScale().data()));
 
 	//ImGui::End();
 }
@@ -392,12 +397,14 @@ GUI::outliner(const std::vector<EU::TSharedPointer<Actor>>& actors) {
 		}
 
 		// Si el actor es seleccionable
-		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+		ImGuiTreeNodeFlags flags = 
+			ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
 		if (selectedActorIndex == i)
 			flags |= ImGuiTreeNodeFlags_Selected;
 
 		// Crear un nodo de �rbol para cada actor
-		bool nodeOpen = ImGui::TreeNodeEx((void*)(intptr_t)i, flags, "%s", actorName.c_str());
+		bool nodeOpen = ImGui::TreeNodeEx((void*)(intptr_t)i, flags, "%s", 
+			actorName.c_str());
 
 		// Selecci�n de actor
 		if (ImGui::IsItemClicked()) {
@@ -419,7 +426,9 @@ GUI::outliner(const std::vector<EU::TSharedPointer<Actor>>& actors) {
 }
 
 void
-GUI::editTransform(const XMMATRIX& view, const XMMATRIX& projection, EU::TSharedPointer<Actor> actor)
+GUI::editTransform(const XMMATRIX& view, 
+								  const XMMATRIX& projection,
+								  EU::TSharedPointer<Actor> actor)
 {
 	static ImGuizmo::MODE mCurrentGizmoMode(ImGuizmo::WORLD);
 	auto transform = actor->getComponent<Transform>();
@@ -516,7 +525,8 @@ void GUI::drawGizmoToolbar() {
 	if (ImGui::Begin("GizmoToolBar", nullptr, window_flags)) {
 
 		// Estilo de los botones (m�s profesional)
-		auto buttonMode = [&](const char* label, ImGuizmo::OPERATION op, const char* shortcut) {
+		auto buttonMode = [&](const char* label, ImGuizmo::OPERATION op, 
+			const char* shortcut) {
 			bool isActive = (mCurrentGizmoOperation == op);
 			if (isActive) {
 				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.4f, 0.8f, 1.0f)); // Azul si est� activo
@@ -543,7 +553,8 @@ void GUI::drawGizmoToolbar() {
 		// Opcional: Selector de modo Local/Mundo
 		static ImGuizmo::MODE mCurrentGizmoMode = ImGuizmo::WORLD;
 		if (ImGui::Button(mCurrentGizmoMode == ImGuizmo::WORLD ? "Global" : "Local")) {
-			mCurrentGizmoMode = (mCurrentGizmoMode == ImGuizmo::WORLD) ? ImGuizmo::LOCAL : ImGuizmo::WORLD;
+			mCurrentGizmoMode = (mCurrentGizmoMode == ImGuizmo::WORLD) ? 
+				ImGuizmo::LOCAL : ImGuizmo::WORLD;
 		}
 	}
 	ImGui::End();

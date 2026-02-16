@@ -27,7 +27,8 @@ HRESULT Device::CreateRenderTargetView(ID3D11Resource* pResource,
   }
   else {
     ERROR("Device", "CreateRenderTargetView",
-      ("Failed to create Render Target View. HRESULT: " + std::to_string(hr)).c_str());
+      ("Failed to create Render Target View. HRESULT: " 
+        + std::to_string(hr)).c_str());
   }
 
   return hr;
@@ -91,7 +92,8 @@ HRESULT Device::CreateDepthStencilView(
     return E_POINTER;
   }
 
-  HRESULT hr = m_device->CreateDepthStencilView(pResource, pDesc, ppDepthStencilView);
+  HRESULT hr = m_device->CreateDepthStencilView
+  (pResource, pDesc, ppDepthStencilView);
 
   if (SUCCEEDED(hr)) {
     MESSAGE("Device", "CreateDepthStencilView",
@@ -99,7 +101,8 @@ HRESULT Device::CreateDepthStencilView(
   }
   else {
     ERROR("Device", "CreateDepthStencilView",
-      ("Failed to create DepthStencilView. HRESULT: " + std::to_string(hr)).c_str());
+      ("Failed to create DepthStencilView. HRESULT: " 
+        + std::to_string(hr)).c_str());
   }
 
   return hr;
@@ -155,7 +158,8 @@ HRESULT Device::CreateInputLayout(
     return E_INVALIDARG;
   }
   if (!pShaderBytecodeWithInputSignature) {
-    ERROR("Device", "CreateInputLayout", "pShaderBytecodeWithInputSignature is nullptr");
+    ERROR("Device", "CreateInputLayout",
+      "pShaderBytecodeWithInputSignature is nullptr");
     return E_INVALIDARG;
   }
   if (!ppInputLayout) {

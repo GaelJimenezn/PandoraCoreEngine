@@ -40,7 +40,8 @@ Model3D::InitializeFBXManager() {
     return false;
   }
   else {
-    MESSAGE("ModelLoader", "ModelLoader", "Autodesk FBX SDK version " << lSdkManager->GetVersion())
+    MESSAGE("ModelLoader", "ModelLoader", "Autodesk FBX SDK version " 
+      << lSdkManager->GetVersion())
   }
 
   // Create an IOSettings object
@@ -66,7 +67,8 @@ Model3D::LoadFBXModel(const std::string& filePath) {
     // 02. Create an importer using the SDK manager
     FbxImporter* lImporter = FbxImporter::Create(lSdkManager, "");
     if (!lImporter) {
-      ERROR("ModelLoader", "FbxImporter::Create()", "Unable to create FBX Importer!");
+      ERROR("ModelLoader", "FbxImporter::Create()", 
+        "Unable to create FBX Importer!");
       return std::vector<MeshComponent>();
     }
     else {
@@ -74,20 +76,24 @@ Model3D::LoadFBXModel(const std::string& filePath) {
     }
 
     // 03. Use the first argument as the filename for the importer
-    if (!lImporter->Initialize(filePath.c_str(), -1, lSdkManager->GetIOSettings())) {
+    if (!lImporter->Initialize(filePath.c_str(), -1,
+      lSdkManager->GetIOSettings())) {
       ERROR("ModelLoader", "FbxImporter::Initialize()",
-        "Unable to initialize FBX Importer! Error: " << lImporter->GetStatus().GetErrorString());
+        "Unable to initialize FBX Importer! Error: " 
+        << lImporter->GetStatus().GetErrorString());
       lImporter->Destroy();
       return std::vector<MeshComponent>();
     }
     else {
-      MESSAGE("ModelLoader", "ModelLoader", "FBX Importer initialized successfully.");
+      MESSAGE("ModelLoader", "ModelLoader", 
+        "FBX Importer initialized successfully.");
     }
 
     // 04. Import the scene from the file into the scene
     if (!lImporter->Import(lScene)) {
       ERROR("ModelLoader", "FbxImporter::Import()",
-        "Unable to import FBX Scene! Error: " << lImporter->GetStatus().GetErrorString());
+        "Unable to import FBX Scene! Error: " 
+        << lImporter->GetStatus().GetErrorString());
       lImporter->Destroy();
       return std::vector<MeshComponent>();
     }
@@ -109,7 +115,8 @@ Model3D::LoadFBXModel(const std::string& filePath) {
     FbxNode* lRootNode = lScene->GetRootNode();
 
     if (lRootNode) {
-      MESSAGE("ModelLoader", "ModelLoader", "Processing model from the scene root node.");
+      MESSAGE("ModelLoader", "ModelLoader", 
+        "Processing model from the scene root node.");
       for (int i = 0; i < lRootNode->GetChildCount(); i++) {
         ProcessFBXNode(lRootNode->GetChild(i));
       }
@@ -157,9 +164,12 @@ Model3D::ProcessFBXMesh(FbxNode* node) {
   if (mesh->GetElementTangentCount() == 0 && uvSetName)
     mesh->GenerateTangentsData(uvSetName);
 
-  const FbxGeometryElementUV* uvElem = (mesh->GetElementUVCount() > 0) ? mesh->GetElementUV(0) : nullptr;
-  const FbxGeometryElementTangent* tanElem = (mesh->GetElementTangentCount() > 0) ? mesh->GetElementTangent(0) : nullptr;
-  const FbxGeometryElementBinormal* binElem = (mesh->GetElementBinormalCount() > 0) ? mesh->GetElementBinormal(0) : nullptr;
+  const FbxGeometryElementUV* uvElem = 
+    (mesh->GetElementUVCount() > 0) ? mesh->GetElementUV(0) : nullptr;
+  const FbxGeometryElementTangent* tanElem = 
+    (mesh->GetElementTangentCount() > 0) ? mesh->GetElementTangent(0) : nullptr;
+  const FbxGeometryElementBinormal* binElem = 
+    (mesh->GetElementBinormalCount() > 0) ? mesh->GetElementBinormal(0) : nullptr;
 
   std::vector<SimpleVertex>       vertices;
   std::vector<unsigned int> indices;
@@ -167,14 +177,17 @@ Model3D::ProcessFBXMesh(FbxNode* node) {
   indices.reserve(mesh->GetPolygonCount() * 3);
 
   // Helpers de lectura (control point vs. polygon-vertex)
-  auto readV2 = [](const FbxGeometryElementUV* elem, int cpIdx, int pvIdx) -> FbxVector2 {
+  auto readV2 = [](const FbxGeometryElementUV* 
+    elem, int cpIdx, int pvIdx) -> FbxVector2 {
     if (!elem) return FbxVector2(0, 0);
     using E = FbxGeometryElement;
     int idx;
     if (elem->GetMappingMode() == E::eByControlPoint)
-      idx = (elem->GetReferenceMode() == E::eIndexToDirect) ? elem->GetIndexArray().GetAt(cpIdx) : cpIdx;
+      idx = (elem->GetReferenceMode() == E::eIndexToDirect) ? 
+      elem->GetIndexArray().GetAt(cpIdx) : cpIdx;
     else
-      idx = (elem->GetReferenceMode() == E::eIndexToDirect) ? elem->GetIndexArray().GetAt(pvIdx) : pvIdx;
+      idx = (elem->GetReferenceMode() == E::eIndexToDirect) ?
+      elem->GetIndexArray().GetAt(pvIdx) : pvIdx;
     return elem->GetDirectArray().GetAt(idx);
     };
   auto readV4 = [](auto* elem, int cpIdx, int pvIdx) -> FbxVector4 {
@@ -182,9 +195,11 @@ Model3D::ProcessFBXMesh(FbxNode* node) {
     using E = FbxGeometryElement;
     int idx;
     if (elem->GetMappingMode() == E::eByControlPoint)
-      idx = (elem->GetReferenceMode() == E::eIndexToDirect) ? elem->GetIndexArray().GetAt(cpIdx) : cpIdx;
+      idx = (elem->GetReferenceMode() == E::eIndexToDirect) ? 
+      elem->GetIndexArray().GetAt(cpIdx) : cpIdx;
     else
-      idx = (elem->GetReferenceMode() == E::eIndexToDirect) ? elem->GetIndexArray().GetAt(pvIdx) : pvIdx;
+      idx = (elem->GetReferenceMode() == E::eIndexToDirect) ? 
+      elem->GetIndexArray().GetAt(pvIdx) : pvIdx;
     return elem->GetDirectArray().GetAt(idx);
     };
 

@@ -15,7 +15,8 @@ Camera::setLens(float fovYRadians,
 	m_nearPlane = nearPlane;
 	m_farPlane = farPlane;
 
-	XMMATRIX proj = XMMatrixPerspectiveFovLH(m_fovY, m_aspectRatio, m_nearPlane, m_farPlane);
+	XMMATRIX proj = XMMatrixPerspectiveFovLH
+	(m_fovY, m_aspectRatio, m_nearPlane, m_farPlane);
 	XMStoreFloat4x4(&m_proj, proj);
 }
 
@@ -32,7 +33,8 @@ Camera::setPosition(const EU::Vector3& pos) {
 }
 
 void 
-Camera::lookAt(const EU::Vector3& pos, const EU::Vector3& target, const EU::Vector3& up) {
+Camera::lookAt(const EU::Vector3& pos, const EU::Vector3& target, 
+	const EU::Vector3& up) {
 	m_position = pos;
 	XMVECTOR P = XMVectorSet(m_position.x, m_position.y, m_position.z, 1.0f);
 	XMVECTOR T = XMVectorSet(target.x, target.y, target.z, 1.0f);

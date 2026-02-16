@@ -18,9 +18,11 @@ DeviceContext::RSSetViewports(unsigned int NumViewports,
 void
 DeviceContext::PSSetShaderResources(unsigned int StartSlot,
 	                                  unsigned int NumViews,
-	                                  ID3D11ShaderResourceView* const* ppShaderResourceViews) {
+	                                  ID3D11ShaderResourceView* 
+																	  const* ppShaderResourceViews) {
 	if (!ppShaderResourceViews) {
-		ERROR("DeviceContext", "PSSetShaderResources", "ppShaderResourceViews is nullptr");
+		ERROR("DeviceContext", "PSSetShaderResources",
+			"ppShaderResourceViews is nullptr");
 		return;
 	}
 	m_deviceContext->PSSetShaderResources(StartSlot, NumViews, ppShaderResourceViews);
@@ -155,7 +157,8 @@ DeviceContext::OMSetRenderTargets(unsigned int NumViews,
 	}
 
 	// Asignar los render targets y el depth stencil
-	m_deviceContext->OMSetRenderTargets(NumViews, ppRenderTargetViews, pDepthStencilView);
+	m_deviceContext->OMSetRenderTargets(NumViews, ppRenderTargetViews, 
+		pDepthStencilView);
 }
 
 void
@@ -208,7 +211,8 @@ DeviceContext::ClearDepthStencilView(ID3D11DepthStencilView* pDepthStencilView,
 	}
 
 	// Limpiar el depth stencil
-	m_deviceContext->ClearDepthStencilView(pDepthStencilView, ClearFlags, Depth, Stencil);
+	m_deviceContext->ClearDepthStencilView(pDepthStencilView, ClearFlags, Depth, 
+		Stencil);
 }
 
 void

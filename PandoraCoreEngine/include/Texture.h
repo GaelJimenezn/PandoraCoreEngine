@@ -109,7 +109,8 @@ public:
    * @pre @c m_textureFromImg debe haberse creado con init().
    */
   void 
-  render(DeviceContext & deviceContext, unsigned int StartSlot, unsigned int NumViews);
+  render(DeviceContext & deviceContext, unsigned int StartSlot, 
+    unsigned int NumViews);
 
   /**
    * @brief Libera los recursos de la textura.

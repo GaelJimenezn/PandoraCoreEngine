@@ -31,7 +31,8 @@ RenderTargetView::init(Device& device, Texture& backBuffer, DXGI_FORMAT Format) 
 		&m_renderTargetView);
 	if (FAILED(hr)) {
 		ERROR("RenderTargetView", "init",
-			("Failed to create render target view. HRESULT: " + std::to_string(hr)).c_str());
+			("Failed to create render target view. HRESULT: " 
+				+ std::to_string(hr)).c_str());
 		return hr;
 	}
 
@@ -69,7 +70,8 @@ RenderTargetView::init(Device& device,
 
 	if (FAILED(hr)) {
 		ERROR("RenderTargetView", "init",
-			("Failed to create render target view. HRESULT: " + std::to_string(hr)).c_str());
+			("Failed to create render target view. HRESULT: "
+				+ std::to_string(hr)).c_str());
 		return hr;
 	}
 
@@ -91,7 +93,8 @@ RenderTargetView::render(DeviceContext& deviceContext,
 	}
 
 	// Clear the render target view
-	deviceContext.m_deviceContext->ClearRenderTargetView(m_renderTargetView, ClearColor);
+	deviceContext.m_deviceContext->ClearRenderTargetView
+	(m_renderTargetView, ClearColor);
 
 	// Config render target view and depth stencil view
 	deviceContext.m_deviceContext->OMSetRenderTargets(numViews,

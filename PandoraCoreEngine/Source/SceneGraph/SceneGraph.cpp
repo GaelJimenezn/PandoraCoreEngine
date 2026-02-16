@@ -80,7 +80,8 @@ SceneGraph::removeEntity(Entity* e) {
 	}
 
 	// 3) eliminar del registro
-	m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), e), m_entities.end());
+	m_entities.erase(std::remove(m_entities.begin(), 
+		m_entities.end(), e), m_entities.end());
 }
 
 bool 
