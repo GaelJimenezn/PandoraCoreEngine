@@ -69,11 +69,21 @@ struct SimpleVertex
   XMFLOAT2 Tex; /**< Coordenadas de textura (UV). */
 };
 
+struct 
+SkyboxVertex {
+	float x,y,z;
+};
+
 /** @struct CBNeverChanges
  * @brief Constant Buffer para datos que no cambian tras la inicialización. */
 struct CBNeverChanges
 {
   XMMATRIX mView; /**< Matriz de vista de la cámara. */
+};
+
+struct CBSkybox
+{
+  XMMATRIX mviewProj;
 };
 
 /** @struct CBChangeOnResize

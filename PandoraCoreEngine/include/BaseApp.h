@@ -175,8 +175,6 @@ private:
 	/** @name Cámaras y Transformaciones */
 	///@{
 	Camera           m_camera;           /**< Cámara de la escena. */
-	XMMATRIX         m_View;             /**< Matriz de Vista. */
-	XMMATRIX         m_Projection;       /**< Matriz de Proyección. */
 	///@}
 
 	/** @name Escena y ECS */

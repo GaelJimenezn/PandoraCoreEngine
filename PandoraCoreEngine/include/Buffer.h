@@ -138,12 +138,14 @@ public:
     createBuffer(Device& device,
       D3D11_BUFFER_DESC& desc,
       D3D11_SUBRESOURCE_DATA* initData);
-
-private:
-  /**
+public:
+      /**
    * @brief Recurso COM de D3D11 administrado por la clase.
    */
   ID3D11Buffer* m_buffer = nullptr;
+
+private:
+
 
   /**
    * @brief Tamaño de un elemento en bytes (para Vertex Buffer).

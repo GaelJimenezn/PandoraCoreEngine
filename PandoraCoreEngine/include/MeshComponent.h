@@ -1,6 +1,7 @@
 #pragma once
 #include "Prerequisites.h"
 #include "ECS\Component.h"
+
 class DeviceContext;
 /**
  * @class MeshComponent
@@ -82,6 +83,8 @@ public:
    * @brief Lista de vértices de la malla.
    */
   std::vector<SimpleVertex> m_vertex;
+
+  std::vector<SkyboxVertex> m_skyVertex;
 
   /**
    * @brief Lista de índices que definen las primitivas de la malla.

@@ -1,7 +1,8 @@
 ﻿#include "BaseApp.h"
 #include "ResourceManager.h"
 
-HRESULT BaseApp::awake() {
+HRESULT 
+BaseApp::awake() {
     HRESULT hr = S_OK;
     // 1. Iniciar grafo de escena
     m_sceneGraph.init();
@@ -9,7 +10,8 @@ HRESULT BaseApp::awake() {
     return hr;
 }
 
-int BaseApp::run(HINSTANCE hInst, int nCmdShow) {
+int 
+BaseApp::run(HINSTANCE hInst, int nCmdShow) {
     // 2. Iniciar ventana
     if (FAILED(m_window.init(hInst, nCmdShow, WndProc))) return 0;
     // 3. Ciclo Awake -> Init
@@ -41,7 +43,8 @@ int BaseApp::run(HINSTANCE hInst, int nCmdShow) {
     return (int)msg.wParam;
 }
 
-HRESULT BaseApp::init() {
+HRESULT 
+BaseApp::init() {
     HRESULT hr = S_OK;
 
     // 4. Recursos básicos de D3D11
@@ -52,8 +55,8 @@ HRESULT BaseApp::init() {
     // 5. Configuración de Profundidad (Depth)
     UINT sampleCount = 4;
     UINT quality = 0;
-    m_device.m_device->CheckMultisampleQualityLevels(DXGI_FORMAT_D24_UNORM_S8_UINT,
-      sampleCount, &quality);
+    m_device.m_device->CheckMultisampleQualityLevels(
+      DXGI_FORMAT_D24_UNORM_S8_UINT, sampleCount, &quality);
     if (quality > 0) quality = quality - 1;
 
     hr = m_depthStencil.init(m_device,
@@ -74,7 +77,7 @@ HRESULT BaseApp::init() {
     };
     m_skyboxTex.CreateCubemap(m_device, m_deviceContext, faces, true);
 
-    // 7. Configuración del Actor con VALORES DE TU IMAGEN
+    // 7. Configuración del Actor (VALORES M4A1)
     m_modelActor = EU::MakeShared<Actor>(m_device);
     if (!m_modelActor.isNull()) {
         m_modelResource = new Model3D("Assets/M4A1.fbx", ModelType::FBX);
@@ -90,9 +93,9 @@ HRESULT BaseApp::init() {
         m_modelActor->setName("CyberGun"); 
         
         m_modelActor->getComponent<Transform>()->setTransform(
-            EU::Vector3(-3.80f, 2.88f, 36.00f),  // Position (X, Y, Z)
-            EU::Vector3(-90.0f, 1.60f, -2.00f),  // Rotation (X, Y, Z)
-            EU::Vector3(0.80f, 0.80f, 0.80f)    // Scale (X, Y, Z)
+            EU::Vector3(-3.80f, 2.88f, 36.00f), 
+            EU::Vector3(-90.0f, 1.60f, -2.00f), 
+            EU::Vector3(0.80f, 0.80f, 0.80f)
         );
         m_actors.push_back(m_modelActor);
     }
@@ -121,10 +124,11 @@ HRESULT BaseApp::init() {
     return S_OK;
 }
 
-void BaseApp::update(float deltaTime) {
+void 
+BaseApp::update(float deltaTime) {
     m_gui.update(m_viewport, m_window);
 
-    // 11. Generar Vistas de Debug para el Skybox
+    // 11. Debug SRVs Skybox
     if (!m_faceDebugSRV[0]) {
         for (UINT i = 0; i < 6; ++i) {
             m_faceDebugSRV[i] = m_skyboxTex.CreateCubemapFaceSRV(
@@ -133,36 +137,34 @@ void BaseApp::update(float deltaTime) {
         }
     }
 
-    // 12. UI Panel Debug (Grid de 3x2)
+    // 12. UI Panel Debug
     ImGui::Begin("Debug");
     ImGui::Text("Cubemap Faces:");
     for (int i = 0; i < 6; ++i) {
-        if (m_faceDebugSRV[i]) ImGui::Image((ImTextureID)m_faceDebugSRV[i], 
-          ImVec2(100, 100));
+        if (m_faceDebugSRV[i]) 
+          ImGui::Image((ImTextureID)m_faceDebugSRV[i], ImVec2(100, 100));
         if ((i % 3) != 2) ImGui::SameLine();
     }
     ImGui::End();
 
-    // 13. UI Panel Cubemap (Vista Grande)
+    // 13. UI Panel Cubemap
     ImGui::Begin("Cubemap");
     ImGui::Text("Skybox Cubemap");
     if (m_faceDebugSRV[0]) {
         ImGui::Image((ImTextureID)m_faceDebugSRV[0], ImVec2(256, 256));
-    } else {
-        ImGui::Text("Cargando texturas...");
     }
     ImGui::End();
 
     // 14. Inspector y Outliner
-    if (m_gui.selectedActorIndex >= 0 && m_gui.selectedActorIndex 
-      < m_actors.size()) {
+    if (m_gui.selectedActorIndex >= 0 && 
+        m_gui.selectedActorIndex < m_actors.size()) {
         m_gui.inspectorGeneral(m_actors[m_gui.selectedActorIndex]);
-        m_gui.editTransform(m_camera.getView(), m_camera.getProj(),
-          m_actors[m_gui.selectedActorIndex]);
+        m_gui.editTransform(m_camera.getView(), 
+          m_camera.getProj(), m_actors[m_gui.selectedActorIndex]);
     }
     m_gui.outliner(m_actors);
 
-    // 15. Actualizar Matrices de Cámara
+    // 15. Matrices
     m_camera.updateViewMatrix();
     cbNeverChanges.mView = XMMatrixTranspose(m_camera.getView());
     cbChangesOnResize.mProjection = XMMatrixTranspose(m_camera.getProj());
@@ -174,7 +176,8 @@ void BaseApp::update(float deltaTime) {
     m_sceneGraph.update(deltaTime, m_deviceContext);
 }
 
-void BaseApp::render() {
+void 
+BaseApp::render() {
     float ClearColor[4] = { 0.1f, 0.1f, 0.1f, 1.0f };
     m_renderTargetView.render(m_deviceContext, m_depthStencilView, 1, ClearColor);
     m_viewport.render(m_deviceContext);
@@ -189,14 +192,16 @@ void BaseApp::render() {
     m_swapChain.present();
 }
 
-void BaseApp::destroy() {
+void 
+BaseApp::destroy() {
     if (m_deviceContext.m_deviceContext) 
       m_deviceContext.m_deviceContext->ClearState();
     
-    // 16. Liberar SRVs de Debug
     for (int i = 0; i < 6; ++i) {
-        if (m_faceDebugSRV[i]) { m_faceDebugSRV[i]->Release(); 
-        m_faceDebugSRV[i] = nullptr; }
+        if (m_faceDebugSRV[i]) { 
+          m_faceDebugSRV[i]->Release(); 
+          m_faceDebugSRV[i] = nullptr; 
+        }
     }
 
     if (m_modelResource) {
@@ -219,12 +224,14 @@ void BaseApp::destroy() {
     m_device.destroy();
 }
 
-LRESULT BaseApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam)) return true;
+LRESULT 
+BaseApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam)) 
+      return true;
     switch (message) {
         case WM_CREATE: {
-            CREATESTRUCT* pCreate = reinterpret_cast<CREATESTRUCT*>(lParam);
-            SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)pCreate->lpCreateParams);
+            CREATESTRUCT* p = reinterpret_cast<CREATESTRUCT*>(lParam);
+            SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)p->lpCreateParams);
         } return 0;
         case WM_PAINT: {
             PAINTSTRUCT ps;
