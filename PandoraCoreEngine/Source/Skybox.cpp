@@ -84,16 +84,16 @@ Skybox::init(Device& device, DeviceContext* deviceContext, Texture& cubemap) {
 	}
 
 	// Init Rasterizer
-	//hr = m_rasterizerState.init(device, true, false);
-	//if (FAILED(hr)) {
-	//	ERROR("Skybox", "init", "Failed to create new RasterizerState");
-	//}
+	hr = m_rasterizerState.init(device, D3D11_FILL_SOLID, D3D11_CULL_FRONT);
+	if (FAILED(hr)) {
+		ERROR("Skybox", "init", "Failed to create new RasterizerState");
+	}
 
 	// Init DepthStencilState
-	//hr = m_depthStencilState.init(device, true, false);
-	//if (FAILED(hr)) {
-	//	ERROR("Skybox", "init", "Failed to create new DepthStencilState");
-	//}
+	hr = m_depthStencilState.init(device, true, false);
+	if (FAILED(hr)) {
+		ERROR("Skybox", "init", "Failed to create new DepthStencilState");
+	}
 
 
 	return E_NOTIMPL;
@@ -102,10 +102,10 @@ Skybox::init(Device& device, DeviceContext* deviceContext, Texture& cubemap) {
 void 
 Skybox::render(DeviceContext& deviceContext, Camera& camera) {
 	// Set rasterizer state
-	//m_rasterizerState.render(deviceContext);
+	m_rasterizerState.render(deviceContext);
 	
 	// Set depth stencil state
-	//m_depthStencilState.render(deviceContext);
+	m_depthStencilState.render(deviceContext,0, false);
 	// Render the cube model with the cubemap texture
 	
 
@@ -132,3 +132,4 @@ Skybox::render(DeviceContext& deviceContext, Camera& camera) {
 	// Set cubemap texture
 	m_skyboxTexture.render(deviceContext, 0, 1);
 }
+
