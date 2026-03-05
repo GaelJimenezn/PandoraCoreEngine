@@ -303,8 +303,5 @@
     <None Include="bin\PandoraCoreEngine.fx">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="bin\Skybox.hlsl">
-      <Filter>Shaders</Filter>
-    </None>
   </ItemGroup>
 </Project>
