@@ -12,73 +12,123 @@
 #include "MeshComponent.h"
 #include "Buffer.h"
 #include "SamplerState.h"
-#include "Model3D.h"
-#include "ECS/Actor.h"
-#include "GUI/GUI.h"
-#include "SceneGraph/SceneGraph.h"
 
-extern IMGUI_IMPL_API
-LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+#include "ModelLoader.h"
+#include "Model3D.h"
+#include "GUI.h"
+#include "ECS/Actor.h"
+
+#include "SceneGraph\SceneGraph.h"
+#include "EngineUtilities\Utilities\Camera.h"
+
+#include "EngineUtilities\Utilities\Skybox.h"
+
+#include "EngineUtilities\Utilities\LayoutBuilder.h"
 
 class
-	BaseApp {
+BaseApp {
 public:
-	BaseApp() = default;
-	~BaseApp() { destroy(); }
+  // Tu constructor personalizado 
+  BaseApp(HINSTANCE hInst, int nCmdShow);
 
-	HRESULT
-		awake();
+  // Destructor
+  ~BaseApp() { destroy(); }
 
-	int
-		run(HINSTANCE hInst, int nCmdShow);
+  HRESULT
+  awake();
 
-	HRESULT
-		init();
+  int
+  run(HINSTANCE hInst, int nCmdShow);
 
-	void
-		update(float deltaTime);
+  HRESULT
+  init();
 
-	void
-		render();
+  void
+  update(float deltaTime);
 
-	void
-		destroy();
+  void
+  render();
+
+  void
+  destroy();
+
+  void
+  onResize(UINT newW, UINT newH);
+
+  void 
+  handleEditorViewportResize();
+
+  private:
+  static LRESULT CALLBACK
+  WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
-	static LRESULT CALLBACK
-		WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+  Window                              m_window;
+  Device                              m_device;
+  DeviceContext                       m_deviceContext;
+  SwapChain                           m_swapChain;
+  Texture                             m_backBuffer;
+  RenderTargetView                    m_renderTargetView;
+  Texture                             m_depthStencil;
+  DepthStencilView                    m_depthStencilView;
+  Viewport                            m_viewport;
+  ShaderProgram                       m_shaderProgram;
+  // Buffer                           m_vertexBuffer;
+  // Buffer                           m_indexBuffer;
 
-private:
-	Window                              m_window;
-	Device															m_device;
-	DeviceContext												m_deviceContext;
-	SwapChain                           m_swapChain;
-	Texture                             m_backBuffer;
-	RenderTargetView									  m_renderTargetView;
-	Texture                             m_depthStencil;
-	DepthStencilView									  m_depthStencilView;
-	Viewport                            m_viewport;
-	ShaderProgram												m_shaderProgram;
+  bool m_d3dReady = false;
+  Buffer                              m_constantBuffer;
 
-	Buffer															m_cbNeverChanges;
-	Buffer															m_cbChangeOnResize;
+  //Textures
+  //Texture m_AlbedoSRV;
+  //Texture m_MetallicSRV;
+  //Texture m_RoughnessSRV;
+  //Texture m_AOSRV;
+  //Texture m_NormalSRV;
 
-	Texture 														m_PrintStreamAlbedo;
-  Texture         						        m_skyboxTex;
+  Buffer                              m_cbNeverChanges;
+  Buffer                              m_cbChangeOnResize;
+  Buffer                              m_cbChangesEveryFrame;
 
-	XMMATRIX                            m_View;
-	XMMATRIX                            m_Projection;
+  Texture                             m_cyberGunAlbedo;      // Tu textura especifica
 
-  SceneGraph                          m_sceneGraph;
-	
-	std::vector<EU::TSharedPointer<Actor>> m_actors;
-	EU::TSharedPointer<Actor> m_PrintStream;
+  Texture															m_skyboxTex;
+
+  SamplerState                        m_samplerState;
+
+  // Matrices y Variables Globales
+  XMMATRIX                            m_World;
 
 
-	Model3D* m_model;
+  Camera															m_camera;
+  //XMMATRIX                            m_View;
+  //XMMATRIX                            m_Projection;
 
-	CBChangeOnResize										cbChangesOnResize;
-	CBNeverChanges											cbNeverChanges;
+  XMFLOAT4                            m_vMeshColor;
 
-	GUI																m_gui;
+
+  SceneGraph													m_sceneGraph;
+
+  // Actores
+  std::vector<EU::TSharedPointer<Actor>> m_actors;
+  EU::TSharedPointer<Actor>              m_cyberGun;
+  EU::TSharedPointer<Actor>              m_Character;
+
+  // Recursos
+  Model3D* m_model;
+  ModelLoader                         m_modelLoader; // loader
+  LoadData                            LD;            // Datos de carga
+
+  // Estructuras de Constant Buffers
+  CBChangeOnResize                    cbChangesOnResize;
+  CBNeverChanges                      cbNeverChanges;
+  CBChangesEveryFrame                 cb;
+
+  // Interfaz de Usuario
+  GUI                                m_gui;
+
+  Skybox m_skybox;
+  RasterizerState m_defaultRasterizer;
+  DepthStencilState m_defaultDepthStencil;
 };

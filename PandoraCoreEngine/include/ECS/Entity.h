@@ -2,81 +2,93 @@
 #include "Prerequisites.h"
 #include "Component.h"
 
-class DeviceContext;
+class 
+DeviceContext;
 
+/**
+ * @class Entity
+ * @brief Clase base para todas las entidades del motor.
+ *
+ * Define un conjunto de funciones virtuales puras para administrar el ciclo de vida
+ * de una entidad: inicialización, actualización, renderizado y destrucción.
+ * Las entidades pueden contener múltiples componentes derivados de Component.
+ */
 class
-    Entity {
+Entity {
 public:
-    Entity() = default;
-
-    /**
-   * @brief Destructor virtual.
+  /**
+   * @brief Constructor por defecto de Entity.
    */
-    virtual
-        ~Entity() = default;
+  Entity() = default;
 
-    virtual void
-        awake() = 0;
+  /**
+   * @brief Destructor virtual de Entity.
+   */
+  virtual
+  ~Entity() = default;
 
-    /**
-     * @brief Initialize the entity with a device context.
-     * @param deviceContext The device context to initialize with.
-     * @return True if initialization is successful, false otherwise.
-       */
-    virtual void
-        init() = 0;
+  virtual void
+  awake() = 0;
 
-    /**
-     * @brief Método virtual puro para actualizar el componente.
-     * @param deltaTime El tiempo transcurrido desde la última actualización.
-     */
-    virtual void
-        update(float deltaTime, DeviceContext& deviceContext) = 0;
 
-    /**
-     * @brief Método virtual puro para renderizar el componente.
-     * @param deviceContext Contexto del dispositivo para operaciones gráficas.
-     */
-    virtual void
-        render(DeviceContext& deviceContext) = 0;
+  /**
+   * @brief Inicializa la entidad. Debe ser implementado por clases derivadas.
+   */
+  virtual void
+  init() = 0;
 
-    /**
-     * @brief Método virtual puro para destruir el componente.
-     * Libera los recursos asociados al componente.
-       */
-    virtual void
-        destroy() = 0;
+  /**
+   * @brief Actualiza la entidad por frame.
+   * @param deltaTime Tiempo entre frames.
+   * @param deviceContext Contexto del dispositivo para operaciones gráficas.
+   */
+  virtual void
+  update(float deltaTime, DeviceContext& deviceContext) = 0;
 
-    /**
-     * @brief Agrega un componente a la entidad.
-     * @tparam T Tipo del componente, debe derivar de Component.
-     * @param component Puntero compartido al componente que se va a agregar.
-     */
-    template <typename T> void
-        addComponent(EU::TSharedPointer<T> component) {
-        static_assert(std::is_base_of<Component, T>::value, "T must be derived from Component");
-        m_components.push_back(component.template dynamic_pointer_cast<Component>());
+  /**
+   * @brief Renderiza la entidad.
+   * @param deviceContext Contexto del dispositivo utilizado para dibujar.
+   */
+  virtual void
+  render(DeviceContext& deviceContext) = 0;
+
+  /**
+   * @brief Destruye la entidad y libera sus recursos.
+   */
+  virtual void
+  destroy() = 0;
+
+  /**
+   * @brief Agrega un componente a la entidad.
+   * @tparam T Tipo del componente (debe heredar de Component).
+   * @param component Puntero compartido al componente.
+   */
+  template <typename T> void
+  addComponent(EU::TSharedPointer<T> component) {
+    static_assert(std::is_base_of<Component, T>::value, "T must be derived from Component");
+    m_components.push_back(component.template dynamic_pointer_cast<Component>());
+  }
+
+  /**
+   * @brief Obtiene un componente del tipo solicitado, si existe.
+   * @tparam T Tipo del componente a buscar.
+   * @return Puntero compartido al componente encontrado, o vacío si no existe.
+   */
+  template<typename T>
+  EU::TSharedPointer<T>
+    getComponent() {
+    for (auto& component : m_components) {
+      EU::TSharedPointer<T> specificComponent = component.template dynamic_pointer_cast<T>();
+      if (specificComponent) {
+        return specificComponent;
+      }
     }
+    return EU::TSharedPointer<T>();
+  }
 
-    /**
-     * @brief Obtiene un componente de la entidad por su tipo.
-     * @tparam T Tipo del componente a obtener.
-     * @return Puntero compartido al componente si se encuentra, nullptr en caso contrario.
-       */
-    template<typename T>
-    EU::TSharedPointer<T>
-        getComponent() {
-        for (auto& component : m_components) {
-            EU::TSharedPointer<T> specificComponent = component.template dynamic_pointer_cast<T>();
-            if (specificComponent) {
-                return specificComponent;
-            }
-        }
-        return EU::TSharedPointer<T>();
-    }
 private:
 protected:
-    bool m_isActive;
-    int m_id;
-    std::vector<EU::TSharedPointer<Component>> m_components;
+  bool m_isActive;                                      ///< Indica si la entidad está activa.
+  int m_id;                                            ///< Identificador único de la entidad.
+  std::vector<EU::TSharedPointer<Component>> m_components; ///< Lista de componentes asociados a la entidad.
 };

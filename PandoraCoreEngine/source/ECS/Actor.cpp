@@ -3,7 +3,6 @@
 #include "Device.h"
 #include "DeviceContext.h"
 
-
 Actor::Actor(Device& device) {
 	// Setup Default Components
 	EU::TSharedPointer<Transform> transform = EU::MakeShared<Transform>();
@@ -26,46 +25,6 @@ Actor::Actor(Device& device) {
 		ERROR("Actor", classNameType.c_str(), "Failed to create new SamplerState");
 	}
 
-	//hr = m_rasterizer.init(device);
-	//if (FAILED(hr)) {
-	//	ERROR("Actor", classNameType.c_str(), "Failed to create new Rasterizer");
-	//}
-
-	//hr = m_blendstate.init(device);
-	//if (FAILED(hr)) {
-	//	ERROR("Actor", classNameType.c_str(), "Failed to create new BlendState");
-	//}
-
-	//hr = m_shaderShadow.CreateShader(device, PIXEL_SHADER, "HybridEngine.fx");
-	//
-	//if (FAILED(hr)) {
-	//	ERROR("Main", "InitDevice",
-	//		("Failed to initialize Shadow Shader. HRESULT: " + std::to_string(hr)).c_str());
-	//}
-	//
-	//hr = m_shaderBuffer.init(device, sizeof(CBChangesEveryFrame));
-	//if (FAILED(hr)) {
-	//	ERROR("Main", "InitDevice",
-	//		("Failed to initialize Shadow Buffer. HRESULT: " + std::to_string(hr)).c_str());
-	//
-	//}
-	//
-	//hr = m_shadowBlendState.init(device);
-	//if (FAILED(hr)) {
-	//	ERROR("Main", "InitDevice",
-	//		("Failed to initialize Shadow Blend State. HRESULT: " + std::to_string(hr)).c_str());
-	//
-	//}
-
-	//hr = m_shadowDepthStencilState.init(device, true, false);
-	//
-	//if (FAILED(hr)) {
-	//	ERROR("Main", "InitDevice",
-	//		("Failed to initialize Depth Stencil State. HRESULT: " + std::to_string(hr)).c_str());
-	//
-	//}
-	//
-	//m_LightPos = XMFLOAT4(2.0f, 4.0f, -2.0f, 1.0f);
 }
 
 void
@@ -98,24 +57,33 @@ Actor::render(DeviceContext& deviceContext) {
 
 	deviceContext.IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	// Update buffer and render all components
+	for (unsigned int i = 0; i < m_meshes.size(); i++)
+	{
+		m_vertexBuffers[i].render(deviceContext, 0, 1);
+		m_indexBuffers[i].render(deviceContext, 0, 1, false, DXGI_FORMAT_R32_UINT);
+		m_modelBuffer.render(deviceContext, 2, 1, true);
+
+		// Limpieza por mesh (evita herencias)
+		ID3D11ShaderResourceView* nullSRV[1] = { nullptr };
+		deviceContext.m_deviceContext->PSSetShaderResources(0, 1, nullSRV);
+
+		// Bind correcto por mesh
+		if (i < m_textures.size())
+			m_textures[i].render(deviceContext, 0, 1);   // albedo mesh i
+		// else: se queda null
+
+		deviceContext.DrawIndexed(m_meshes[i].m_numIndex, 0, 0);
+	}
+}
+
+void Actor::renderForSkybox(DeviceContext& deviceContext)
+{
+	deviceContext.IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	// Update buffer and render all components
 	for (unsigned int i = 0; i < m_meshes.size(); i++) {
 		m_vertexBuffers[i].render(deviceContext, 0, 1);
 		m_indexBuffers[i].render(deviceContext, 0, 1, false, DXGI_FORMAT_R32_UINT);
-		// Bind del CB “normal” (world + color)
-		m_modelBuffer.render(deviceContext, 2, 1, true);
 
-		// Render mesh texture
-		if (m_textures.size() > 0) {
-			if (i < m_textures.size()) {
-				if (m_textures.size() >= 1) {
-					m_textures[0].render(deviceContext, 0, 1); // Albedo -> t0
-					//m_textures[1].render(deviceContext, 1, 1); // Normal -> t1
-					//m_textures[2].render(deviceContext, 2, 1); // Metallic -> t2
-					//m_textures[3].render(deviceContext, 3, 1); // Roughness -> t3
-					//m_textures[4].render(deviceContext, 4, 1); // AO -> t4
-				}
-			}
-		}
 		deviceContext.DrawIndexed(m_meshes[i].m_numIndex, 0, 0);
 	}
 }

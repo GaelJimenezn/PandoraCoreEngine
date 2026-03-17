@@ -25,7 +25,7 @@ Viewport::init(const Window& window) {
 
 HRESULT
 Viewport::init(unsigned int width, unsigned int height) {
-  if (width == 0 || height == 0) {
+  if(width == 0 || height == 0) {
     ERROR("Viewport", "init", "Window dimensions are zero");
     return E_INVALIDARG;
   }
@@ -43,9 +43,9 @@ Viewport::init(unsigned int width, unsigned int height) {
 
 void
 Viewport::render(DeviceContext& deviceContext) {
-  if (!deviceContext.m_deviceContext) {
+  if (!deviceContext.m_deviceContext){
     ERROR("Viewport", "init", "Device context is not set");
     return;
-  }
-  deviceContext.RSSetViewports(1, &m_viewport);
+}
+deviceContext.RSSetViewports(1, &m_viewport);
 }

@@ -1,107 +1,92 @@
 #pragma once
 #include "Prerequisites.h"
 
+class
+BaseApp;
+
 /**
  * @class Window
- * @brief Abstracción de una ventana de aplicación Win32 utilizada por el motor gráfico.
- * @details
- *  Esta clase encapsula la creación, manejo y destrucción de una ventana en sistemas Windows.
- *  Sirve como contenedor de bajo nivel sobre la API Win32, proporcionando un punto de entrada
- *  para el renderizado de gráficos y la interacción con el sistema operativo.
+ * @brief Representa una ventana de aplicación en Windows.
  *
- *  Entre sus funciones principales se incluyen:
- *   - Creación e inicialización de la ventana.
- *   - Manejo del ciclo de vida (actualización, renderizado y cierre).
- *   - Exposición de información esencial (dimensiones, manejadores, etc.).
+ * Esta clase encapsula la creación, gestión, actualización y destrucción
+ * de una ventana Win32, utilizada como superficie de renderizado para DirectX.
  */
-class Window {
+class
+Window {
 public:
   /**
    * @brief Constructor por defecto.
-   * @details Inicializa la clase sin crear la ventana. Se requiere llamar a `init()` antes de su uso.
    */
   Window() = default;
 
   /**
    * @brief Destructor por defecto.
-   * @note No destruye automáticamente la ventana del sistema operativo.
-   *       Se recomienda llamar explícitamente a `destroy()` para liberar recursos asociados.
    */
   ~Window() = default;
 
-  /**
-   * @brief Crea e inicializa la ventana principal de la aplicación.
-   * @param hInstance Identificador de la instancia de la aplicación (proporcionado por WinMain).
-   * @param nCmdShow  Comando que especifica cómo debe mostrarse la ventana (ej.: `SW_SHOW`).
-   * @param wndproc   Función de callback que manejará los mensajes de ventana (Win32 WNDPROC).
-   * @return `S_OK` si la ventana fue creada con éxito; en caso contrario, un código HRESULT con el error.
-   * @pre Debe llamarse una sola vez durante la inicialización del programa.
-   * @post Si la creación es exitosa, `m_hWnd` contendrá un handle válido a la ventana.
-   */
-  HRESULT init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc);
 
   /**
-   * @brief Actualiza el estado de la ventana y procesa los mensajes del sistema.
-   * @details
-   *  Este método debe llamarse en cada iteración del bucle principal para que la ventana
-   *  responda a eventos del sistema (entrada, redimensionamiento, cierre, etc.).
+   * @brief Inicializa y crea la ventana de la aplicación.
+   *
+   * @param hInstance Manejador de la instancia de la aplicación.
+   * @param nCmdShow Parámetro que indica cómo se mostrará la ventana.
+   * @param wndproc Función de procedimiento de ventana (callback de mensajes).
+   * @return HRESULT Código de resultado (S_OK si se creó correctamente).
    */
-  void update();
+  HRESULT
+  init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc, BaseApp* app);
 
   /**
-   * @brief Punto de entrada para operaciones de renderizado asociadas a la ventana.
-   * @details
-   *  No realiza dibujo directamente, pero puede servir como lugar para llamadas de
-   *  preparación del frame o sincronización con el swap chain.
+   * @brief Actualiza el estado de la ventana.
+   *
+   * Normalmente procesa eventos o lógica asociada al ciclo de vida de la ventana.
    */
-  void render();
+  void
+  update();
 
   /**
-   * @brief Libera los recursos asociados a la ventana y la destruye.
-   * @details
-   *  Cierra la ventana y limpia las estructuras internas. Este método es seguro de llamar múltiples veces.
-   * @post `m_hWnd` se establecerá en `nullptr` tras la destrucción.
+   * @brief Renderiza el contenido de la ventana.
+   *
+   * Generalmente se usa junto con el contexto gráfico (DirectX/OpenGL).
    */
-  void destroy();
+  void
+  render();
+
+  /**
+   * @brief Libera los recursos y destruye la ventana.
+   */
+  void
+  destroy();
 
 public:
   /**
-   * @brief Manejador de la ventana Win32.
-   * @details Identificador único que representa la ventana creada. Se utiliza para interactuar
-   *          con la API Win32 en operaciones posteriores (como mensajería o manipulación de propiedades).
+   * @brief Handle de la ventana Win32.
    */
   HWND m_hWnd = nullptr;
 
   /**
-   * @brief Ancho actual de la ventana en píxeles.
-   * @details Se asigna tras la creación y puede actualizarse si la ventana cambia de tamaño.
+   * @brief Ancho actual de la ventana.
    */
   unsigned int m_width;
 
   /**
-   * @brief Altura actual de la ventana en píxeles.
-   * @details Se asigna tras la creación y puede variar durante la ejecución.
+   * @brief Alto actual de la ventana.
    */
   unsigned int m_height;
 
 private:
   /**
-   * @brief Identificador de instancia de la aplicación.
-   * @details Proporcionado por el sistema operativo al iniciar la aplicación.
-   *          Se usa para registrar la clase de ventana y crearla.
+   * @brief Handle de la instancia de la aplicación.
    */
   HINSTANCE m_hInst = nullptr;
 
   /**
-   * @brief Estructura que define el área cliente de la ventana.
-   * @details Almacena coordenadas de posición y tamaño del área utilizable para renderizado.
+   * @brief Rectángulo que define las dimensiones de la ventana.
    */
   RECT m_rect;
 
   /**
-   * @brief Nombre por defecto de la ventana.
-   * @details Se utiliza en el título de la barra superior al crear la ventana.
-   *          Puede cambiarse para identificar diferentes ventanas del motor.
+   * @brief Nombre de la ventana (por defecto "Navi Engine").
    */
-  std::string m_windowName = "Pandora Core Engine";
+  std::string m_windowName = "Navi Engine";
 };

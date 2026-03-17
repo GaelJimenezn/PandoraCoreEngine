@@ -1,11 +1,12 @@
 #pragma once
+#pragma once
 #include "Prerequisites.h"
 #include "IResource.h"
 
-class 
-ResourceManager {
+class
+	ResourceManager {
 public:
-	ResourceManager()  = default;
+	ResourceManager() = default;
 	~ResourceManager() = default;
 
 	// Singleton
@@ -20,10 +21,10 @@ public:
 	/// Obtener o cargar un recurso de tipo T (T debe heredar de IResource).
 	template<typename T, typename... Args>
 	std::shared_ptr<T> GetOrLoad(const std::string& key,
-                               const std::string& filename,
-                               Args&&... args) {
+		const std::string& filename,
+		Args&&... args) {
 		static_assert(std::is_base_of<IResource, T>::value,
-                      "T debe heredar de IResource");
+			"T debe heredar de IResource");
 		// 1. ¿Ya existe el recurso en el caché?
 		auto it = m_resources.find(key);
 		if (it != m_resources.end()) {
